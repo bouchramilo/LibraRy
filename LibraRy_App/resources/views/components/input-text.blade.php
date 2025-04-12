@@ -1,0 +1,1 @@
+<input {{ $attributes->class(['w-full px-4 py-2 rounded-lg border border-light-primary/20 dark:border-dark-primary/20 bg-white/5 dark:bg-black/5 focus:ring-2  focus:ring-light-accent dark:focus:ring-dark-accent focus:outline-none focus:border-b-0 transition-all duration-300']) }}>
