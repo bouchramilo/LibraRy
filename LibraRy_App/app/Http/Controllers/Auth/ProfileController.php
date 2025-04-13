@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
@@ -56,13 +58,72 @@ class ProfileController extends Controller
 
             $user->update($validatedData);
 
-            return redirect()->route('profile')
-                ->with('success', 'Profil mis à jour avec succès!');
+            return back()->with('success', 'Profil mis à jour avec succès!');
 
         } catch (\Exception $e) {
             return back()
                 ->withInput()
-                ->withErrors(['error' => 'Une erreur est survenue lors de la mise à jour du profil: ' . $e->getMessage()]);
+                ->withErrors(['update_profile_error' => 'Une erreur est survenue lors de la mise à jour du profil: ' . $e->getMessage()]);
+        }
+    }
+
+    // **********************************************************************************************************************************
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $validatedData = $request->validate([
+            'old_password' => ['required', 'string', 'current_password'],
+            'new_password' => [
+                'required',
+                'string',
+                Password::min(8)
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols(),
+                'confirmed',
+            ],
+        ]);
+
+        try {
+            $user->update([
+                'password' => Hash::make($validatedData['new_password']),
+            ]);
+
+            return back()->with('password_success', 'Mot de passe mis à jour avec succès!');
+
+        } catch (\Exception $e) {
+            return back()
+                ->withInput()
+                ->withErrors(['password_error' => 'Une erreur est survenue lors de la mise à jour du mot de passe: ' . $e->getMessage()]);
+        }
+    }
+
+    // **********************************************************************************************************************************
+
+    public function deleteProfile(Request $request)
+    {
+        $validatedData = $request->validate([
+            'password' => ['required', 'string', 'current_password'],
+        ]);
+
+        try {
+            $user = $request->user();
+
+            Auth::logout();
+
+            $user->delete();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()->route('home')
+                ->with('status', 'Votre compte a été supprimé avec succès.');
+
+        } catch (\Exception $e) {
+            return back()
+                ->withInput()
+                ->with('error', 'Une erreur est survenue lors de la suppression du compte : ' . $e->getMessage());
         }
     }
 }

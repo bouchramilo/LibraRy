@@ -15,4 +15,6 @@ Route::post("/register", [RegisteredUserController::class, 'store'])->name("auth
 // **********************************************************************************************************************************
 Route::get("/profile", [ProfileController::class, 'index'])->name("auth.profile.show");
 Route::put("/profile", [ProfileController::class, 'update'])->name("auth.profile.update");
+Route::put("/profile/updatepassword", [ProfileController::class, 'updatepassword'])->name("auth.profile.update.password");
+Route::delete("/profile/delete", [ProfileController::class, 'deleteProfile'])->name("auth.profile.delete");
 
