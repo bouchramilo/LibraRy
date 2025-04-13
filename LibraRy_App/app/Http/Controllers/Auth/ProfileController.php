@@ -101,7 +101,7 @@ class ProfileController extends Controller
 
     // **********************************************************************************************************************************
 
-    public function deleteProfile(Request $request)
+    public function deleteAccount(Request $request)
     {
         $validatedData = $request->validate([
             'password' => ['required', 'string', 'current_password'],

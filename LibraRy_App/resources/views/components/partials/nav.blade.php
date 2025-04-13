@@ -1,9 +1,11 @@
-<header x-data="{ isOpen: false }" class="fixed w-full z-50 bg-light-background dark:bg-dark-background dark:shadow-black shadow-md">
+<header x-data="{ isOpen: false }"
+    class="fixed w-full z-50 bg-light-background dark:bg-dark-background dark:shadow-black shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <!-- Logo -->
             <div class="flex-shrink-0 flex items-center">
-                <h1 class="text-2xl font-bold text-light-primary dark:text-dark-primary"><a href="/home">LibraRy</a></h1>
+                <h1 class="text-2xl font-bold text-light-primary dark:text-dark-primary"><a href="/home">LibraRy</a>
+                </h1>
             </div>
 
             <!-- Navigation Desktop -->
@@ -14,15 +16,26 @@
                 <x-nav-link :href="route('auth.register.show')" :active="request()->routeIs('auth.register.show')">
                     {{ __('Catalogue') }}
                 </x-nav-link>
-                <x-nav-link :href="route('auth.login.show')" :active="request()->routeIs('auth.login.show')">
-                    {{ __('Connexion') }}
-                </x-nav-link>
-                <x-nav-link :href="route('auth.register.show')" :active="request()->routeIs('auth.register.show')">
-                    {{ __('Inscription') }}
-                </x-nav-link>
-                <x-nav-link :href="route('auth.profile.show')" :active="request()->routeIs('auth.profile.show')">
-                    {{ __('Profil') }}
-                </x-nav-link>
+                @guest
+                    <x-nav-link :href="route('auth.login.show')" :active="request()->routeIs('auth.login.show')">
+                        {{ __('Connexion') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('auth.register.show')" :active="request()->routeIs('auth.register.show')">
+                        {{ __('Inscription') }}
+                    </x-nav-link>
+                @endguest
+                @auth
+                    <x-nav-link :href="route('auth.profile.show')" :active="request()->routeIs('auth.profile.show')">
+                        {{ __('Profil') }}
+                    </x-nav-link>
+                    <form action="{{ route('auth.logout') }}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <x-primary-button>
+                            {{ __('Déconnexion') }}
+                        </x-primary-button>
+                    </form>
+                @endauth
                 {{-- <a href="/home"
                     class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors duration-300">Accueil</a>
                 <a href="#"
@@ -88,6 +101,14 @@
                 :href="route(name: 'auth.profile.show')" :active="request()->routeIs('auth.profile.show')">
                 {{ __('Profil') }}
             </x-nav-link>
+            <form action="{{ route('auth.logout') }}" method="POST">
+                @csrf
+                @method('POST')
+                <x-primary-button
+                    class="block px-3 py-2 text-light-text dark:text-dark-text hover:bg-light-primary/10 dark:hover:bg-dark-primary/10">
+                    {{ __('Déconnexion') }}
+                </x-primary-button>
+            </form>
 
             <button @click="darkMode = !darkMode"
                 class="p-2 rounded-lg hover:bg-light-primary/10 dark:hover:bg-dark-primary/10 transition-colors duration-300">
