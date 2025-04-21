@@ -29,7 +29,7 @@
     </section>
 
     <!-- Features Section -->
-    <section class="py-20 px-4" x-data="{ activeFeature: null }">
+    {{-- <section class="py-20 px-4" x-data="{ activeFeature: null }">
         <div class="max-w-7xl mx-auto">
             <h3 class="text-3xl font-bold text-center mb-16" x-intersect="$el.classList.add('animate-fade-in-up')">Nos
                 Services</h3>
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Popular Books Section -->
     <section class="py-20 px-4 bg-light-primary/5 dark:bg-dark-primary/5">
@@ -178,8 +178,9 @@
                 </div>
                 <div class="h-96 rounded-lg overflow-hidden shadow-xl">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9914406081493!2d2.292292615674431!3d48.85837007928754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1647891702973!5m2!1sfr!2sfr"
-                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6228.234113204288!2d-2.929625476032462!3d35.17465217422625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sma!4v1744988392287!5m2!1sfr!2sma"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </iframe>
                 </div>
             </div>
@@ -187,7 +188,7 @@
     </section>
 
     <!-- Footer -->
-   <x-partials.footer />
+    <x-partials.footer />
 </body>
 
 </html>

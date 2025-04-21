@@ -13,7 +13,7 @@ class RegisteredUserController extends Controller
 {
     public function index()
     {
-        return view("register");
+        return view("Auth.register");
     }
 
     public function store(Request $request)
@@ -29,6 +29,7 @@ class RegisteredUserController extends Controller
             'date_birth' => ['required', 'date', 'before:-18 years'],
             'city'        => ['required', 'string', 'max:255'],
             'code_postal' => ['required', 'digits:5'],
+            'role' => ['required'],
         ]);
 
         try {
@@ -45,6 +46,8 @@ class RegisteredUserController extends Controller
                 'date_birth'  => $validatedData['date_birth'],
                 'city'        => $validatedData['city'],
                 'code_postal' => $validatedData['code_postal'],
+                'role' => $validatedData['role'],
+
             ]);
 
             event(new Registered($user));

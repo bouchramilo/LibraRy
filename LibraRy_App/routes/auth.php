@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 // **********************************************************************************************************************************
 Route::get("/login", [AuthController::class, 'index'])->name("auth.login.show");
@@ -20,4 +22,7 @@ Route::delete("/profile/delete", [ProfileController::class, 'deleteAccount'])->n
 
 // **********************************************************************************************************************************
 Route::post("/logout", [AuthController::class, 'logout'])->name("auth.logout");
+Route::get("/forgot-password", [ForgotPasswordController::class, 'index'])->name("forgot.password.show");
+
+// **********************************************************************************************************************************
 
