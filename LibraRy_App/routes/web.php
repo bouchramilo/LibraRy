@@ -25,6 +25,7 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
 // gestion des Clients :
     Route::get("/admin/users", [UsersController::class, 'index'])->name("manage.users.index");
     Route::delete("/admin/users/{user_id}", [UsersController::class, 'destroy'])->name("manage.users.delete");
+    Route::put("/admin/users", [UsersController::class, 'updateStatus'])->name("manage.users.status");
 });
 // **********************************************************************************************************************************
 require __DIR__ . '/auth.php';
