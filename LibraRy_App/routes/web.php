@@ -22,6 +22,7 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
     Route::get("/admin/categories", [CategoriesController::class, 'index'])->name("manage.categories.index");
     Route::post("/admin/categories", [CategoriesController::class, 'store'])->name("manage.categories.store");
     Route::delete("/admin/categories/{category_id}", [CategoriesController::class, 'destroy'])->name("manage.categories.delete");
+    Route::put("/admin/categories/{category_id}", [CategoriesController::class, 'update'])->name("manage.categories.update");
 // gestion des Clients :
     Route::get("/admin/users", [UsersController::class, 'index'])->name("manage.users.index");
     Route::delete("/admin/users/{user_id}", [UsersController::class, 'destroy'])->name("manage.users.delete");

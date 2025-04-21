@@ -119,16 +119,6 @@
         <div class="mt-6 flex justify-between items-center w-full">
             {{ $users->links('vendor.pagination.default') }}
         </div>
-        <!-- Pagination -->
-        {{-- <div class="mt-6 flex justify-between items-center">
-            <p class="text-sm">Affichage de 1-10 sur 100 utilisateurs</p>
-            <div class="flex space-x-2">
-                <button
-                    class="px-4 py-2 rounded-lg bg-light-primary/10 dark:bg-dark-primary/10 hover:bg-light-primary/20 dark:hover:bg-dark-primary/20">Précédent</button>
-                <button
-                    class="px-4 py-2 rounded-lg bg-light-primary/10 dark:bg-dark-primary/10 hover:bg-light-primary/20 dark:hover:bg-dark-primary/20">Suivant</button>
-            </div>
-        </div> --}}
     </div>
 
     <!-- Modal (garde Alpine.js pour celui-ci) -->
@@ -137,51 +127,5 @@
     </div>
 
 
-    <script>
-        // Fonctions JavaScript pour la gestion des utilisateurs
-        document.addEventListener('DOMContentLoaded', function() {
-            // Toggle Sidebar
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('-translate-x-full');
-            });
-
-            // Responsive sidebar
-            window.addEventListener('resize', function() {
-                if (window.innerWidth >= 768) {
-                    sidebar.classList.remove('-translate-x-full');
-                }
-            });
-
-            // Dark Mode Toggle
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const html = document.documentElement;
-
-            const isDarkMode = localStorage.getItem('darkMode') === 'true';
-            if (isDarkMode) {
-                html.classList.add('dark');
-            }
-
-            darkModeToggle.addEventListener('click', function() {
-                html.classList.toggle('dark');
-                localStorage.setItem('darkMode', html.classList.contains('dark'));
-            });
-
-            // Search and Filters
-            const searchInput = document.getElementById('searchInput');
-            const roleFilter = document.getElementById('roleFilter');
-            const statusFilter = document.getElementById('statusFilter');
-
-            function filterUsers() {
-                // Implement filtering logic here
-                // This will be connected to your backend later
-            }
-
-            searchInput.addEventListener('input', filterUsers);
-            roleFilter.addEventListener('change', filterUsers);
-            statusFilter.addEventListener('change', filterUsers);
-        });
-    </script>
+   
 @endsection

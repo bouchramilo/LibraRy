@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Librarian;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +26,7 @@ class UsersController extends Controller
     public function updateStatus(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|exists:users,id'
+            'user_id' => 'required|exists:users,id',
         ]);
 
         $user = User::findOrFail($request->user_id);
@@ -35,12 +34,12 @@ class UsersController extends Controller
         $user->status = $user->status === 'Active' ? 'Suspendu' : 'Active';
         $user->save();
 
-        return back()->with("Success" , "Statut utilisateur mis à jour");
+        return back()->with("Success", "Statut utilisateur mis à jour");
     }
 
     // *******************************************************************************************************************************
-
+//
     // *******************************************************************************************************************************
-
+//
     // *******************************************************************************************************************************
 }
