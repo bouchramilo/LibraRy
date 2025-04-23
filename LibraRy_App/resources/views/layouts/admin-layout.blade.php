@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Dashboard - @yield('title')</title>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+    <!-- head: below existing links -->
+    {{-- <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@4.0.1/dist/css/multi-select-tag.min.css"> --}}
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -70,73 +73,107 @@
             animation: fadeIn 0.5s ease-out forwards;
         }
     </style>
-        <style>
-            .scrollbar-hide::-webkit-scrollbar {
-                display: none;
-            }
-            .scrollbar-hide {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Animations avancées */
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
             }
 
-            /* Animations avancées */
-            @keyframes slideIn {
-                from { transform: translateX(-100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
             }
 
-            @keyframes fadeUp {
-                from { transform: translateY(20px); opacity: 0; }
-                to { transform: translateY(0); opacity: 1; }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
             }
 
-            @keyframes scaleIn {
-                from { transform: scale(0.9); opacity: 0; }
-                to { transform: scale(1); opacity: 1; }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .animate-slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .animate-fade-up {
+            animation: fadeUp 0.5s ease-out;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        /* Transition mode sombre/clair */
+        .theme-transition {
+            transition: background-color 0.5s ease-in-out,
+                color 0.5s ease-in-out,
+                border-color 0.5s ease-in-out,
+                box-shadow 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
 
-            .animate-slide-in {
-                animation: slideIn 0.5s ease-out;
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
             }
 
-            .animate-fade-up {
-                animation: fadeUp 0.5s ease-out;
+            to {
+                transform: translateX(0);
             }
+        }
 
-            .animate-scale-in {
-                animation: scaleIn 0.3s ease-out;
-            }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
 
-            /* Transition mode sombre/clair */
-            .theme-transition {
-                transition: background-color 0.5s ease-in-out,
-                            color 0.5s ease-in-out,
-                            border-color 0.5s ease-in-out,
-                            box-shadow 0.5s ease-in-out;
-            }
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
 
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-
-            @keyframes slideIn {
-                from { transform: translateX(-100%); }
-                to { transform: translateX(0); }
-            }
-
-            .fade-in {
-                animation: fadeIn 0.5s ease-out forwards;
-            }
-
-            .slide-in {
-                animation: slideIn 0.5s ease-out forwards;
-            }
-
-            .transition-theme {
-                transition: all 0.3s ease-in-out;
-            }
-        </style>
+        .transition-theme {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
 </head>
 
 <body class="font-body bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text">
@@ -162,43 +199,51 @@
 
 
     </div>
-
-    <script>
-
-        // Fonctions JavaScript pour la gestion des utilisateurs
-        document.addEventListener('DOMContentLoaded', function() {
-            // Toggle Sidebar
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('-translate-x-full');
-            });
-
-            // Responsive sidebar
-            window.addEventListener('resize', function() {
-                if (window.innerWidth >= 768) {
-                    sidebar.classList.remove('-translate-x-full');
-                }
-            });
-
-            // Dark Mode Toggle
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const html = document.documentElement;
-
-            const isDarkMode = localStorage.getItem('darkMode') === 'true';
-            if (isDarkMode) {
-                html.classList.add('dark');
-            }
-
-            darkModeToggle.addEventListener('click', function() {
-                html.classList.toggle('dark');
-                localStorage.setItem('darkMode', html.classList.contains('dark'));
-            });
-
-
-        });
-    </script>
 </body>
+<script>
+    var tagSelector = new MultiSelectTag('categories', {
+        maxSelection: 5,
+        required: true,
+        placeholder: 'Search tags', // default 'Search'.
+        onChange: function(selected) { // Callback when selection changes.
+            console.log('Selection changed:', selected);
+        }
+    });
+</script>
+<script>
+    // Fonctions JavaScript pour la gestion des utilisateurs
+    document.addEventListener('DOMContentLoaded', function() {
+        // Toggle Sidebar
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        // Responsive sidebar
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                sidebar.classList.remove('-translate-x-full');
+            }
+        });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            html.classList.add('dark');
+        }
+
+        darkModeToggle.addEventListener('click', function() {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+
+
+    });
+</script>
 
 </html>

@@ -13,8 +13,11 @@
                 <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                     {{ __('Accueil') }}
                 </x-nav-link>
-                <x-nav-link :href="route('auth.register.show')" :active="request()->routeIs('auth.register.show')">
-                    {{ __('Catalogue') }}
+                <x-nav-link :href="route('librarian.dashboard')" :active="request()->routeIs('librarian.dashboard')">
+                    {{ __('Dashboard') }}
+                </x-nav-link>
+                <x-nav-link :href="route('client.dashboard')" :active="request()->routeIs('client.dashboard')">
+                    {{ __('Client') }}
                 </x-nav-link>
                 @guest
                     <x-nav-link :href="route('auth.login.show')" :active="request()->routeIs('auth.login.show')">

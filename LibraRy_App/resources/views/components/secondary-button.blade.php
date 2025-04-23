@@ -1,4 +1,3 @@
-<button {{ $attributes->class(["py-3 px-4 bg-light-transparent dark:bg-dark-transparent border-2 border-light-primary  text-text rounded-lg hover:bg-light-secondary/10 dark:hover:bg-dark-secondary/10
-                                hover:shadow-lg transition-all duration-300 relative overflow-hidden"]) }}>
+<button {{ $attributes->class(["px-6 py-2 rounded-lg bg-light-primary/10 dark:bg-dark-primary/10 hover:bg-light-primary/20 dark:hover:bg-dark-primary/20 transition-colors"]) }}>
     {{ $slot }}
 </button>

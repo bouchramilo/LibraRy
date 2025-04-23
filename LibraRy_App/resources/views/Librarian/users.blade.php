@@ -4,7 +4,6 @@
 @section('header', 'LibraRy - Utilisateurs')
 
 @section('content')
-
     <div class="container mx-auto px-6 py-8">
         <!-- Content Header -->
         <div class="flex justify-between items-center mb-8 fade-in">
@@ -12,31 +11,35 @@
         </div>
 
         <!-- Filters -->
-        <div class="mb-8 grid md:grid-cols-3 gap-4 fade-in">
+        <div class="mb-8 grid md:grid-cols-4 gap-4 fade-in">
+            <!-- Champ Recherche -->
             <div class="relative">
-                <input type="text" id="searchInput" placeholder="Rechercher par nom ou email..."
-                    class="w-full px-4 py-2 rounded-lg border border-light-primary/20 dark:border-dark-primary/20 bg-white/5 dark:bg-black/5 focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent focus:border-transparent">
-                <svg class="w-5 h-5 absolute right-3 top-2.5 opacity-50" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
+                <input type="text"
+                       id="searchInput"
+                       placeholder="Rechercher..."
+                       class="w-full px-4 py-2 rounded-lg border border-gray-300">
             </div>
-            <select id="roleFilter"
-                class="px-4 py-2 rounded-lg border border-light-primary/20 dark:border-dark-primary/20 bg-white/5 dark:bg-black/5">
+
+            <!-- Select Rôle -->
+            <select id="roleFilter" class="px-4 py-2 rounded-lg border border-gray-300">
                 <option value="">Tous les rôles</option>
                 <option value="Client">Client</option>
                 <option value="Bibliothécaire">Bibliothécaire</option>
             </select>
-            <select id="statusFilter"
-                class="px-4 py-2 rounded-lg border border-light-primary/20 dark:border-dark-primary/20 bg-white/5 dark:bg-black/5">
+
+            <!-- Select Statut -->
+            <select id="statusFilter" class="px-4 py-2 rounded-lg border border-gray-300">
                 <option value="">Tous les statuts</option>
-                <option value="Actif">Actif</option>
-                <option value="En attente">En attente</option>
+                <option value="Active">Actif</option>
                 <option value="Suspendu">Suspendu</option>
             </select>
-        </div>
 
+            <!-- Bouton Appliquer -->
+            <button id="applyFiltersBtn"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                Appliquer
+            </button>
+        </div>
         <!-- Users Table -->
         <div class="bg-white/5 dark:bg-black/5 rounded-xl shadow-lg overflow-hidden fade-in">
             <table class="w-full">
@@ -54,21 +57,22 @@
                         <tr class="animate-fade-up theme-transition hover:bg-light-primary/5 dark:hover:bg-dark-primary/5">
                             <td class="px-6 py-4">
                                 <div class="flex items-center space-x-3">
-                                    <img src="{{ $client->photo ? asset('storage/' . $client->photo) : asset('images/default-avatar.jpg') }}"
-                                        alt="Jean Dupont" class="w-10 h-10 rounded-full">
+                                    {{-- <img src="{{ $client->photo ? asset('storage/' . $client->photo) : asset('images/default-avatar.jpg') }}"
+                                        alt="{{ $client->first_name }} {{ $client->last_name }}" class="w-10 h-10 rounded-full"> --}}
                                     <span>{{ $client->first_name }} {{ $client->last_name }}</span>
                                 </div>
                             </td>
                             <td class="px-6 py-4">{{ $client->email }}</td>
                             <td class="px-6 py-4">{{ $client->role }}</td>
                             <td class="px-6 py-4">
-                                <span class="px-2 py-1 rounded-full text-sm {{ $client->status === "Active" ? "bg-green-500/10 text-green-500" : "bg-orange-500/10 text-orange-500" }}">
+                                <span
+                                    class="px-2 py-1 rounded-full text-sm {{ $client->status === 'Active' ? 'bg-green-500/10 text-green-500' : 'bg-orange-500/10 text-orange-500' }}">
                                     {{ $client->status }}
                                 </span>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex justify-end space-x-2">
-                                    <button onclick="showUserDetails(1)"
+                                    <button onclick="showUserDetails({{ $client->id }})"
                                         class="p-2 rounded-lg hover:bg-light-primary/10 dark:hover:bg-dark-primary/10 tooltip"
                                         title="Voir les détails">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -92,7 +96,7 @@
                                             </svg>
                                         </button>
                                     </form>
-                                    <form action="{{ route('manage.users.delete', $client->id) }}" method='POST'>
+                                    <form action="{{ route('manage.users.delete', $client->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button
@@ -113,19 +117,38 @@
             </table>
         </div>
 
-
-
         <!-- Pagination -->
         <div class="mt-6 flex justify-between items-center w-full">
             {{ $users->links('vendor.pagination.default') }}
         </div>
     </div>
 
-    <!-- Modal (garde Alpine.js pour celui-ci) -->
+    <!-- Modal -->
     <div x-data="{ showModal: false, selectedUser: null }" x-show="showModal" class="fixed inset-0 bg-black/50 flex items-center justify-center">
         <!-- ... contenu du modal ... -->
     </div>
+@endsection
 
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const applyBtn = document.getElementById('applyFiltersBtn');
 
-   
+    applyBtn.addEventListener('click', function() {
+        // Récupérer les valeurs
+        const search = document.getElementById('searchInput').value;
+        const role = document.getElementById('roleFilter').value;
+        const status = document.getElementById('statusFilter').value;
+
+        // Construire l'URL
+        let url = '/admin/users?';
+        if (search) url += `search=${encodeURIComponent(search)}&`;
+        if (role) url += `role=${encodeURIComponent(role)}&`;
+        if (status) url += `status=${encodeURIComponent(status)}`;
+
+        // Recharger la page avec les paramètres
+        window.location.href = url.replace(/&$/, '');
+    });
+});
+</script>
 @endsection

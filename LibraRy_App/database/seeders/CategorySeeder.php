@@ -9,7 +9,6 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        // Catégories principales fixes
         $mainCategories = [
             'Roman',
             'Policier',
@@ -23,7 +22,6 @@ class CategorySeeder extends Seeder
             'Art'
         ];
 
-        // Création des catégories principales avec la factory
         foreach ($mainCategories as $categoryName) {
             Category::factory()->create([
                 'category' => $categoryName,
@@ -32,10 +30,9 @@ class CategorySeeder extends Seeder
             ]);
         }
 
-        // Génération de catégories supplémentaires aléatoires en environnement local
         if (app()->environment('local')) {
             Category::factory()
-                ->count(10) // Nombre de catégories supplémentaires
+                ->count(10) 
                 ->create();
         }
     }
