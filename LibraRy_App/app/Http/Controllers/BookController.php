@@ -11,10 +11,13 @@ class BookController extends Controller
 //    **********************************************************************************************************************************************
     /**
      * Display a listing of the resource.
-     */
-    public function index()
+     */public function index()
     {
-        return view('Librarian.books');
+        $books = Book::with(['categories' => function ($query) {
+            $query->select('categories.id', 'categories.category');
+        }])->get();
+
+        return view('Librarian.books', compact('books'));
     }
 
 //    **********************************************************************************************************************************************
@@ -45,8 +48,8 @@ class BookController extends Controller
             'language'      => 'required|string|max:50',
             'prix_emprunte' => 'required|numeric|min:0',
             'prix_vente'    => 'required|numeric|min:0',
-            "categories"   => "nullable|array",
-            "categories.*" => "exists:categories,id",
+            "categories"    => "nullable|array",
+            "categories.*"  => "exists:categories,id",
         ]);
 
         if ($request->hasFile('photo')) {
@@ -68,7 +71,7 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('Librarian.showBookDetails');
     }
 
 //    **********************************************************************************************************************************************
@@ -77,7 +80,7 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('Librarian.updateBook');
     }
 
 //    **********************************************************************************************************************************************
@@ -95,6 +98,8 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $book = Book::findOrFail($id);
+        $book->delete();
+        return redirect()->back()->with('success', 'Livre supprimé avec succès');
     }
 }

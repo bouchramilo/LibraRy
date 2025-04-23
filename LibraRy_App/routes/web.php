@@ -44,6 +44,9 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
     Route::get("/admin/books", [BookController::class, 'index'])->name("librarian.books.index");
     Route::get("/admin/books/add", [BookController::class, 'create'])->name("librarian.books.create");
     Route::post("/admin/books/add", [BookController::class, 'store'])->name("admin.books.store");
+    Route::get("/admin/books/details/{book_id}", [BookController::class, 'show'])->name("admin.books.show");
+    Route::get("/admin/books/edit/{book_id}", [BookController::class, 'edit'])->name("admin.books.edit");
+    Route::delete('/admin/books/delete/{book}', [BookController::class, 'destroy'])->name('admin.books.destroy');
 
 });
 
