@@ -54,6 +54,9 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
     Route::get("/admin/exemplaires", [ExemplaireController::class, 'index'])->name("librarian.exemplaires.index");
     Route::get("/admin/exemplaires/add", [ExemplaireController::class, 'create'])->name("librarian.exemplaires.create");
     Route::post("/admin/exemplaires/add", [ExemplaireController::class, 'store'])->name("librarian.exemplaires.store");
+    Route::delete("/admin/exemplaires/delete/{id}", [ExemplaireController::class, 'destroy'])->name("librarian.exemplaires.destroy");
+    Route::get("/admin/exemplaires/edit/{id}", [ExemplaireController::class, 'edit'])->name("librarian.exemplaires.edit");
+    Route::put("/admin/exemplaires/update/{id}", [ExemplaireController::class, 'update'])->name("librarian.exemplaires.update");
 
 });
 

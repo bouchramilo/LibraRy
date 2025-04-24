@@ -18,37 +18,33 @@
 
             <div class="max-w-7xl mx-auto">
                 <!-- Header -->
-                <div class="flex justify-between items-center my-4 mx-1">
+                <div class="flex justify-between items-center my-6 mx-1">
                     <h1 class="text-3xl font-bold py-4 pt-8">Ajouter un Nouveau Exemplaire</h1>
                 </div>
 
                 <!-- Form -->
-                <form id="addExemplaireForm" class="bg-white/5 dark:bg-black/5 rounded-xl p-6 shadow-lg space-y-4" action="{{ route('librarian.exemplaires.store') }}" method="POST">
+                <form id="addExemplaireForm" class="bg-white/5 dark:bg-black/5 rounded-xl p-6 shadow-lg space-y-4"
+                    action="{{ route('librarian.exemplaires.store') }}" method="POST">
                     @csrf
 
                     <!-- Livre -->
                     <div class="form-group">
                         <label class="block text-sm font-medium mb-2" for="book">Livre</label>
-                        <x-select
-                            id="book"
-                            name="book_id"
-                            required
-                            :options="$options"
-                            placeholder="Sélectionnez un livre"
-                        />
+                        <x-select id="book" name="book_id" required :options="$options"
+                            placeholder="Sélectionnez un livre" />
                     </div>
 
                     <!-- Code Serial Exemplaire -->
                     <div class="form-group">
                         <label class="block text-sm font-medium mb-2" for="code_serial_exemplaire">Code Serial
-                            Exemplaire</label>
-                        <x-input-text type="text" id="code_serial_exemplaire" name="code_serial_exemplaire" required />
+                            d'exemplaire</label>
+                        <x-input-text type="text" id="code_serial_exemplaire"  placeholder="Entrez le code d'exemplaire." name="code_serial_exemplaire" required />
                     </div>
 
                     <!-- État -->
                     <div class="form-group">
                         <label class="block text-sm font-medium mb-2" for="etat">État</label>
-                        <x-select id="etat" name="etat" required :options="[
+                        <x-select id="etat" name="etat" required  placeholder="Sélectionnez l'état de exemplaire" :options="[
                             'neuf' => 'Neuf',
                             'bon' => 'Bon',
                             'usé' => 'Usé',
@@ -58,7 +54,7 @@
                     </div>
 
                     <!-- Emplacement -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-6"> --}}
                         <div class="form-group">
                             <label class="block text-sm font-medium mb-2" for="rayon">Rayon</label>
                             <x-input-text type="text" id="rayon" name="rayon" required />
@@ -67,7 +63,7 @@
                             <label class="block text-sm font-medium mb-2" for="etagere">Étagère</label>
                             <x-input-text type="text" id="etagere" name="etagere" required />
                         </div>
-                    </div>
+                    {{-- </div> --}}
 
                     <!-- Submit Button -->
                     <div class="flex justify-end space-x-4">
