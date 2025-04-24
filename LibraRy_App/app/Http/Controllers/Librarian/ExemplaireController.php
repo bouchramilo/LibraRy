@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Librarian;
 
 use App\Http\Controllers\Controller;
@@ -17,8 +16,8 @@ class ExemplaireController extends Controller
     {
         return Book::orderBy('title')
             ->get()
-            ->mapWithKeys(fn ($book) => [
-                $book->id => "{$book->title} - ({$book->author})"
+            ->mapWithKeys(fn($book) => [
+                $book->id => "{$book->title} - ({$book->author})",
             ])
             ->toArray();
     }
@@ -27,12 +26,28 @@ class ExemplaireController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $exemplaires = Exemplaire::with('book')->get();
-        $options = $this->getBooksOptions();
+        $query = Exemplaire::with('book');
 
-        return view('Librarian.exemplaires', compact('exemplaires', 'options'));
+        // Filtre par titre de livre
+        if ($request->has('book_id') && $request->book_id) {
+            $query->where('book_id', $request->book_id);
+        }
+
+        // Filtre par recherche
+        if ($request->has('search') && $request->search) {
+            $query->whereHas('book', function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                    ->orWhere('author', 'like', '%' . $request->search . '%')
+                    ->orWhere('code_serial_exemplaire', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $exemplaires = $query->paginate(10);
+        $options     = Book::pluck('title', 'id')->prepend('Tous les livres', '');
+
+        return view('librarian.exemplaires', compact('exemplaires', 'options'));
     }
 
 // *******************************************************************************************************************************
@@ -52,11 +67,11 @@ class ExemplaireController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'book_id' => 'required|exists:books,id',
+            'book_id'                => 'required|exists:books,id',
             'code_serial_exemplaire' => 'required|string|max:50|unique:exemplaires',
-            'etat' => 'required|in:neuf,bon,usé,endommagé',
-            'rayon' => 'required|string|max:30',
-            'etagere' => 'nullable|string|max:30',
+            'etat'                   => 'required|in:neuf,bon,usé,endommagé',
+            'rayon'                  => 'required|string|max:30',
+            'etagere'                => 'nullable|string|max:30',
         ]);
 
         Exemplaire::create($validatedData);
@@ -73,7 +88,7 @@ class ExemplaireController extends Controller
     public function edit(string $id)
     {
         $exemplaire = Exemplaire::with('book')->findOrFail($id);
-        $options = $this->getBooksOptions();
+        $options    = $this->getBooksOptions();
 
         return view('Librarian.editExemplaire', compact('options', 'exemplaire'));
     }
@@ -85,11 +100,11 @@ class ExemplaireController extends Controller
     public function update(Request $request, string $id)
     {
         $validatedData = $request->validate([
-            'book_id' => 'required|exists:books,id',
-            'code_serial_exemplaire' => 'required|string|max:50|unique:exemplaires,code_serial_exemplaire,'.$id,
-            'etat' => 'required|in:neuf,bon,usé,endommagé',
-            'rayon' => 'required|string|max:30',
-            'etagere' => 'required|string|max:30',
+            'book_id'                => 'required|exists:books,id',
+            'code_serial_exemplaire' => 'required|string|max:50|unique:exemplaires,code_serial_exemplaire,' . $id,
+            'etat'                   => 'required|in:neuf,bon,usé,endommagé',
+            'rayon'                  => 'required|string|max:30',
+            'etagere'                => 'required|string|max:30',
         ]);
 
         $exemplaire = Exemplaire::findOrFail($id);
