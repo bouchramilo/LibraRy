@@ -28,4 +28,10 @@ class Book extends Model
     {
         return $this->belongsToMany(Category::class, 'book_category');
     }
+
+    public function exemplaires()
+    {
+        return $this->hasMany(Exemplaire::class, 'book_id');
+        // 'book_id' est la clé étrangère dans la table `exemplaires`
+    }
 }

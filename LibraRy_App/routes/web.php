@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\BookController;
 use App\Http\Controllers\Client\ClientDashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Librarian\BookController;
+use App\Http\Controllers\Librarian\ExemplaireController;
 use App\Http\Controllers\LibrarianDashboardController;
 use App\Http\Controllers\Librarian\CategoriesController;
 use App\Http\Controllers\Librarian\UsersController;
@@ -40,7 +41,7 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
 // gestion de dashboard de admin
     Route::get("/admin/dashboard", [LibrarianDashboardController::class, 'index'])->name("librarian.dashboard");
 
-    // gestion de books
+// gestion de books
     Route::get("/admin/books", [BookController::class, 'index'])->name("librarian.books.index");
     Route::get("/admin/books/add", [BookController::class, 'create'])->name("librarian.books.create");
     Route::post("/admin/books/add", [BookController::class, 'store'])->name("admin.books.store");
@@ -48,6 +49,11 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
     Route::get("/admin/books/edit/{book_id}", [BookController::class, 'edit'])->name("admin.books.edit");
     Route::put("/admin/books/{book}", [BookController::class, 'update'])->name("admin.books.update");
     Route::delete('/admin/books/delete/{book}', [BookController::class, 'destroy'])->name('admin.books.destroy');
+
+    // gestion de books
+    Route::get("/admin/exemplaires", [ExemplaireController::class, 'index'])->name("librarian.exemplaires.index");
+    Route::get("/admin/exemplaires/add", [ExemplaireController::class, 'create'])->name("librarian.exemplaires.create");
+    Route::post("/admin/exemplaires/add", [ExemplaireController::class, 'store'])->name("librarian.exemplaires.store");
 
 });
 
