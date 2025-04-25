@@ -128,4 +128,13 @@ class ExemplaireController extends Controller
             ->with('success', 'Exemplaire supprimé avec succès');
     }
     // *******************************************************************************************************************************
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $exemplaire = Exemplaire::find($id);
+        // dd($exemplaire);
+        return view('Librarian.detailsExemplaire', compact("exemplaire"));
+    }
 }

@@ -10,7 +10,7 @@
             <!-- Image Section -->
             <div class="flex justify-center items-start">
                 <img
-                    src="{{ $book->photo ? asset('storage/' . $book->photo) : asset('images/default-avatar.jpg') }}"
+                    src="{{ $exemplaire->book->photo ? asset('storage/' . $exemplaire->book->photo) : asset('images/default-avatar.jpg') }}"
                     alt="Couverture du livre"
                     class="max-h-[500px] w-auto rounded-lg shadow-lg object-contain hover:scale-105 hover:shadow-2xl hover:shadow-light-secondary"
                 >
@@ -18,25 +18,25 @@
 
             <!-- Details Section -->
             <div class="space-y-6">
-                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair">{{ $book->title }}</h1>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair">{{ $exemplaire->book->title }}</h1>
 
                 <div class="space-y-4">
                     <div class="flex flex-wrap items-start">
                         <span class="w-32 font-semibold">Auteur:</span>
-                        <span class="flex-1">{{ $book->author }}</span>
+                        <span class="flex-1">{{ $exemplaire->book->author }}</span>
                     </div>
                     <div class="flex flex-wrap items-start">
                         <span class="w-32 font-semibold">Date d'édition:</span>
-                        <span class="flex-1">{{ $book->date_edition }}</span>
+                        <span class="flex-1">{{ $exemplaire->book->date_edition }}</span>
                     </div>
                     <div class="flex flex-wrap items-start">
                         <span class="w-32 font-semibold">Pages:</span>
-                        <span class="flex-1">{{ $book->nbr_pages }}</span>
+                        <span class="flex-1">{{ $exemplaire->book->nbr_pages }}</span>
                     </div>
                     <div class="flex flex-wrap items-start">
                         <span class="w-32 font-semibold">Genre:</span>
                         <div class="flex-1 flex flex-wrap gap-2">
-                            @foreach ($book->categories as $cate)
+                            @foreach ($exemplaire->book->categories as $cate)
                                 <span class="bg-accent/10 text-accent rounded-full px-3 py-1 text-sm">
                                     {{ $cate->category }}
                                 </span>
@@ -45,15 +45,23 @@
                     </div>
                     <div class="flex flex-wrap items-start">
                         <span class="w-32 font-semibold">Langue:</span>
-                        <span class="flex-1">{{ $book->language }}</span>
+                        <span class="flex-1">{{ $exemplaire->book->language }}</span>
                     </div>
                     <div class="flex flex-wrap items-start">
                         <span class="w-32 font-semibold">ISBN:</span>
-                        <span class="flex-1">{{ $book->isbn }}</span>
+                        <span class="flex-1">{{ $exemplaire->book->isbn }}</span>
                     </div>
                     <div class="flex flex-wrap items-start">
-                        <span class="w-32 font-semibold">Nombre d'exemplaire:</span>
-                        <span class="flex-1">{{ count($book->exemplaires) }}</span>
+                        <span class="w-32 font-semibold">Etat:</span>
+                        <span class="flex-1">{{ $exemplaire->etat }}</span>
+                    </div>
+                    <div class="flex flex-wrap items-start">
+                        <span class="w-32 font-semibold">code serial d'exemplaire:</span>
+                        <span class="flex-1">{{ $exemplaire->code_serial_exemplaire }}</span>
+                    </div>
+                    <div class="flex flex-wrap items-start">
+                        <span class="w-32 font-semibold">Emplacement:</span>
+                        <span class="flex-1">{{ $exemplaire->rayon }} - {{ $exemplaire->etagere }}</span>
                     </div>
                 </div>
 
@@ -61,7 +69,7 @@
                 <div class="border-t border-b border-light-text/10 dark:border-dark-text/10 py-6 space-y-6">
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div>
-                            <p class="text-lg md:text-xl font-semibold">Prix d'achat: {{ $book->prix_vente }}€</p>
+                            <p class="text-lg md:text-xl font-semibold">Prix d'achat: {{ $exemplaire->book->prix_vente }}€</p>
                             <p class="text-sm text-light-text/70 dark:text-dark-text/70">En stock</p>
                         </div>
                         <button
@@ -72,7 +80,7 @@
                     </div>
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div>
-                            <p class="text-lg md:text-xl font-semibold">Prix d'emprunt: {{ $book->prix_emprunte }}€</p>
+                            <p class="text-lg md:text-xl font-semibold">Prix d'emprunt: {{ $exemplaire->book->prix_emprunte }}€</p>
                             <p class="text-sm text-light-text/70 dark:text-dark-text/70">Disponible</p>
                         </div>
                         <button
@@ -89,7 +97,7 @@
         <div class="mt-8 md:mt-12 space-y-4">
             <h2 class="text-xl md:text-2xl font-bold">Résumé</h2>
             <p class="leading-relaxed text-justify">
-                {{ $book->resume }}
+                {{ $exemplaire->book->resume }}
             </p>
         </div>
     </main>
