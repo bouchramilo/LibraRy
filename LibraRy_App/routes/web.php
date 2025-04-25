@@ -3,7 +3,9 @@
 use App\Http\Controllers\Client\ClientDashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Librarian\BookController;
+use App\Http\Controllers\Librarian\DemandesVentesController;
 use App\Http\Controllers\Librarian\ExemplaireController;
+use App\Http\Controllers\Librarian\VentesController;
 use App\Http\Controllers\LibrarianDashboardController;
 use App\Http\Controllers\Librarian\CategoriesController;
 use App\Http\Controllers\Librarian\UsersController;
@@ -59,6 +61,11 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
     Route::put("/admin/exemplaires/update/{id}", [ExemplaireController::class, 'update'])->name("librarian.exemplaires.update");
     Route::get("/admin/exemplaires/details/{book_id}", [ExemplaireController::class, 'show'])->name("librarian.exemplaires.show");
 
+    // gestion de ventes
+    Route::get("/admin/ventes", [VentesController::class, 'index'])->name("librarian.ventes.index");
+
+    // gestion de demandes de ventes
+    Route::get("/admin/ventes/demandes", [DemandesVentesController::class, 'index'])->name("librarian.demandes.ventes.index");
 });
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

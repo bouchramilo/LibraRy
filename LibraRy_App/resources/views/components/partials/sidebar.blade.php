@@ -5,9 +5,12 @@
          <div class="space-y-4">
              <!-- Admin Profile -->
              <div class="flex flex-col items-center space-y-1">
-                 <img src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : asset('images/default-avatar.jpg') }}"
-                     alt="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}"
-                     class="w-14 h-14 rounded-full border-2 border-light-primary dark:border-dark-primary">
+                 <a href="/profile">
+                    <img
+                         src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : asset('images/default-avatar.jpg') }}"
+                         alt="{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}"
+                         class="w-14 h-14 rounded-full border-2 border-light-primary dark:border-dark-primary">
+                 </a>
                  <div class="text-center">
                      <h2 class="font-bold">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h2>
                      <p class="text-sm opacity-75">{{ Auth::user()->email }}</p>
@@ -69,7 +72,7 @@
                      </svg>
                      <span>Ventes</span>
                  </a>
-                 <a href="/admin/demande-ventes"
+                 <a href="/admin/ventes/demandes"
                      class="flex items-center space-x-3 p-3 rounded-lg hover:bg-light-primary/20 dark:hover:bg-dark-primary/20 transition-colors">
                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -106,7 +109,8 @@
              </button>
              <form action="{{ route('auth.logout') }}" method="POST">
                  @csrf
-                 <button type="submit" class="w-full p-3 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
+                 <button type="submit"
+                     class="w-full p-3 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
                      Déconnexion
                  </button>
              </form>
