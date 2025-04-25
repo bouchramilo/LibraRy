@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 class UsersController extends Controller
 {
     // *******************************************************************************************************************************
-    // public function index()
-    // {
-    //     $users = User::where("id", "!=", Auth::id())->paginate(10);
-    //     return view('Librarian.users', ['users' => $users]);
-    // }
-    // Dans UserController.php
-
     public function index(Request $request)
     {
         $users = User::query()
@@ -32,30 +25,18 @@ class UsersController extends Controller
         return view('Librarian.users', compact('users'));
     }
     // *******************************************************************************************************************************
-    // Dans UserController.php
-    public function filter(Request $request)
-    {
-        $users = User::query()
-            ->when($request->search, fn($q, $search) => $q->where(function ($query) use ($search) {
-                $query->where('first_name', 'like', "%$search%")
-                    ->orWhere('last_name', 'like', "%$search%")
-                    ->orWhere('email', 'like', "%$search%");
-            }))
-            ->when($request->role, fn($q, $role) => $q->where('role', $role))
-            ->when($request->status, fn($q, $status) => $q->where('status', $status))
-            ->paginate(10);
 
-        return response()->json([
-            'users'      => $users,
-            'pagination' => $users->links()->toHtml(),
-        ]);
-    }
     // *******************************************************************************************************************************
     public function destroy(string $user_id)
     {
-        $user = User::findOrFail($user_id);
+        $user = User::find($user_id);
+
+        if (! $user) {
+            return back()->with("error", "Vous avez essayé de supprimer un utilisateur non trouvé");
+        }
+
         $user->delete();
-        return back()->with("success", "Vous avez supprimer le client avec success.");
+        return back()->with("success", "Vous avez supprimé le client avec succès.");
     }
 
     // *******************************************************************************************************************************

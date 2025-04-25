@@ -53,31 +53,43 @@
             </div>
 
             <!-- Filters -->
-            <div class="mb-8 grid md:grid-cols-3 gap-4">
-                <div class="relative">
-                    <input type="text" id="searchInput" placeholder="Rechercher par titre ou auteur..."
-                        class="w-full px-4 py-2 rounded-lg border border-light-primary/20 dark:border-dark-primary/20 bg-white/5 dark:bg-black/5">
-                    <svg class="w-5 h-5 absolute right-3 top-2.5 opacity-50" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                    </svg>
-                </div>
-                <select id="categoryFilter"
-                    class="px-4 py-2 rounded-lg border border-light-primary/20 dark:border-dark-primary/20 bg-white/5 dark:bg-black/5">
-                    <option value="">Toutes les catégories</option>
-                    <option value="Fiction">Fiction</option>
-                    <option value="Non-Fiction">Non-Fiction</option>
-                    <option value="Science">Science</option>
-                    <option value="Histoire">Histoire</option>
-                </select>
-                <select id="statusFilter"
-                    class="px-4 py-2 rounded-lg border border-light-primary/20 dark:border-dark-primary/20 bg-white/5 dark:bg-black/5">
-                    <option value="">Tous les statuts</option>
-                    <option value="Disponible">Disponible</option>
-                    <option value="Emprunté">Emprunté</option>
-                    <option value="Perdu">Perdu</option>
-                </select>
+            <!-- Search and Filter Section -->
+            <div class="bg-background dark:bg-dark-bg p-4 md:p-6 rounded-lg shadow-lg mb-6 md:mb-8">
+                <form method="GET" action="{{ route('librarian.books.index') }}">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Search Bar -->
+                        <div class="col-span-1 md:col-span-1">
+                            <x-input-text name="search" type="text" placeholder="Rechercher un livre..."
+                                value="{{ request('search') }}" />
+                        </div>
+
+                        <!-- Category Filter -->
+                        <div class="col-span-1">
+                            <x-select id="category_id" name="category_id" placeholder="Filtrer par catégorie"
+                                :options="$categories" :selected="request('category_id')" />
+                        </div>
+
+                        <!-- Language Filter -->
+                        <div class="col-span-1">
+                            <x-select id="language" name="language" placeholder="Filtrer par langue" :options="$languages"
+                                :selected="request('language')" />
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex justify-between items-center">
+                        <div class="flex space-x-2">
+                            @if (request()->anyFilled(['search', 'category_id', 'language']))
+                                <a href="{{ route('librarian.books.index') }}"
+                                    class="px-6 py-2 rounded-lg bg-light-primary/10 dark:bg-dark-primary/10 hover:bg-light-primary/20 dark:hover:bg-dark-primary/20 transition-colors">
+                                    Réinitialiser les filtres
+                                </a>
+                            @endif
+                        </div>
+                        <x-primary-button type="submit">
+                            Appliquer les filtres
+                        </x-primary-button>
+                    </div>
+                </form>
             </div>
 
             <!-- Books Grid -->

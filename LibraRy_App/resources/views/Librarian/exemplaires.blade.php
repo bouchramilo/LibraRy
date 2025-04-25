@@ -129,7 +129,7 @@
             </div>
         </div>
         <div class="mt-4">
-            {{ $exemplaires->appends(request()->query())->links() }}
+            {{ $exemplaires->appends(request()->query())->links('vendor.pagination.default') }}
         </div>
         {{-- ******************************************************************************************************************************* --}}
         <!-- Modal de confirmation -->

@@ -17,18 +17,16 @@
                 <div class="space-y-4">
                     <p class="flex items-center"><span class="w-32 font-semibold">Auteur:</span> {{ $book->author }}</p>
                     <p class="flex items-center"><span class="w-32 font-semibold">Date d'édition:</span> {{ $book->date_edition }}</p>
-                    <p class="flex items-center"><span class="w-32 font-semibold">Pages:</span> {{ $book->nbr_pages }}</p>
-                    <p class="flex items-center"><span class="w-32 font-semibold">Genre:</span class="flex"> @foreach ($book->categories as $cate)
-                        <span class="bg-accent/10 text-accent rounded-full px-1 m-1">{{ $cate->category }} </span>
-                    @endforeach</p>
-                    <p class="flex items-center"><span class="w-32 font-semibold">Langue:</span> {{ $book->language }}</p>
-                    <p class="flex items-center"><span class="w-32 font-semibold">ISBN:</span> {{ $book->isbn }}</p>
+                    <p class="flex items-center"><span class="w-32 font-semibold">Pages:</span> 1488</p>
+                    <p class="flex items-center"><span class="w-32 font-semibold">Genre:</span> Roman historique</p>
+                    <p class="flex items-center"><span class="w-32 font-semibold">Langue:</span> Français</p>
+                    <p class="flex items-center"><span class="w-32 font-semibold">ISBN:</span> 978-2253096337</p>
                 </div>
 
                 <div class="border-t border-b border-light-text/10 dark:border-dark-text/10 py-6 space-y-4">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xl font-semibold">Prix d'achat: {{ $book->prix_vente }}€</p>
+                            <p class="text-xl font-semibold">Prix d'achat: 24,90€</p>
                             <p class="text-sm text-light-text/70 dark:text-dark-text/70">En stock</p>
                         </div> <button
                             class="bg-light-primary dark:bg-dark-primary px-6  rounded-md bg-light-primary dark:bg-dark-primary text-white py-2  hover:opacity-90">
@@ -37,7 +35,7 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-xl font-semibold">Prix d'emprunt: {{ $book->prix_emprunte }}€</p>
+                            <p class="text-xl font-semibold">Prix d'emprunt: 5€/mois</p>
                             <p class="text-sm text-light-text/70 dark:text-dark-text/70">Disponible</p>
                         </div>
                         <button

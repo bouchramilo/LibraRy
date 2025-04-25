@@ -16,13 +16,44 @@ class BookController extends Controller
 //    **********************************************************************************************************************************************
     /**
      * Display a listing of the resource.
-     */public function index()
+      */
+    public function index(Request $request)
     {
-        $books = Book::with(['categories' => function ($query) {
-            $query->select('categories.id', 'categories.category');
-        }])->get();
+        $query = Book::with('categories');
 
-        return view('Librarian.books', compact('books'));
+        // Filtre par catégorie
+        if ($request->has('category_id') && $request->category_id) {
+            $query->whereHas('categories', function($q) use ($request) {
+                $q->where('categories.id', $request->category_id);
+            });
+        }
+
+        // Filtre par recherche
+        if ($request->has('search') && $request->search) {
+            $query->where(function($q) use ($request) {
+                $q->where('title', 'like', '%'.$request->search.'%')
+                  ->orWhere('author', 'like', '%'.$request->search.'%')
+                  ->orWhere('isbn', 'like', '%'.$request->search.'%')
+                  ->orWhere('resume', 'like', '%'.$request->search.'%');
+            });
+        }
+
+        // Filtre par langue
+        if ($request->has('language') && $request->language) {
+            $query->where('language', $request->language);
+        }
+
+        // Tri des résultats
+        $sortField = $request->get('sort', 'title');
+        $sortDirection = $request->get('direction', 'asc');
+        $query->orderBy($sortField, $sortDirection);
+
+        $books = $query->paginate(10);
+
+        $categories = Category::pluck('category', 'id')->prepend('Toutes les catégories', '');
+        $languages = Book::select('language')->distinct()->pluck('language', 'language');
+
+        return view('librarian.books', compact('books', 'categories', 'languages'));
     }
 
 //    **********************************************************************************************************************************************
@@ -76,7 +107,8 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        return view('Librarian.showBookDetails');
+        $book = Book::find($id);
+        return view('Librarian.showBookDetails', compact("book"));
     }
 
 //    **********************************************************************************************************************************************
