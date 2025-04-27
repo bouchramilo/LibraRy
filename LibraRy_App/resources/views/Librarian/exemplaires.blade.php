@@ -38,8 +38,8 @@
         <div class="ml-0 p-4 md:p-8 w-full">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4">
                 <h1 class="text-2xl md:text-3xl font-heading font-bold">Gestion des Exemplaires</h1>
-                <a href="{{ route('librarian.exemplaires.create') }}"><x-primary-button> Ajouter un
-                        exemplaire</x-primary-button></a>
+                <a href="{{ route('librarian.exemplaires.create') }}">
+                    <x-primary-button> Ajouter un exemplaire</x-primary-button></a>
             </div>
 
             <!-- Search and Filter Section -->
@@ -59,8 +59,9 @@
                         </div>
                         <div class=" flex justify-end gap-2">
                             @if (request('search') || request('book_id'))
-                                <a href="{{ route('librarian.exemplaires.index') }}" class="px-6 py-2 rounded-lg bg-light-primary/10 dark:bg-dark-primary/10 hover:bg-light-primary/20 dark:hover:bg-dark-primary/20 transition-colors">
-                                   Réinitialiser
+                                <a href="{{ route('librarian.exemplaires.index') }}"
+                                    class="px-6 py-2 rounded-lg bg-light-primary/10 dark:bg-dark-primary/10 hover:bg-light-primary/20 dark:hover:bg-dark-primary/20 transition-colors">
+                                    Réinitialiser
                                 </a>
                             @endif
                             <x-primary-button type="submit" class="w-full">

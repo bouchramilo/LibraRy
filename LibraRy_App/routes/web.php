@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\Client\ClientDashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Librarian\BookController;
@@ -74,6 +75,11 @@ Route::middleware(ClientMiddleware::class)->group(function () {
 
 // gestion de dashboard de client
     Route::get("/client/dashboard", [ClientDashboardController::class, 'index'])->name("client.dashboard");
+
+// gestion de dashboard de client
+    Route::get("/client/catalogue", [CatalogueController::class, 'index'])->name("client.catalogue");
+
+
 
 });
 // **********************************************************************************************************************************

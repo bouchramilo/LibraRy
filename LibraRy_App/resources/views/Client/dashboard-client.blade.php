@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: false }" :class="darkMode ? 'dark' : ''">
+@extends('layouts.client-layout')
 
-<head>
-    <x-partials.head />
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-</head>
+@section('title', 'LibraRy - Catalogue')
+@section('header', 'LibraRy - Catalogue')
 
-<body
-    class="font-body bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text transition-colors duration-300">
-    {{-- <!-- Header --> --}}
-    <x-partials.nav />
+@section('content')
 
     <main class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <h1 class="text-3xl font-heading font-bold mb-8 text-light-primary dark:text-dark-primary">Bienvenue, Jean</h1>
@@ -71,8 +65,8 @@
                             <p class="text-sm">Emprunté le 1 Mars 2024</p>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-4"> <img src="../images/img_3.png"
-                            alt="Le Comte de Monte-Cristo" class="w-20 h-30 object-cover rounded">
+                    <div class="flex items-center space-x-4"> <img src="../images/img_3.png" alt="Le Comte de Monte-Cristo"
+                            class="w-20 h-30 object-cover rounded">
                         <div>
                             <h4 class="font-semibold">Le Comte de Monte-Cristo</h4>
                             <p class="text-sm">Retourné le 28 Février 2024</p>
@@ -109,16 +103,4 @@
             </a>
         </section>
     </main>
-    {{-- <!-- Footer --> --}}
-    <x-partials.footer />
-</body>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-    AOS.init({
-        duration: 1000,
-        easing: 'ease';
-        once: true,
-    });
-</script>
-
-</html>
+@endsection

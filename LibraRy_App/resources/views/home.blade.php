@@ -29,7 +29,7 @@
     </section>
 
     <!-- Features Section -->
-    {{-- <section class="py-20 px-4" x-data="{ activeFeature: null }">
+    <section class="py-20 px-4" x-data="{ activeFeature: null }">
         <div class="max-w-7xl mx-auto">
             <h3 class="text-3xl font-bold text-center mb-16" x-intersect="$el.classList.add('animate-fade-in-up')">Nos
                 Services</h3>
@@ -54,61 +54,28 @@
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
 
     <!-- Popular Books Section -->
     <section class="py-20 px-4 bg-light-primary/5 dark:bg-dark-primary/5">
         <div class="max-w-7xl mx-auto">
             <h3 class="text-3xl font-bold text-center mb-16">Livres Populaires</h3>
             <div class="grid md:grid-cols-4 gap-8">
+                @foreach ($books as $book)
                 <div
                     class="book-card bg-light-background dark:bg-dark-background rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-300">
-                    <img src="../images/img_6.png" alt="Livre 1" class="w-full h-64 object-cover">
+                    <img src="{{ $book->photo ? asset('storage/' . $book->photo) : asset('images/default-avatar.jpg') }}" alt="{{ $book->title }} by {{ $book->author }}" class="w-full h-64 object-cover">
                     <div class="p-4">
-                        <h4 class="font-bold mb-2">Le Nom du Vent</h4>
-                        <p class="text-sm mb-2">Patrick Rothfuss</p>
+                        <h4 class="font-bold mb-2">{{ $book->title }}</h4>
+                        <p class="text-sm mb-2">{{ $book->author }}</p>
                         <button
                             class="w-full bg-light-primary dark:bg-dark-primary text-white py-2 rounded-md hover:opacity-90">
                             Emprunter
                         </button>
                     </div>
                 </div>
-                <div
-                    class="book-card bg-light-background dark:bg-dark-background rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-300">
-                    <img src="../images/img_7.png" alt="Livre 1" class="w-full h-64 object-cover">
-                    <div class="p-4">
-                        <h4 class="font-bold mb-2">Le Nom du Vent</h4>
-                        <p class="text-sm mb-2">Patrick Rothfuss</p>
-                        <button
-                            class="w-full bg-light-primary dark:bg-dark-primary text-white py-2 rounded-md hover:opacity-90">
-                            Emprunter
-                        </button>
-                    </div>
-                </div>
-                <div
-                    class="book-card bg-light-background dark:bg-dark-background rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-300">
-                    <img src="../images/img_7.png" alt="Livre 1" class="w-full h-64 object-cover">
-                    <div class="p-4">
-                        <h4 class="font-bold mb-2">Le Nom du Vent</h4>
-                        <p class="text-sm mb-2">Patrick Rothfuss</p>
-                        <button
-                            class="w-full bg-light-primary dark:bg-dark-primary text-white py-2 rounded-md hover:opacity-90">
-                            Emprunter
-                        </button>
-                    </div>
-                </div>
-                <div
-                    class="book-card bg-light-background dark:bg-dark-background rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-300">
-                    <img src="../images/img_7.png" alt="Livre 1" class="w-full h-64 object-cover">
-                    <div class="p-4">
-                        <h4 class="font-bold mb-2">Le Nom du Vent</h4>
-                        <p class="text-sm mb-2">Patrick Rothfuss</p>
-                        <button
-                            class="w-full bg-light-primary dark:bg-dark-primary text-white py-2 rounded-md hover:opacity-90">
-                            Emprunter
-                        </button>
-                    </div>
-                </div>
+
+                @endforeach
                 <!-- Répéter pour les autres livres -->
             </div>
         </div>
