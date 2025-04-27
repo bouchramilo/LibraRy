@@ -78,6 +78,7 @@ Route::middleware(ClientMiddleware::class)->group(function () {
 
 // gestion de dashboard de client
     Route::get("/client/catalogue", [CatalogueController::class, 'index'])->name("client.catalogue");
+    Route::get("/client/catalogue/{id}", [CatalogueController::class, 'show'])->name("client.catalogue.show");
 
 
 

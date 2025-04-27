@@ -69,7 +69,8 @@ class CatalogueController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $exemplaire = Exemplaire::find($id);
+        return view('Client.details-book', compact("exemplaire"));
     }
 
     // *****************************************************************************************************************************************

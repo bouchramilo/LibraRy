@@ -49,7 +49,7 @@
                     class="bg-white dark:bg-dark-primary/10 border border-light-text/10 dark:border-dark-text/10 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col sm:flex-row">
                     <!-- Image - Prend toute la largeur sur mobile, fixe sur desktop -->
                     <div class="w-full sm:w-32 md:w-40 lg:w-48 h-48 sm:h-auto">
-                        <a href="/exemplaire-datails"><img
+                        <a href="{{ route('client.catalogue.show', $exemplaire->id) }}"><img
                                 src="{{ $exemplaire->book->photo ? asset('storage/' . $exemplaire->book->photo) : asset('images/default-avatar.jpg') }}"
                                 alt="{{ $exemplaire->book->title }} by {{ $exemplaire->book->author }}"
                                 class="w-full h-full object-cover rounded-lg"></a>
