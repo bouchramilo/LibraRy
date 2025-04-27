@@ -11,22 +11,25 @@
 
             <form method="GET" action="{{ route('client.catalogue') }}">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    {{--  --}}
+                    {{-- Champ de recherche --}}
                     <div class="relative flex-grow">
-                        <x-input-text type="text" placeholder="Rechercher un livre..." class="pl-10"
+                        <x-input-text name="search" type="text" placeholder="Rechercher un livre..." class="pl-10"
                             value="{{ request('search') }}" />
                         <i
                             class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-light-text/50 dark:text-dark-text/50"></i>
                     </div>
-                    {{--  --}}
-                    <x-select id="category_id" name="category_id" placeholder="Sélectionnez un catégorie" :options="$categories"
+
+                    {{-- Sélecteur de catégorie --}}
+                    <x-select id="category_id" name="category_id" placeholder="Toutes les catégories" :options="$categories"
                         :selected="request('category_id')" />
 
-                    <x-select id="book_id" name="book_id" placeholder="Sélectionnez un livre" :options="$options"
+                    {{-- Sélecteur de livre --}}
+                    <x-select id="book_id" name="book_id" placeholder="Tous les livres" :options="$options"
                         :selected="request('book_id')" />
-                    {{--  --}}
-                    <div class=" flex justify-end gap-2">
-                        @if (request('search') || request('book_id'))
+
+                    {{-- Boutons --}}
+                    <div class="flex justify-end gap-2">
+                        @if (request('search') || request('book_id') || request('category_id'))
                             <a href="{{ route('client.catalogue') }}"
                                 class="px-6 py-2 rounded-lg bg-light-primary/10 dark:bg-dark-primary/10 hover:bg-light-primary/20 dark:hover:bg-dark-primary/20 transition-colors">
                                 Réinitialiser
@@ -38,7 +41,6 @@
                     </div>
                 </div>
             </form>
-        </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">

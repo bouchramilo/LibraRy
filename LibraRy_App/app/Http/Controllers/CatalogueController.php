@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -10,19 +9,27 @@ use Illuminate\Http\Request;
 
 class CatalogueController extends Controller
 {
+    // *****************************************************************************************************************************************
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $query = Exemplaire::with('book');
+        $query = Exemplaire::with(['book', 'book.categories']);
 
-        // Filtre par titre de livre
+        // catégorie
+        if ($request->has('category_id') && $request->category_id) {
+            $query->whereHas('book.categories', function ($q) use ($request) {
+                $q->where('categories.id', $request->category_id);
+            });
+        }
+
+        // titre de livre
         if ($request->has('book_id') && $request->book_id) {
             $query->where('book_id', $request->book_id);
         }
 
-        // Filtre par recherche
+        // Input recherche
         if ($request->has('search') && $request->search) {
             $query->whereHas('book', function ($q) use ($request) {
                 $q->where('title', 'like', '%' . $request->search . '%')
@@ -31,13 +38,14 @@ class CatalogueController extends Controller
             });
         }
 
-        $exemplaires = $query->paginate(10);
+        $exemplaires = $query->paginate(4);
         $options     = Book::pluck('title', 'id')->prepend('Tous les livres', '');
-        $categories =  Category::pluck('category', 'id');
+        $categories  = Category::pluck('category', 'id')->prepend('Toutes les catégories', '');
 
-        return view('Client.catalogue',compact('exemplaires', 'options', 'categories'));
+        return view('Client.catalogue', compact('exemplaires', 'options', 'categories'));
     }
 
+    // *****************************************************************************************************************************************
     /**
      * Show the form for creating a new resource.
      */
@@ -46,6 +54,7 @@ class CatalogueController extends Controller
         //
     }
 
+    // *****************************************************************************************************************************************
     /**
      * Store a newly created resource in storage.
      */
@@ -54,6 +63,7 @@ class CatalogueController extends Controller
         //
     }
 
+    // *****************************************************************************************************************************************
     /**
      * Display the specified resource.
      */
@@ -62,6 +72,7 @@ class CatalogueController extends Controller
         //
     }
 
+    // *****************************************************************************************************************************************
     /**
      * Show the form for editing the specified resource.
      */
@@ -70,6 +81,7 @@ class CatalogueController extends Controller
         //
     }
 
+    // *****************************************************************************************************************************************
     /**
      * Update the specified resource in storage.
      */
@@ -78,6 +90,7 @@ class CatalogueController extends Controller
         //
     }
 
+    // *****************************************************************************************************************************************
     /**
      * Remove the specified resource from storage.
      */
