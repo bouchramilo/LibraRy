@@ -170,9 +170,20 @@ class EmpruntsController extends Controller
         //
     }
 //    **************************************************************************************************************************************
-    public function valider(string $id){
-        dd($id);
-    }
+    public function valider(string $id)
+    {
+        $emprunt = Emprunt::where('id', $id)
+            ->where('status', 'en attente')
+            ->firstOrFail();
 
+        $emprunt->update([
+            'status'             => 'validé',
+            'date_emprunt'       => now(),
+            'date_retour_prevue' => now()->addWeeks(3),
+        ]);
+
+        return redirect()->route('librarian.emprunts.index')
+            ->with('success', 'Emprunt validé avec succès !');
+    }
 
 }
