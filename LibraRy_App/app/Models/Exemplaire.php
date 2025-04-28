@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exemplaire extends Model
 {
-
     use HasFactory;
     protected $table = "exemplaires";
 
@@ -21,6 +20,10 @@ class Exemplaire extends Model
     public function book()
     {
         return $this->belongsTo(Book::class, 'book_id');
-        // 'book_id' est la clé étrangère dans la table `exemplaires`
+    }
+
+    public function emprunts()
+    {
+        return $this->hasMany(Emprunt::class);
     }
 }

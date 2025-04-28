@@ -68,6 +68,10 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
 
     // gestion de demandes de ventes
     Route::get("/admin/ventes/demandes", [DemandesVentesController::class, 'index'])->name("librarian.demandes.ventes.index");
+
+    // gestion de demandes de ventes
+    Route::get("/admin/emprunts", [EmpruntsController::class, 'index'])->name("librarian.emprunts.index");
+    Route::put("/admin/emprunts/valider/{id}", [EmpruntsController::class, 'valider'])->name("librarian.emprunts.valider");
 });
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

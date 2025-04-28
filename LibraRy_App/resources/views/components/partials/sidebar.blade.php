@@ -72,15 +72,7 @@
                      </svg>
                      <span>Ventes</span>
                  </a>
-                 <a href="/admin/ventes/demandes"
-                     class="flex items-center space-x-3 p-3 rounded-lg hover:bg-light-primary/20 dark:hover:bg-dark-primary/20 transition-colors">
-                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
-                         </path>
-                     </svg>
-                     <span>Demandes de ventes</span>
-                 </a>
+
                  <a href="/admin/emprunts"
                      class="flex items-center space-x-3 p-3 rounded-lg hover:bg-light-primary/20 dark:hover:bg-dark-primary/20 transition-colors">
                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -13,18 +13,6 @@
                 <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                     {{ __('Accueil') }}
                 </x-nav-link>
-                <x-nav-link :href="route('librarian.dashboard')" :active="request()->routeIs('librarian.dashboard')">
-                    {{ __('Dashboard') }}
-                </x-nav-link>
-                <x-nav-link :href="route('client.dashboard')" :active="request()->routeIs('client.dashboard')">
-                    {{ __('Client') }}
-                </x-nav-link>
-                <x-nav-link :href="route('client.catalogue')" :active="request()->routeIs('client.catalogue')">
-                    {{ __('Catalogue') }}
-                </x-nav-link>
-                <x-nav-link :href="route('client.emprunt.show')" :active="request()->routeIs('client.emprunt.show')">
-                    {{ __('Mes') }}
-                </x-nav-link>
                 @guest
                     <x-nav-link :href="route('auth.login.show')" :active="request()->routeIs('auth.login.show')">
                         {{ __('Connexion') }}
@@ -34,6 +22,24 @@
                     </x-nav-link>
                 @endguest
                 @auth
+                    {{-- librarian --}}
+                    @if (Auth::user()->role === 'Bibliothécaire')
+                        <x-nav-link :href="route('librarian.dashboard')" :active="request()->routeIs('librarian.dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endif
+                    {{-- Client --}}
+                    @if (Auth::user()->role === 'Client')
+                        <x-nav-link :href="route('client.dashboard')" :active="request()->routeIs('client.dashboard')">
+                            {{ __('Client') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('client.catalogue')" :active="request()->routeIs('client.catalogue')">
+                            {{ __('Catalogue') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('client.emprunt.show')" :active="request()->routeIs('client.emprunt.show')">
+                            {{ __('Mes') }}
+                        </x-nav-link>
+                    @endif
                     <x-nav-link :href="route('auth.profile.show')" :active="request()->routeIs('auth.profile.show')">
                         {{ __('Profil') }}
                     </x-nav-link>
@@ -45,14 +51,6 @@
                         </x-primary-button>
                     </form>
                 @endauth
-                {{-- <a href="/home"
-                    class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors duration-300">Accueil</a>
-                <a href="#"
-                    class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors duration-300">Catalogue</a>
-                <a href="/login"
-                    class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors duration-300">Connexion</a>
-                <a href="/register"
-                    class="text-light-text dark:text-dark-text hover:text-light-accent dark:hover:text-dark-accent transition-colors duration-300">Inscription</a> --}}
 
                 <!-- Theme Toggle -->
                 <button @click="darkMode = !darkMode"

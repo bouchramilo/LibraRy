@@ -54,4 +54,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function emprunts()
+    {
+        return $this->hasMany(Emprunt::class);
+    }
 }

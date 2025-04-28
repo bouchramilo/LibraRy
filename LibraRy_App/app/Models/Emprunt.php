@@ -20,6 +20,16 @@ class Emprunt extends Model
         static::creating(function ($emprunt) {
             $emprunt->date_retour_prevue = $emprunt->date_emprunt->copy()->addDays(15);
         });
+
+    }
+    public function exemplaire()
+    {
+        return $this->belongsTo(Exemplaire::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
