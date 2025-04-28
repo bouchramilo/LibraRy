@@ -22,6 +22,9 @@
                 <x-nav-link :href="route('client.catalogue')" :active="request()->routeIs('client.catalogue')">
                     {{ __('Catalogue') }}
                 </x-nav-link>
+                <x-nav-link :href="route('client.emprunt.show')" :active="request()->routeIs('client.emprunt.show')">
+                    {{ __('Mes') }}
+                </x-nav-link>
                 @guest
                     <x-nav-link :href="route('auth.login.show')" :active="request()->routeIs('auth.login.show')">
                         {{ __('Connexion') }}

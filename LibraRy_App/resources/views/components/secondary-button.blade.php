@@ -1,3 +1,11 @@
-<button {{ $attributes->class(["px-6 py-2 rounded-lg bg-light-primary/10 dark:bg-dark-primary/10 hover:bg-light-primary/20 dark:hover:bg-dark-primary/20 transition-colors"]) }}>
+<button
+    {{ $attributes->class(['flex-1 rounded-md border border-light-primary dark:border-dark-primary text-light-primary dark:text-dark-primary py-2 hover:bg-light-primary/10 dark:hover:bg-dark-primary/10']) }}>
     {{ $slot }}
 </button>
+
+
+
+{{-- <button
+class="flex-1 rounded-md border border-light-primary dark:border-dark-primary text-light-primary dark:text-dark-primary py-2 hover:bg-light-primary/10 dark:hover:bg-dark-primary/10" >
+Emprunter
+</button> --}}

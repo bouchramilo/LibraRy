@@ -17,59 +17,29 @@
                 this.showModal = false;
             }
         }">
-        @if (session('success'))
-            <div x-data="{ show: true }" x-show="show" x-transition
-                class="mb-6 flex items-center p-4 bg-green-50 border-l-4 border-green-500 text-green-700 dark:bg-green-900 dark:bg-opacity-20 dark:border-green-400 dark:text-green-200">
-                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <div class="flex-grow">{{ session('success') }}</div>
-                <button @click="show = false"
-                    class="text-green-700 dark:text-green-200 hover:text-green-900 dark:hover:text-green-100">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        @endif
-        @if (session('error'))
-            <div x-data="{ show: true }" x-show="show" x-transition
-                class="mb-6 flex items-center p-4 bg-red-50 border-l-4 border-red-500 text-red-700 dark:bg-red-900 dark:bg-opacity-20 dark:border-red-400 dark:text-red-200">
-                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <div class="flex-grow">{{ session('error') }}</div>
-                <button @click="show = false"
-                    class="text-red-700 dark:text-red-200 hover:text-red-900 dark:hover:text-red-100">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        @endif
         <div class="mb-8">
-            <h1 class="text-3xl font-heading font-bold mb-6">Catalogue des Livres</h1>
+            <h1 class="text-3xl font-heading font-bold mb-6">Mes Emprunts</h1>
 
             <form method="GET" action="{{ route('client.catalogue') }}">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     {{-- Champ de recherche --}}
-                    <div class="relative flex-grow">
+                    {{-- <div class="relative flex-grow">
                         <x-input-text name="search" type="text" placeholder="Rechercher un livre..." class="pl-10"
                             value="{{ request('search') }}" />
                         <i
                             class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-light-text/50 dark:text-dark-text/50"></i>
-                    </div>
+                    </div> --}}
 
                     {{-- Sélecteur de catégorie --}}
-                    <x-select id="category_id" name="category_id" placeholder="Toutes les catégories" :options="$categories"
-                        :selected="request('category_id')" />
+                    {{-- <x-select id="category_id" name="category_id" placeholder="Toutes les catégories" :options="$categories"
+                        :selected="request('category_id')" /> --}}
 
                     {{-- Sélecteur de livre --}}
-                    <x-select id="book_id" name="book_id" placeholder="Tous les livres" :options="$options"
-                        :selected="request('book_id')" />
+                    {{-- <x-select id="book_id" name="book_id" placeholder="Tous les livres" :options="$options"
+                        :selected="request('book_id')" /> --}}
 
                     {{-- Boutons --}}
-                    <div class="flex justify-end gap-2">
+                    {{-- <div class="flex justify-end gap-2">
                         @if (request('search') || request('book_id') || request('category_id'))
                             <a href="{{ route('client.catalogue') }}"
                                 class="px-6 py-2 rounded-lg bg-light-primary/10 dark:bg-dark-primary/10 hover:bg-light-primary/20 dark:hover:bg-dark-primary/20 transition-colors">
@@ -79,13 +49,13 @@
                         <x-primary-button type="submit" class="w-full">
                             Appliquer
                         </x-primary-button>
-                    </div>
+                    </div> --}}
                 </div>
             </form>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
-            @foreach ($exemplaires as $exemplaire)
+            @foreach ($mesEmprunts as $exemplaire)
                 <div
                     class="bg-white dark:bg-dark-primary/10 border border-light-text/10 dark:border-dark-text/10 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col sm:flex-row">
                     <!-- Image - Prend toute la largeur sur mobile, fixe sur desktop -->

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\Client\ClientDashboardController;
+use App\Http\Controllers\EmpruntsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Librarian\BookController;
 use App\Http\Controllers\Librarian\DemandesVentesController;
@@ -79,6 +80,11 @@ Route::middleware(ClientMiddleware::class)->group(function () {
 // gestion de dashboard de client
     Route::get("/client/catalogue", [CatalogueController::class, 'index'])->name("client.catalogue");
     Route::get("/client/catalogue/{id}", [CatalogueController::class, 'show'])->name("client.catalogue.show");
+
+    // Gestion des Emprunts
+    Route::post("/client/Emprunts", [EmpruntsController::class, 'store'])->name("client.emprunt.store");
+    Route::get("/client/Emprunts", [EmpruntsController::class, 'show'])->name("client.emprunt.show");
+
 
 
 
