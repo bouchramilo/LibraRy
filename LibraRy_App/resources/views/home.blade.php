@@ -6,7 +6,7 @@
 </head>
 
 <body
-    class="font-body bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text transition-colors duration-300">
+    class="font-body bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-300">
     <!-- Header -->
     <x-partials.nav />
 
@@ -22,7 +22,7 @@
                 <a href="#"
                     class="inline-block px-8 py-3 bg-light-primary dark:bg-dark-primary text-white rounded-full hover:transform hover:-translate-y-1 transition-all duration-300">S'inscrire</a>
                 <a href="#"
-                    class="inline-block px-8 py-3 border-2 border-white text-white rounded-full hover:bg-light-background hover:text-light-primary dark:hover:text-dark-primary transition-all duration-300">Explorer
+                    class="inline-block px-8 py-3 border-2 border-white text-white rounded-full hover:bg-light-bg hover:text-light-primary dark:hover:text-dark-primary transition-all duration-300">Explorer
                     le catalogue</a>
             </div>
         </div>
@@ -63,7 +63,7 @@
             <div class="grid md:grid-cols-4 gap-8">
                 @foreach ($books as $book)
                 <div
-                    class="book-card bg-light-background dark:bg-dark-background rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-300">
+                    class="book-card bg-light-bg dark:bg-dark-bg rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-300">
                     <img src="{{ $book->photo ? asset('storage/' . $book->photo) : asset('images/default-avatar.jpg') }}" alt="{{ $book->title }} by {{ $book->author }}" class="w-full h-64 object-cover">
                     <div class="p-4">
                         <h4 class="font-bold mb-2">{{ $book->title }}</h4>
@@ -125,17 +125,17 @@
                         <div>
                             <label class="block mb-2">Nom</label>
                             <input type="text"
-                                class="w-full p-2 rounded-md border border-light-primary/20 dark:border-dark-primary/20 bg-light-background/50 focus:outline-2 focus:outline-light-primary dark:bg-dark-background">
+                                class="w-full p-2 rounded-md border border-light-primary/20 dark:border-dark-primary/20 bg-light-bg/50 focus:outline-2 focus:outline-light-primary dark:bg-dark-bg">
                         </div>
                         <div>
                             <label class="block mb-2">Email</label>
                             <input type="email"
-                                class="w-full p-2 rounded-md border border-light-primary/20 dark:border-dark-primary/20 bg-light-background/50 focus:outline-2 focus:outline-light-primary dark:bg-dark-background">
+                                class="w-full p-2 rounded-md border border-light-primary/20 dark:border-dark-primary/20 bg-light-bg/50 focus:outline-2 focus:outline-light-primary dark:bg-dark-bg">
                         </div>
                         <div>
                             <label class="block mb-2">Message</label>
                             <textarea rows="4"
-                                class="resize-none w-full p-2 rounded-md border border-light-primary/20 dark:border-dark-primary/20 bg-light-background/50 focus:outline-2 focus:outline-light-primary dark:bg-dark-background"></textarea>
+                                class="resize-none w-full p-2 rounded-md border border-light-primary/20 dark:border-dark-primary/20 bg-light-bg/50 focus:outline-2 focus:outline-light-primary dark:bg-dark-bg"></textarea>
                         </div>
                         <button
                             class="w-full bg-light-primary dark:bg-dark-primary text-white py-3 rounded-md hover:opacity-90 transition-all duration-300">

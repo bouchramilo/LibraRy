@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Emprunt;
+use App\Models\Exemplaire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,7 @@ class EmpruntsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // pour admin +++++
+    // pour admin +++++++++++++++++++++++++++++++++++++++++++++
     public function index(Request $request)
     {
         $query = Emprunt::with(['exemplaire.book', 'user'])
@@ -86,6 +87,12 @@ class EmpruntsController extends Controller
             'exemplaire_id' => 'required|exists:exemplaires,id',
         ]);
 
+        if (Auth::user()->status === 'Suspendu') {
+            return redirect()->route('client.catalogue')
+                ->with('error', 'Vous étes "Suspendu", essayez plus tard !');
+
+        }
+
         $exemplaireDejaEmprunte = Emprunt::where('exemplaire_id', $validated['exemplaire_id'])
             ->whereNull('date_retour_effectif')
             ->exists();
@@ -113,10 +120,17 @@ class EmpruntsController extends Controller
             'date_emprunt'  => now(),
         ]);
 
+
         return redirect()->route('client.catalogue')
             ->with('success', 'Emprunt créé avec succès! Date de retour prévue: ' . $dateRetourPrevue->format('d/m/Y'));
     }
 
+    //    **************************************************************************************************************************************
+    private function isRented($id){
+        $isRented = Emprunt::where('user_id', Auth::user()->id)->where('exemplaire_id', $id)->first();
+
+        return $isRented ;
+    }
 //    **************************************************************************************************************************************
     /**
      * Display the specified resource.
@@ -170,6 +184,7 @@ class EmpruntsController extends Controller
         //
     }
 //    **************************************************************************************************************************************
+// pour l'admin +++++++++++++++++++++++++++++++++++++++++++++
     public function valider(string $id)
     {
         $emprunt = Emprunt::where('id', $id)
@@ -182,8 +197,22 @@ class EmpruntsController extends Controller
             'date_retour_prevue' => now()->addWeeks(3),
         ]);
 
+        $exemplaireRented = Exemplaire::find($emprunt->exemplaire->id);
+
+        // dd($exemplaireRented);
+        $exemplaireRented->disponible = 0 ;
+        $exemplaireRented->save();
+
         return redirect()->route('librarian.emprunts.index')
             ->with('success', 'Emprunt validé avec succès !');
     }
+//    **************************************************************************************************************************************
+// pour l'admin +++++++++++++++++++++++++++++++++++++++++++++
+    public function details($id)
+    {
+        $emprunt = Emprunt::with(['exemplaire.book', 'user'])->findOrFail($id);
+        return view('Librarian.show-emprunt', compact('emprunt'));
+    }
+
 
 }

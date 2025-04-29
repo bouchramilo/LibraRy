@@ -7,7 +7,7 @@
 </head>
 
 <body
-    class="font-body bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text transition-colors duration-300">
+    class="font-body bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-300">
     <!-- Header -->
     <x-partials.nav />
     <main class="min-h-screen flex items-center justify-center px-4 py-28">
@@ -19,7 +19,7 @@
                 </div>
                 <img src="../images/section2_home.png" alt="Bibliothèque"
                     class="w-full h-[600px] object-cover rounded-2xl shadow-2xl animate-float">
-                <div class="absolute bottom-8 left-8 right-8 p-6 rounded-xl text-light-background">
+                <div class="absolute bottom-8 left-8 right-8 p-6 rounded-xl text-light-bg">
                     <h2 class="text-2xl font-bold mb-2">Bienvenue sur BiblioTech</h2>
                     <p class="text-sm opacity-90">Votre bibliothèque numérique personnelle, accessible partout, à tout
                         moment.</p>

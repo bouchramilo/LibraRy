@@ -21,6 +21,8 @@
 
 
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 <script>
     tailwind.config = {
         darkMode: 'class',
@@ -29,14 +31,14 @@
                 colors: {
                     light: {
                         text: '#4b4035',
-                        background: '#f6f3e4',
+                        bg: '#f6f3e4',
                         primary: '#a67a59',
                         secondary: '#6c4b41',
                         accent: '#219cba'
                     },
                     dark: {
                         text: '#cabfb4',
-                        background: '#1a1709',
+                        bg: '#1a1709',
                         primary: '#a67a59',
                         secondary: '#be9d93',
                         accent: '#45bfde',

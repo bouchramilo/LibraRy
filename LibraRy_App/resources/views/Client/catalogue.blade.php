@@ -5,7 +5,7 @@
 
 @section('content')
 
-    <main class="flex-grow container mx-auto px-4 py-8 pt-20 pb-16 sm:px-6 lg:px-8 max-w-7xl min-h-screen"
+    <main class="flex-grow container mx-auto px-4 py-8 pt-4 pb-16 sm:px-6 lg:px-8 max-w-7xl min-h-screen"
         x-data="{
             showModal: false,
             bookToRent: { id: null, title: '', code: '' },
@@ -17,36 +17,11 @@
                 this.showModal = false;
             }
         }">
-        @if (session('success'))
-            <div x-data="{ show: true }" x-show="show" x-transition
-                class="mb-6 flex items-center p-4 bg-green-50 border-l-4 border-green-500 text-green-700 dark:bg-green-900 dark:bg-opacity-20 dark:border-green-400 dark:text-green-200">
-                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <div class="flex-grow">{{ session('success') }}</div>
-                <button @click="show = false"
-                    class="text-green-700 dark:text-green-200 hover:text-green-900 dark:hover:text-green-100">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        @endif
-        @if (session('error'))
-            <div x-data="{ show: true }" x-show="show" x-transition
-                class="mb-6 flex items-center p-4 bg-red-50 border-l-4 border-red-500 text-red-700 dark:bg-red-900 dark:bg-opacity-20 dark:border-red-400 dark:text-red-200">
-                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                <div class="flex-grow">{{ session('error') }}</div>
-                <button @click="show = false"
-                    class="text-red-700 dark:text-red-200 hover:text-red-900 dark:hover:text-red-100">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        @endif
+
+        {{-- messages start --}}
+        <x-messages />
+        {{-- messages end --}}
+
         <div class="mb-8">
             <h1 class="text-3xl font-heading font-bold mb-6">Catalogue des Livres</h1>
 
@@ -88,7 +63,6 @@
             @foreach ($exemplaires as $exemplaire)
                 <div
                     class="bg-white dark:bg-dark-primary/10 border border-light-text/10 dark:border-dark-text/10 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col sm:flex-row">
-                    <!-- Image - Prend toute la largeur sur mobile, fixe sur desktop -->
                     <div class="w-full sm:w-32 md:w-40 lg:w-48 h-48 sm:h-auto">
                         <a href="{{ route('client.catalogue.show', $exemplaire->id) }}"><img
                                 src="{{ $exemplaire->book->photo ? asset('storage/' . $exemplaire->book->photo) : asset('images/default-avatar.jpg') }}"
@@ -96,14 +70,20 @@
                                 class="w-full h-full object-cover rounded-lg"></a>
                     </div>
 
-                    <!-- Contenu - Adapte sa largeur en fonction de l'écran -->
                     <div class="p-4 flex-1 flex flex-col">
                         <h3 class="font-bold text-xl mb-2 line-clamp-2">{{ $exemplaire->book->title }}</h3>
                         <p class="text-light-text/70 dark:text-dark-text/70 mb-1">{{ $exemplaire->book->author }}</p>
                         <p class="text-light-text/70 dark:text-dark-text/70 mb-1 text-sm">Code:
                             {{ $exemplaire->code_serial_exemplaire }}</p>
 
-                        <!-- Badge de disponibilité -->
+                        <div class="mb-4 mt-2">
+                            <p class="text-light-text/70 dark:text-dark-text/70 mb-1 text-sm">Etat :
+                                <span
+                                    class="inline-block px-2 py-1 text-xs font-semibold rounded-full bg-light-accent/10 text-light-accent">
+                                    {{ $exemplaire->etat }}
+                                </span>
+                            </p>
+                        </div>
                         <div class="mb-4 mt-2">
                             <span
                                 class="inline-block px-2 py-1 text-xs font-semibold rounded-full
@@ -112,22 +92,17 @@
                             </span>
                         </div>
 
-                        <!-- Boutons - Empilement vertical sur petits écrans -->
                         <div class="mt-auto flex flex-col sm:flex-row gap-2">
-                            {{-- <button class="flex-1 sm:flex-none text-center rounded-md text-light-accent underline underline-offset-2 border-0 dark:border-dark-text/20 py-2 hover:bg-light-text/10 dark:hover:bg-dark-text/10">
-                                Détails
-                            </button> --}}
-                            {{-- <form action="{{ route('client.emprunt.store', $exemplaire->id) }}" method="POST">
-                                @csrf --}}
-                            <x-secondary-button
-                                @click="openModal('{{ $exemplaire->id }}', '{{ $exemplaire->book->title }}', '{{ $exemplaire->code_serial_exemplaire }}' )">
-                                Emprunter
-                            </x-secondary-button>
-                            {{-- </form> --}}
-                            <button
-                                class="flex-1 rounded-md bg-light-primary dark:bg-dark-primary text-white py-2 hover:opacity-90">
-                                Acheter
-                            </button>
+
+                            @if ($exemplaire->disponible === 1)
+                                <x-secondary-button
+                                    @click="openModal('{{ $exemplaire->id }}', '{{ $exemplaire->book->title }}', '{{ $exemplaire->code_serial_exemplaire }}' )">
+                                    Emprunter
+                                </x-secondary-button>
+                                <x-primary-button>
+                                    Acheter
+                                </x-primary-button>
+                            @endif
                         </div>
                     </div>
                 </div>

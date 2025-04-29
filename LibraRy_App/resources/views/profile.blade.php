@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: false }" :class="darkMode ? 'dark' : ''">
+{{-- @if (Auth::user()->role === 'Bibliothécaire') --}}
+{{-- @extends('layouts.admin-layout') --}}
+{{-- @elseif (Auth::user()->role === 'Client') --}}
+@extends('layouts.client-layout')
+{{-- @endif --}}
 
-<head>
-    <x-partials.head />
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-</head>
+@section('title', 'Tableau de bord')
+@section('header', 'Tableau de bord')
 
-<body
-    class="font-body bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text transition-colors duration-300">
-    {{-- <!-- Header --> --}}
-    <x-partials.nav />
-    <main class="min-h-screen items-center justify-center px-4 py-28 flex-grow container mx-auto">
+@section('content')
+
+    <main class="min-h-screen items-center justify-center px-4 py-4 flex-grow container mx-auto">
         <h1 class="text-3xl text-light-primary dark:text-dark-primary font-heading my-2">Mon Profil</h1>
-        <section class="bg-light-background dark:bg-dark-background rounded-lg p-6 mb-8">
+        <section class="bg-light-bg dark:bg-dark-bg rounded-lg p-6 mb-8">
             <!-- Messages de statut -->
             @if (session('success'))
                 <div x-data="{ show: true }" x-show="show" x-transition
@@ -145,8 +144,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <x-label>Ville</x-label>
-                                <x-input-text type="text" value="{{ old('city', $user->city) }}"
-                                    name="city" />
+                                <x-input-text type="text" value="{{ old('city', $user->city) }}" name="city" />
                                 @error('city')
                                     <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
@@ -171,7 +169,7 @@
             </form>
         </section>
 
-        <section class="bg-light-background dark:bg-dark-background rounded-lg p-6 mb-8">
+        <section class="bg-light-bg dark:bg-dark-bg rounded-lg p-6 mb-8">
             <h2 class="text-xl font-heading mb-6">Changer le mot de passe</h2>
 
             @if (session('password_success'))
@@ -249,7 +247,7 @@
             </form>
         </section>
 
-        <section class="bg-light-background dark:bg-dark-background rounded-lg p-6 mb-8">
+        <section class="bg-light-bg dark:bg-dark-bg rounded-lg p-6 mb-8">
             <h2 class="text-xl font-heading mb-6">Historique</h2>
             <div class="overflow-x-auto">
                 <table class="w-full">
@@ -310,16 +308,14 @@
             </form>
         </section>
     </main>
-    {{-- <!-- Footer --> --}}
-    <x-partials.footer />
-</body>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-    AOS.init({
-        duration: 1000,
-        easing: 'ease';
-        once: true,
-    });
-</script>
 
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            easing: 'ease';
+            once: true,
+        });
+    </script>
+
+@endsection
