@@ -39,7 +39,6 @@
 
         @if ($mesEmprunts->isEmpty())
             <div class="bg-white dark:bg-dark-primary/10 rounded-lg p-8 text-center">
-                <p class="text-lg">Vous n'avez aucun emprunt en cours</p>
                 <a href="{{ route('client.catalogue') }}"
                     class="text-light-accent dark:text-dark-accent hover:underline mt-4 inline-block">
                     Parcourir le catalogue

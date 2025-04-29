@@ -92,8 +92,6 @@ Route::middleware(ClientMiddleware::class)->group(function () {
     Route::delete("/client/Emprunts/{id}", [EmpruntsController::class, 'annuler'])->name("client.emprunt.annuler");
 
 
-
-
 });
 // **********************************************************************************************************************************
 require __DIR__ . '/auth.php';

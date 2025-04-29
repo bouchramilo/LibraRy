@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Emprunt;
 use App\Models\Exemplaire;
+use App\Notifications\NotificationEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -120,16 +121,16 @@ class EmpruntsController extends Controller
             'date_emprunt'  => now(),
         ]);
 
-
         return redirect()->route('client.catalogue')
             ->with('success', 'Emprunt créé avec succès! Date de retour prévue: ' . $dateRetourPrevue->format('d/m/Y'));
     }
 
     //    **************************************************************************************************************************************
-    private function isRented($id){
+    private function isRented($id)
+    {
         $isRented = Emprunt::where('user_id', Auth::user()->id)->where('exemplaire_id', $id)->first();
 
-        return $isRented ;
+        return $isRented;
     }
 //    **************************************************************************************************************************************
     /**
@@ -187,7 +188,8 @@ class EmpruntsController extends Controller
 // pour l'admin +++++++++++++++++++++++++++++++++++++++++++++
     public function valider(string $id)
     {
-        $emprunt = Emprunt::where('id', $id)
+        $emprunt = Emprunt::with(['exemplaire.book', 'user'])
+            ->where('id', $id)
             ->where('status', 'en attente')
             ->firstOrFail();
 
@@ -197,28 +199,39 @@ class EmpruntsController extends Controller
             'date_retour_prevue' => now()->addWeeks(3),
         ]);
 
-        $exemplaireRented = Exemplaire::find($emprunt->exemplaire->id);
+        $emprunt->exemplaire->disponible = 0;
+        $emprunt->exemplaire->save();
 
-        // dd($exemplaireRented);
-        $exemplaireRented->disponible = 0 ;
-        $exemplaireRented->save();
+        $bookTitle  = $emprunt->exemplaire->book->title;
+        $returnDate = $emprunt->date_retour_prevue->format('d/m/Y');
+
+        $message = "Votre demande d'emprunt pour le livre '{$bookTitle}' a été validée. ";
+        $message .= "Vous pouvez venir le retirer à la bibliothèque jusqu'au {$returnDate}.";
+
+        $emprunt->user->notify(new NotificationEmail(
+            message: $message,
+            bookTitle: $bookTitle,
+            actionUrl: route('client.emprunt.show', $emprunt->id),
+            actionText: 'Voir mon emprunt'
+        ));
 
         return redirect()->route('librarian.emprunts.index')
             ->with('success', 'Emprunt validé avec succès !');
     }
 //    **************************************************************************************************************************************
 // pour l'admin +++++++++++++++++++++++++++++++++++++++++++++
-public function details($id)
-{
-    $emprunt = Emprunt::with(['exemplaire.book', 'user'])->findOrFail($id);
-    return view('Librarian.show-emprunt', compact('emprunt'));
-}
+    public function details($id)
+    {
+        $emprunt = Emprunt::with(['exemplaire.book', 'user'])->findOrFail($id);
+        return view('Librarian.show-emprunt', compact('emprunt'));
+    }
 
 //    **************************************************************************************************************************************
-public function annuler(string $id){
-    $maDemande = Emprunt::find($id);
+    public function annuler(string $id)
+    {
+        $maDemande = Emprunt::find($id);
 
-    $maDemande->delete();
-    return back()->with('success', 'Vous étes annuler Votre demande d\'emprunt de '.$maDemande->exemplaire->book->title);
-}
+        $maDemande->delete();
+        return back()->with('success', 'Vous étes annuler Votre demande d\'emprunt de ' . $maDemande->exemplaire->book->title);
+    }
 }
