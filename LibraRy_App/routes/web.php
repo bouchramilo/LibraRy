@@ -89,6 +89,7 @@ Route::middleware(ClientMiddleware::class)->group(function () {
     // Gestion des Emprunts
     Route::post("/client/Emprunts", [EmpruntsController::class, 'store'])->name("client.emprunt.store");
     Route::get("/client/Emprunts", [EmpruntsController::class, 'show'])->name("client.emprunt.show");
+    Route::delete("/client/Emprunts/{id}", [EmpruntsController::class, 'annuler'])->name("client.emprunt.annuler");
 
 
 

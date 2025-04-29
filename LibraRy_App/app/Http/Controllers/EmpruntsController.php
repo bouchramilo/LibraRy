@@ -208,11 +208,17 @@ class EmpruntsController extends Controller
     }
 //    **************************************************************************************************************************************
 // pour l'admin +++++++++++++++++++++++++++++++++++++++++++++
-    public function details($id)
-    {
-        $emprunt = Emprunt::with(['exemplaire.book', 'user'])->findOrFail($id);
-        return view('Librarian.show-emprunt', compact('emprunt'));
-    }
+public function details($id)
+{
+    $emprunt = Emprunt::with(['exemplaire.book', 'user'])->findOrFail($id);
+    return view('Librarian.show-emprunt', compact('emprunt'));
+}
 
+//    **************************************************************************************************************************************
+public function annuler(string $id){
+    $maDemande = Emprunt::find($id);
 
+    $maDemande->delete();
+    return back()->with('success', 'Vous étes annuler Votre demande d\'emprunt de '.$maDemande->exemplaire->book->title);
+}
 }

@@ -5,6 +5,7 @@
 
 @section('content')
     <main class="flex-grow container mx-auto px-4 py-8 pt-6 pb-16 sm:px-6 lg:px-8 max-w-7xl min-h-screen">
+        <x-messages/>
         <div class="mb-8">
             <h1 class="text-3xl font-heading font-bold mb-6">Mes Emprunts en Cours</h1>
             <form method="GET" action="{{ route('client.emprunt.show') }}">
@@ -79,10 +80,9 @@
 
                             <div class="mt-auto flex flex-row items-end justify-end gap-2 w-full">
                                 @if ($emprunt->status === 'en attente')
-                                    <form action="" method="POST">
+                                    <form action="{{ route('client.emprunt.annuler', $emprunt->id) }}" method="POST">
                                         @csrf
-                                        @method('POST')
-                                        <input type="hidden" name="emprunt_id" value="{{ $emprunt->id }}">
+                                        @method('DELETE')
                                         <x-primary-button>Annuler</x-primary-button>
                                     </form>
                                 @elseif($emprunt->status === 'validé' || $emprunt->status === 'retard')
