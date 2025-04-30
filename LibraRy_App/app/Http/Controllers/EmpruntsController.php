@@ -251,7 +251,7 @@ class EmpruntsController extends Controller
     }
 
 //    **************************************************************************************************************************************
-
+// Les reutours pour l'admin ++++++++++
     public function retours(Request $request)
     {
         $query = Emprunt::with(['exemplaire.book', 'user'])
