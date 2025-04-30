@@ -205,8 +205,8 @@
 
 
     </div>
+    @yield('scripts') 
 </body>
-
 <script>
     var tagSelector = new MultiSelectTag('categories', {
         maxSelection: 5,

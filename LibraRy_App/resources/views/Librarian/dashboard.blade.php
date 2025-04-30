@@ -5,31 +5,39 @@
 
 @section('content')
     <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg p-6">
-       
+
 
         <div class="max-w-7xl mx-auto">
             <!-- Header -->
             <div class="flex flex-col md:flex-row justify-between items-center my-8 gap-4">
                 <h1 class="text-3xl font-bold w-full">Tableau de Bord</h1>
-                <div class="flex space-x-4 w-full">
-                    <select id="periodFilter"
-                        class="w-full px-4 py-2 rounded-lg bg-light-primary/10 dark:bg-dark-primary/10 border-0 focus:ring-2 focus:ring-light-primary dark:focus:ring-dark-primary">
-                        <option value="today">Aujourd'hui</option>
-                        <option value="week">Cette semaine</option>
-                        <option value="month">Ce mois</option>
-                        <option value="year">Cette année</option>
-                    </select>
-                </div>
             </div>
 
             <!-- Stats Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- users -->
+                <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Total des Clients</h3>
+                            <p class="text-3xl font-bold text-blue-500" id="salesAmount">{{ $total_users }}</p>
+                        </div>
+                        <div class="p-4 bg-blue-500/20 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
                 <!-- Total Books -->
                 <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-bold mb-2">Total des Livres</h3>
-                            <p class="text-3xl font-bold text-light-primary dark:text-dark-primary" id="totalBooks">2,500
+                            <p class="text-3xl font-bold text-light-primary dark:text-dark-primary" id="totalBooks">
+                                {{ $nbr_books }}
                             </p>
                         </div>
                         <div class="p-4 bg-light-primary/20 dark:bg-dark-primary/20 rounded-lg">
@@ -41,13 +49,32 @@
                         </div>
                     </div>
                 </div>
+                <!-- Total exemplaires -->
+                <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
+                    <div class="flex items-center justify-between">
+
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Total des exemplaires</h3>
+                            <p class="text-3xl font-bold text-light-primary dark:text-dark-primary" id="totalBooks">
+                                {{ $nbr_exemplaires }}
+                            </p>
+                        </div>
+                        <div class="p-4 bg-light-primary/20 dark:bg-dark-primary/20 rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 6v12a1 1 0 001 1h14M21 6v12a1 1 0 01-1 1H7M3 6a1 1 0 011-1h14a1 1 0 011 1" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Borrowed Books -->
                 <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-bold mb-2">Livres Empruntés</h3>
-                            <p class="text-3xl font-bold text-light-accent dark:text-dark-accent" id="borrowedBooks">485</p>
+                            <p class="text-3xl font-bold text-light-accent dark:text-dark-accent" id="borrowedBooks">
+                                {{ $exmp_non_dispo }}</p>
                         </div>
                         <div class="p-4 bg-light-accent/20 dark:bg-dark-accent/20 rounded-lg">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +90,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-bold mb-2">En Attente d'Emprunt</h3>
-                            <p class="text-3xl font-bold text-yellow-500" id="pendingBorrows">32</p>
+                            <p class="text-3xl font-bold text-yellow-500" id="pendingBorrows">{{ $pending_borrows }}</p>
                         </div>
                         <div class="p-4 bg-yellow-500/20 rounded-lg">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,36 +134,89 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Total Sales Amount -->
-                <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold mb-2">Montant Ventes</h3>
-                            <p class="text-3xl font-bold text-blue-500" id="salesAmount">5,780 €</p>
-                        </div>
-                        <div class="p-4 bg-blue-500/20 rounded-lg">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 3v18h18M7 14l3-3 4 4 5-5"></path>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Charts Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
                 <div class="bg-white/5 dark:bg-black/5 p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-4">Répartition par Catégorie</h3>
-                    <!-- <canvas id="categoryChart" class="w-full h-64"></canvas> -->
+                    <canvas id="categoryChart" class="w-full max-h-64"></canvas>
                 </div>
+                {{-- <div>Debug: {{ json_encode($categoriesData) }}</div> --}}
 
                 <div class="bg-white/5 dark:bg-black/5 p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-4">Activité Mensuelle</h3>
-                    <!-- <canvas id="activityChart" class="w-full h-64"></canvas> -->
+                    {{-- <canvas id="activityChart" class="w-full h-64"></canvas> --}}
                 </div>
+
             </div>
         </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Données catégories:", @json($categoriesData));
+
+            const ctx = document.getElementById('categoryChart');
+            if (!ctx) {
+                console.error("Canvas non trouvé!");
+                return;
+            }
+
+            const categoriesData = @json($categoriesData);
+
+            if (!Array.isArray(categoriesData) || categoriesData.length === 0) {
+                console.warn("Aucune donnée disponible");
+                ctx.closest('div').innerHTML = '<p class="text-red-500">Aucune donnée disponible</p>';
+                return;
+            }
+
+            try {
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: categoriesData.map(item => item.category_name || 'Non catégorisé'),
+                        datasets: [{
+                            data: categoriesData.map(item => item.book_count || 0),
+                            backgroundColor: [
+                                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                                '#9966FF', '#FF9F40', '#8AC24A', '#607D8B'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = total > 0 ? Math.round((value / total) *
+                                            100) : 0;
+                                        return `${label}: ${value} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                console.log("Graphique créé avec succès");
+            } catch (error) {
+                console.error("Erreur création graphique:", error);
+                ctx.closest('div').innerHTML = '<p class="text-red-500">Erreur d\'affichage du graphique</p>';
+            }
+        });
+    </script>
+
+
+
 @endsection
+
