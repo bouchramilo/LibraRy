@@ -73,6 +73,11 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
     Route::get("/admin/emprunts", [EmpruntsController::class, 'index'])->name("librarian.emprunts.index");
     Route::put("/admin/emprunts/valider/{id}", [EmpruntsController::class, 'valider'])->name("librarian.emprunts.valider");
     Route::get('/librarian/emprunts/{id}/details', [EmpruntsController::class, 'details'])->name('librarian.emprunts.details');
+
+    Route::get("/admin/retours", [EmpruntsController::class, 'retours'])->name("librarian.retours.index");
+
+    Route::put("/client/retours/{id}", [EmpruntsController::class, 'returnExemplaire'])->name("librarian.emprunt.retourner");
+
 });
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -90,6 +95,7 @@ Route::middleware(ClientMiddleware::class)->group(function () {
     Route::post("/client/Emprunts", [EmpruntsController::class, 'store'])->name("client.emprunt.store");
     Route::get("/client/Emprunts", [EmpruntsController::class, 'show'])->name("client.emprunt.show");
     Route::delete("/client/Emprunts/{id}", [EmpruntsController::class, 'annuler'])->name("client.emprunt.annuler");
+    // Route::put("/client/Emprunts/{id}", [EmpruntsController::class, 'returnExemplaire'])->name("client.emprunt.retourner");
 
 
 });

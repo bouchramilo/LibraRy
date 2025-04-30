@@ -28,7 +28,8 @@ class EmpruntsController extends Controller
                         ->orWhere('author', 'like', "%{$search}%");
                 })
                     ->orWhereHas('user', function ($q) use ($search) {
-                        $q->where('name', 'like', "%{$search}%")
+                        $q->where('first_name', 'like', "%{$search}%")
+                            ->orWhere('last_name', 'like', "%{$search}%")
                             ->orWhere('email', 'like', "%{$search}%");
                     })
                     ->orWhereHas('exemplaire', function ($q) use ($search) {
@@ -234,4 +235,60 @@ class EmpruntsController extends Controller
         $maDemande->delete();
         return back()->with('success', 'Vous étes annuler Votre demande d\'emprunt de ' . $maDemande->exemplaire->book->title);
     }
+
+//    **************************************************************************************************************************************
+    public function returnExemplaire(string $id)
+    {
+        $emprunt                       = Emprunt::find($id);
+        $emprunt->date_retour_effectif = now();
+        $emprunt->save();
+
+        $exemplaire             = Exemplaire::find($emprunt->exemplaire_id);
+        $exemplaire->disponible = 1;
+        $exemplaire->save();
+
+        return back()->with('success', 'Vous avez retourner le livre avec success.');
+    }
+
+//    **************************************************************************************************************************************
+
+    public function retours(Request $request)
+    {
+        $query = Emprunt::with(['exemplaire.book', 'user'])
+            ->whereNotNull('date_retour_effectif')
+            ->latest('date_retour_effectif');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('exemplaire.book', function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhere('author', 'like', "%{$search}%");
+                })
+                    ->orWhereHas('user', function ($q) use ($search) {
+                        $q->where('first_name', 'like', "%{$search}%")
+                            ->orWhere('last_name', 'like', "%{$search}%")
+                            ->orWhere('email', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('exemplaire', function ($q) use ($search) {
+                        $q->where('code_serial_exemplaire', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        $stats = [
+            'total'     => (clone $query)->count(),
+            'en_cours'  => (clone $query)->where('date_retour_prevue', '>=', now())->count(),
+            'en_retard' => (clone $query)->where('date_retour_prevue', '<', now())->count(),
+        ];
+
+        $emprunts = $query->paginate(10);
+
+        return view('Librarian.retours', [
+            'emprunts'      => $emprunts,
+            'stats'         => $stats,
+            'search'        => $request->search,
+        ]);
+    }
+
 }

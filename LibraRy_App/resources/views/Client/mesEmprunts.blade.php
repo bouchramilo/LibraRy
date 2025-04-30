@@ -5,7 +5,7 @@
 
 @section('content')
     <main class="flex-grow container mx-auto px-4 py-8 pt-6 pb-16 sm:px-6 lg:px-8 max-w-7xl min-h-screen">
-        <x-messages/>
+        <x-messages />
         <div class="mb-8">
             <h1 class="text-3xl font-heading font-bold mb-6">Mes Emprunts en Cours</h1>
             <form method="GET" action="{{ route('client.emprunt.show') }}">
@@ -45,7 +45,7 @@
                 </a>
             </div>
         @else
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach ($mesEmprunts as $emprunt)
                     <div
                         class="bg-white dark:bg-dark-primary/10 border border-light-text/10 dark:border-dark-text/10 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col sm:flex-row">
@@ -62,10 +62,10 @@
                                 {{ $emprunt->exemplaire->book->author }}</p>
                             <p class="text-light-text/70 dark:text-dark-text/70 mb-1 text-sm">Code:
                                 {{ $emprunt->exemplaire->code_serial_exemplaire }}</p>
-                                <p class="text-light-text/70 dark:text-dark-text/70 mb-1 text-sm">Date d'emprunt :
-                                    {{ Carbon\Carbon::parse($emprunt->date_emprunt)->translatedFormat('d M Y') }}</p>
-                                <p class="text-light-text/70 dark:text-dark-text/70 mb-1 text-sm">Date de retour prévue :
-                                    {{ Carbon\Carbon::parse($emprunt->date_retour_prevue)->translatedFormat('d M Y') }}</p>
+                            <p class="text-light-text/70 dark:text-dark-text/70 mb-1 text-sm">Date d'emprunt :
+                                {{ Carbon\Carbon::parse($emprunt->date_emprunt)->translatedFormat('d M Y') }}</p>
+                            <p class="text-light-text/70 dark:text-dark-text/70 mb-1 text-sm">Date de retour prévue :
+                                {{ Carbon\Carbon::parse($emprunt->date_retour_prevue)->translatedFormat('d M Y') }}</p>
 
                             <div class="mb-4 mt-2">
                                 <span
@@ -83,13 +83,6 @@
                                         @csrf
                                         @method('DELETE')
                                         <x-primary-button>Annuler</x-primary-button>
-                                    </form>
-                                @elseif($emprunt->status === 'validé' || $emprunt->status === 'retard')
-                                    <form action="" method="POST">
-                                        @csrf
-                                        @method('POST')
-                                        <input type="hidden" name="emprunt_id" value="{{ $emprunt->id }}">
-                                        <x-primary-button>Retourner</x-primary-button>
                                     </form>
                                 @endif
                             </div>

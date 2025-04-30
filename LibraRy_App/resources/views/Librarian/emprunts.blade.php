@@ -75,7 +75,8 @@
                                 <tr
                                     class="border-t border-light-primary/10 dark:border-dark-primary/10 hover:bg-light-primary/5 transition-colors">
                                     <td class="px-6 py-4">{{ $emprunt->exemplaire->book->title }}</td>
-                                    <td class="px-6 py-4">{{ $emprunt->user->first_name }} {{ $emprunt->user->last_name }}</td>
+                                    <td class="px-6 py-4">{{ $emprunt->user->first_name }} {{ $emprunt->user->last_name }}
+                                    </td>
                                     <td class="px-6 py-4">{{ $emprunt->exemplaire->code_serial_exemplaire }}</td>
                                     <td class="px-6 py-4">
                                         {{ Carbon\Carbon::parse($emprunt->date_emprunt)->translatedFormat('d M Y') }}</td>
@@ -118,6 +119,22 @@
                                                             viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                                 stroke-width="2" d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                            @if ($emprunt->status === 'validé' || $emprunt->status === 'retard')
+                                                <form action="{{ route('librarian.emprunt.retourner', $emprunt->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button class="p-2 text-green-600 hover:text-green-800">
+                                                        <svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z">
+                                                            </path>
                                                         </svg>
                                                     </button>
                                                 </form>
