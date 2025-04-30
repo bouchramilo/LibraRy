@@ -8,14 +8,9 @@
 
         <!-- Main Content -->
         <main class="flex-1">
-            <!-- Toggle Button -->
-            {{-- <button id="sidebarToggle"
-                class="fixed top-4 left-4 z-30 p-2 rounded-lg bg-light-primary/20 dark:bg-dark-primary/20 md:hidden">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                    </path>
-                </svg>
-            </button> --}}
+            <!-- Messages de statut -->
+            <x-messages></x-messages>
+            <!-- Messages de statut -->
 
             <div class="max-w-7xl mx-auto">
                 <!-- Header -->
@@ -25,16 +20,15 @@
 
                 <!-- Form -->
                 <form id="addBookForm" class="bg-white/5 dark:bg-black/5 rounded-xl p-6 shadow-lg space-y-4"
-                action="{{ route('admin.books.update', $book) }}"
-                method="POST"
-                enctype="multipart/form-data">
+                    action="{{ route('admin.books.update', $book) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <!-- Titre et Auteur -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="form-group">
                             <x-label class="block text-sm font-medium mb-2" for="title">Titre</x-label>
-                            <x-input-text type="text" id="title" name="title" required  value="{{ $book->title }}"/>
+                            <x-input-text type="text" id="title" name="title" required
+                                value="{{ $book->title }}" />
                             @error('title')
                                 <div>
                                     <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
@@ -43,7 +37,8 @@
                         </div>
                         <div class="form-group">
                             <x-label class="block text-sm font-medium mb-2" for="author">Auteur</x-label>
-                            <x-input-text type="text" id="author" name="author" required value="{{ $book->author }}"/>
+                            <x-input-text type="text" id="author" name="author" required
+                                value="{{ $book->author }}" />
                             @error('author')
                                 <div>
                                     <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
@@ -87,7 +82,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="form-group">
                             <x-label class="block text-sm font-medium mb-2" for="pages">Nombre de pages</x-label>
-                            <x-input-text type="number" id="pages" name="nbr_pages" required min="1" value="{{ $book->nbr_pages }}"/>
+                            <x-input-text type="number" id="pages" name="nbr_pages" required min="1"
+                                value="{{ $book->nbr_pages }}" />
                             @error('nbr_pages')
                                 <div>
                                     <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
@@ -96,7 +92,8 @@
                         </div>
                         <div class="form-group">
                             <x-label class="block text-sm font-medium mb-2" for="publishDate">Date d'édition</x-label>
-                            <x-input-text type="date" id="publishDate" name="date_edition" required value="{{ $book->date_edition }}" />
+                            <x-input-text type="date" id="publishDate" name="date_edition" required
+                                value="{{ $book->date_edition }}" />
                             @error('date_edition')
                                 <div>
                                     <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
@@ -105,7 +102,8 @@
                         </div>
                         <div class="form-group">
                             <x-label class="block text-sm font-medium mb-2" for="isbn">ISBN</x-label>
-                            <x-input-text type="text" id="isbn" name="isbn" required value="{{ $book->isbn }}" />
+                            <x-input-text type="text" id="isbn" name="isbn" required
+                                value="{{ $book->isbn }}" />
                             @error('isbn')
                                 <div>
                                     <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
@@ -204,8 +202,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="form-group">
                             <x-label class="block text-sm font-medium mb-2" for="salePrice">Prix de vente (€)</x-label>
-                            <x-input-text type="number" id="salePrice" name="prix_vente" required min="0" value="{{ $book->prix_vente }}"
-                                step="0.01" />
+                            <x-input-text type="number" id="salePrice" name="prix_vente" required min="0"
+                                value="{{ $book->prix_vente }}" step="0.01" />
                             @error('prix_vente')
                                 <div>
                                     <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
@@ -214,8 +212,8 @@
                         </div>
                         <div class="form-group">
                             <x-label class="block text-sm font-medium mb-2" for="borrowPrice">Prix d'emprunt (€)</x-label>
-                            <x-input-text type="number" id="borrowPrice" name="prix_emprunte" required min="0" value="{{ $book->prix_emprunte }}"
-                                step="0.01" />
+                            <x-input-text type="number" id="borrowPrice" name="prix_emprunte" required min="0"
+                                value="{{ $book->prix_emprunte }}" step="0.01" />
                             @error('prix_emprunte')
                                 <div>
                                     <p class="mt-1 text-sm text-red-700">{{ $message }}</p>

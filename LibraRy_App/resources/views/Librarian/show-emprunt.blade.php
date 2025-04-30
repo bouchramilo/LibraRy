@@ -4,8 +4,11 @@
 @section('header', 'Détails de l\'emprunt')
 
 @section('content')
-    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg p-6">
-        <div class="max-w-6xl mx-auto">
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg ">
+        <!-- Messages de statut -->
+        <x-messages></x-messages>
+        <!-- Messages de statut -->
+        <div class="max-w-6xl">
             <div class="bg-white dark:bg-dark-primary/10 rounded-xl shadow-md overflow-hidden">
                 <!-- En-tête -->
                 <div class="p-6 border-b border-light-primary/10 dark:border-dark-primary/10">
@@ -34,7 +37,7 @@
                                         <p class="text-sm text-light-text/50 dark:text-dark-text/50 mb-1">Titre</p>
                                         <p class="font-medium">{{ $emprunt->exemplaire->book->title }}</p>
                                     </div>
-                                    <div class="grid grid-cols-2 gap-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2  gap-4">
                                         <div>
                                             <p class="text-sm text-light-text/50 dark:text-dark-text/50 mb-1">Auteur</p>
                                             <p class="font-medium">{{ $emprunt->exemplaire->book->author }}</p>
@@ -66,7 +69,7 @@
                                         <p class="font-medium">{{ $emprunt->user->first_name }}
                                             {{ $emprunt->user->last_name }}</p>
                                     </div>
-                                    <div class="grid grid-cols-2 gap-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <p class="text-sm text-light-text/50 dark:text-dark-text/50 mb-1">Email</p>
                                             <p class="font-medium">{{ $emprunt->user->email }}</p>
@@ -86,7 +89,7 @@
                                 class="text-xl font-semibold mb-4 pb-2 border-b border-light-primary/10 dark:border-dark-primary/10">
                                 <i class="fas fa-calendar-alt mr-2"></i>Détails de l'emprunt
                             </h2>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                                 <div>
                                     <p class="text-sm text-light-text/50 dark:text-dark-text/50 mb-1">Date d'emprunt</p>
                                     <p class="font-medium">
@@ -99,6 +102,14 @@
                                         {{ Carbon\Carbon::parse($emprunt->date_retour_prevue)->translatedFormat('d F Y') }}
                                     </p>
                                 </div>
+                                @if ($emprunt->date_retour_effectif !== null)
+                                    <div>
+                                        <p class="text-sm text-light-text/50 dark:text-dark-text/50 mb-1">Retour prévu</p>
+                                        <p class="font-medium">
+                                            {{ Carbon\Carbon::parse($emprunt->date_retour_prevue)->translatedFormat('d F Y') }}
+                                        </p>
+                                    </div>
+                                @endif
                                 <div>
                                     <p class="text-sm text-light-text/50 dark:text-dark-text/50 mb-1">Statut</p>
                                     <p class="font-medium">
@@ -126,7 +137,7 @@
 
                     <!-- Actions -->
                     <div
-                        class="mt-8 pt-6 border-t border-light-primary/10 dark:border-dark-primary/10 flex justify-end gap-4">
+                        class="mt-8 pt-6 border-t border-light-primary/10 dark:border-dark-primary/10 grid grid-cols-1 md:grid-cols-2 justify-end gap-4">
                         <a href="{{ route('librarian.emprunts.index') }}">
                             <x-secondary-button class="px-4"><i class="fas fa-arrow-left mr-2"></i> Retour à la
                                 liste</x-secondary-button>

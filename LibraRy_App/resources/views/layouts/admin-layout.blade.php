@@ -188,7 +188,7 @@
         <x-partials.sideBar />
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg p-6">
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg ">
             <!-- Mobile Sidebar Toggle -->
             <button id="sidebarToggle"
                 class="md:hidden fixed top-4 left-4 z-30 p-2 rounded-lg bg-light-primary/20 dark:bg-dark-primary/20">
@@ -198,7 +198,7 @@
                 </svg>
             </button>
 
-            <main class="max-w-7xl mx-auto">
+            <main class="md:max-w-7xl max-w-full ">
                 @yield('content')
             </main>
         </main>

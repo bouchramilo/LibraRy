@@ -6,13 +6,9 @@
 @section('content')
     <!-- Main Content -->
     <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg p-6 gap-6">
-        <!-- Mobile Sidebar Toggle -->
-        <button id="sidebarToggle"
-            class="md:hidden fixed top-4 left-4 z-30 p-2 rounded-lg bg-light-primary/20 dark:bg-dark-primary/20">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
+         <!-- Messages de statut -->
+         <x-messages></x-messages>
+         <!-- Messages de statut -->
 
         <div class="max-w-7xl mx-auto">
             <!-- Header -->

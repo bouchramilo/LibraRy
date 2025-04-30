@@ -18,14 +18,22 @@
 
             <!-- Navigation -->
             <nav class="space-y-1">
-                <x-sidebar-link :href="route('librarian.dashboard')" :active="request()->routeIs('librarian.dashboard')">
+                <x-sidebar-link :href="route('home')" :active="request()->routeIs('home')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                         </path>
                     </svg>
+                    <span>Accueil</span>
+                </x-sidebar-link>
+                <x-sidebar-link :href="route('librarian.dashboard')" :active="request()->routeIs('librarian.dashboard')">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z" />
+                    </svg>
                     <span>Tableau de bord</span>
                 </x-sidebar-link>
+
                 <x-sidebar-link :href="route('manage.users.index')" :active="request()->routeIs('manage.users.index')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -37,27 +45,25 @@
                 <x-sidebar-link :href="route('manage.categories.index')" :active="request()->routeIs('manage.categories.index')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
-                        </path>
+                            d="M4 19.5A2.5 2.5 0 006.5 22H20M4 15.5A2.5 2.5 0 006.5 18H20M4 11.5A2.5 2.5 0 006.5 14H20M4 7.5A2.5 2.5 0 006.5 10H20M4 3.5A2.5 2.5 0 006.5 6H20" />
                     </svg>
                     <span>Catégories</span>
                 </x-sidebar-link>
                 <x-sidebar-link :href="route('librarian.books.index')" :active="request()->routeIs('librarian.books.index')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-                        </path>
+                            d="M12 20l-4-2H5a2 2 0 01-2-2V6a2 2 0 012-2h3l4 2m0 0l4-2h3a2 2 0 012 2v10a2 2 0 01-2 2h-3l-4 2m0-13v13" />
                     </svg>
                     <span>Livres</span>
                 </x-sidebar-link>
                 <x-sidebar-link :href="route('librarian.exemplaires.index')" :active="request()->routeIs('librarian.exemplaires.index')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
-                        </path>
+                            d="M3 6v12a1 1 0 001 1h14M21 6v12a1 1 0 01-1 1H7M3 6a1 1 0 011-1h14a1 1 0 011 1" />
                     </svg>
                     <span>Exemplaires</span>
                 </x-sidebar-link>
+
                 <x-sidebar-link :href="route('librarian.ventes.index')" :active="request()->routeIs('librarian.ventes.index')">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

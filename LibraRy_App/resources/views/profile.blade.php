@@ -247,46 +247,6 @@
             </form>
         </section>
 
-        <section class="bg-light-bg dark:bg-dark-bg rounded-lg p-6 mb-8">
-            <h2 class="text-xl font-heading mb-6">Historique</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead>
-                        <tr
-                            class="border-b border-light-secondary focus:outline-none focus:border-2 focus:border-light-accent">
-                            <th class="py-2 px-4 text-left">Date</th>
-                            <th class="py-2 px-4 text-left">Type</th>
-                            <th class="py-2 px-4 text-left">Titre</th>
-                            <th class="py-2 px-4 text-left">Statut</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="shadow-sm shadow-light-secondary">
-                            <td class="py-2 px-4">15/03/2024</td>
-                            <td class="py-2 px-4">Emprunt</td>
-                            <td class="py-2 px-4">Les Misérables</td>
-                            <td class="py-2 px-4"><span class="px-2 py-1 rounded bg-green-500/20 text-green-500">En
-                                    cours</span></td>
-                        </tr>
-                        <tr class="shadow-sm shadow-light-secondary">
-                            <td class="py-2 px-4">10/03/2024</td>
-                            <td class="py-2 px-4">Achat</td>
-                            <td class="py-2 px-4">Le Petit Prince</td>
-                            <td class="py-2 px-4"><span
-                                    class="px-2 py-1 rounded bg-blue-500/20 text-blue-500">Terminé</span></td>
-                        </tr>
-                        <tr class="shadow-sm shadow-light-secondary">
-                            <td class="py-2 px-4">01/03/2024</td>
-                            <td class="py-2 px-4">Emprunt</td>
-                            <td class="py-2 px-4">1984</td>
-                            <td class="py-2 px-4"><span
-                                    class="px-2 py-1 rounded bg-gray-500/20 text-gray-500">Retourné</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
         <section class="bg-red-500/10 rounded-lg p-6">
             <h2 class="text-xl font-heading mb-6 text-red-500">Supprimer mon compte</h2>
             <p class="mb-4">Attention : Cette action est irréversible. Toutes vos données seront définitivement
