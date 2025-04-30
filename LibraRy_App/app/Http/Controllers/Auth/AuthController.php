@@ -24,8 +24,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-
-            return redirect()->intended('/profile');
+            if (Auth::user()->role === "Client") {
+                return redirect()->intended('/client/dashboard');
+            } else {
+                return redirect()->intended('/admin/dashboard');
+            }
         }
 
         throw ValidationException::withMessages([
@@ -34,7 +37,8 @@ class AuthController extends Controller
     }
 
     // **********************************************************************************************************************************
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

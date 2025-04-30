@@ -53,9 +53,15 @@ class RegisteredUserController extends Controller
             event(new Registered($user));
 
             Auth::login($user);
-
-            return redirect()->route('auth.profile.show')
-                ->with('success', 'Inscription réussie! Vous pouvez maintenant vous connecter.');
+            if (Auth::user()->role === "Client") {
+                // return redirect()->intended('/client/dashboard');
+                return redirect()->route('client.dashboard')
+                    ->with('success', 'Inscription réussie! Vous pouvez maintenant vous connecter.');
+            } else {
+                // return redirect()->intended('/admin/dashboard');
+                return redirect()->route('librarian.dashboard')
+                    ->with('success', 'Inscription réussie! Vous pouvez maintenant vous connecter.');
+            }
 
         } catch (\Exception $e) {
             dd($e);
