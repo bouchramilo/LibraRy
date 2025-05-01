@@ -23,7 +23,7 @@
                             <p class="text-3xl font-bold text-blue-500" id="salesAmount">{{ $total_users }}</p>
                         </div>
                         <div class="p-4 bg-blue-500/20 rounded-lg">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
                                 </path>
@@ -55,12 +55,12 @@
 
                         <div>
                             <h3 class="text-xl font-bold mb-2">Total des exemplaires</h3>
-                            <p class="text-3xl font-bold text-light-primary dark:text-dark-primary" id="totalBooks">
+                            <p class="text-3xl font-bold text-purple-600 dark:text-purple-600" id="totalBooks">
                                 {{ $nbr_exemplaires }}
                             </p>
                         </div>
-                        <div class="p-4 bg-light-primary/20 dark:bg-dark-primary/20 rounded-lg">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="p-4 bg-purple-600/20 dark:bg-purple-600/20 rounded-lg">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 6v12a1 1 0 001 1h14M21 6v12a1 1 0 01-1 1H7M3 6a1 1 0 011-1h14a1 1 0 011 1" />
                             </svg>
@@ -105,30 +105,13 @@
                 <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
-                            <h3 class="text-xl font-bold mb-2">En Attente d'Achat</h3>
+                            <h3 class="text-xl font-bold mb-2">En Retard</h3>
                             <p class="text-3xl font-bold text-orange-500" id="pendingSales">18</p>
                         </div>
                         <div class="p-4 bg-orange-500/20 rounded-lg">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                </path>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Total Borrows Amount -->
-                <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-xl font-bold mb-2">Montant Emprunts</h3>
-                            <p class="text-3xl font-bold text-green-500" id="borrowsAmount">3,250 €</p>
-                        </div>
-                        <div class="p-4 bg-green-500/20 rounded-lg">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                                 </path>
                             </svg>
                         </div>
@@ -167,7 +150,7 @@
             const categoriesData = @json($categoriesData);
 
             if (!Array.isArray(categoriesData) || categoriesData.length === 0) {
-                console.warn("Aucune donnée disponible");
+                console.warn("Aucune donnée disponible"); 
                 ctx.closest('div').innerHTML = '<p class="text-red-500">Aucune donnée disponible</p>';
                 return;
             }

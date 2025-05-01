@@ -63,7 +63,7 @@ class ProfileController extends Controller
         } catch (\Exception $e) {
             return back()
                 ->withInput()
-                ->withErrors(['update_profile_error' => 'Une erreur est survenue lors de la mise à jour du profil: ' . $e->getMessage()]);
+                ->withErrors(['error' => 'Une erreur est survenue lors de la mise à jour du profil: ' . $e->getMessage()]);
         }
     }
 
@@ -90,17 +90,16 @@ class ProfileController extends Controller
                 'password' => Hash::make($validatedData['new_password']),
             ]);
 
-            return back()->with('password_success', 'Mot de passe mis à jour avec succès!');
+            return back()->with('success', 'Mot de passe mis à jour avec succès!');
 
         } catch (\Exception $e) {
             return back()
                 ->withInput()
-                ->withErrors(['password_error' => 'Une erreur est survenue lors de la mise à jour du mot de passe: ' . $e->getMessage()]);
+                ->withErrors(['error' => 'Une erreur est survenue lors de la mise à jour du mot de passe: ' . $e->getMessage()]);
         }
     }
 
     // **********************************************************************************************************************************
-
     public function deleteAccount(Request $request)
     {
         $validatedData = $request->validate([
@@ -118,7 +117,7 @@ class ProfileController extends Controller
             $request->session()->regenerateToken();
 
             return redirect()->route('home')
-                ->with('status', 'Votre compte a été supprimé avec succès.');
+                ->with('success', 'Votre compte a été supprimé avec succès.');
 
         } catch (\Exception $e) {
             return back()

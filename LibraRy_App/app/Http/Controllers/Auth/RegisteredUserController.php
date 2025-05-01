@@ -29,8 +29,10 @@ class RegisteredUserController extends Controller
             'date_birth' => ['required', 'date', 'before:-18 years'],
             'city'        => ['required', 'string', 'max:255'],
             'code_postal' => ['required', 'digits:5'],
-            'role' => ['required'],
+            // 'role' => ['required'],
         ]);
+
+        $role = User::count() === 0 ? 'Bibliothécaire' : 'Client';
 
         try {
             $photoPath = $request->file('photo')->store('profiles', 'public');
@@ -46,7 +48,7 @@ class RegisteredUserController extends Controller
                 'date_birth'  => $validatedData['date_birth'],
                 'city'        => $validatedData['city'],
                 'code_postal' => $validatedData['code_postal'],
-                'role' => $validatedData['role'],
+                'role' => $role,
 
             ]);
 
@@ -54,11 +56,9 @@ class RegisteredUserController extends Controller
 
             Auth::login($user);
             if (Auth::user()->role === "Client") {
-                // return redirect()->intended('/client/dashboard');
                 return redirect()->route('client.dashboard')
                     ->with('success', 'Inscription réussie! Vous pouvez maintenant vous connecter.');
             } else {
-                // return redirect()->intended('/admin/dashboard');
                 return redirect()->route('librarian.dashboard')
                     ->with('success', 'Inscription réussie! Vous pouvez maintenant vous connecter.');
             }

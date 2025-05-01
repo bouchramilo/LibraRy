@@ -39,16 +39,22 @@
             <section class="bg-light-secondary/5 dark:bg-dark-secondary/10 rounded-lg shadow p-6">
                 <h2 class="text-xl font-bold mb-4">Notifications</h2>
                 <div class="space-y-4">
-                    @foreach ($overdue_books as $late)
-                        <div
-                            class="flex items-start space-x-4 p-4 bg-light-bg dark:bg-dark-secondary/20 bg-light-secondary/10 rounded-lg">
-                            <i class="fas fa-exclamation-circle text-red-500 mt-1"></i>
-                            <div>
-                                <h4 class="font-semibold">Retard</h4>
-                                <p class="text-sm">Le livre "{{ $late->exemplaire->book->title }}" est en retard.</p>
-                            </div>
+                    @if ($overdue_books->isEmpty())
+                        <div class="bg-white dark:bg-dark-primary/10 rounded-lg p-8 text-center">
+                            Aucune notification pour ce moment
                         </div>
-                    @endforeach
+                    @else
+                        @foreach ($overdue_books as $late)
+                            <div
+                                class="flex items-start space-x-4 p-4 bg-light-bg dark:bg-dark-secondary/20 bg-light-secondary/10 rounded-lg">
+                                <i class="fas fa-exclamation-circle text-red-500 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold">Retard</h4>
+                                    <p class="text-sm">Le livre "{{ $late->exemplaire->book->title }}" est en retard.</p>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
 
                 </div>
             </section>
@@ -81,7 +87,7 @@
             </section>
         </div>
 
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-8">
             <a href="{{ route('auth.profile.show') }}"
                 class="bg-light-secondary/5 dark:bg-dark-secondary/10 rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
                 <i class="fas fa-user-circle text-3xl text-light-primary dark:text-dark-primary mb-4"></i>
@@ -94,18 +100,7 @@
                 <h3 class="font-semibold">Mes Emprunts</h3>
                 <p class="text-sm mt-2">Voir vos livres actuels</p>
             </a>
-            <a href="#"
-                class="bg-light-secondary/5 dark:bg-dark-secondary/10 rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
-                <i class="fas fa-shopping-bag text-3xl text-light-primary dark:text-dark-primary mb-4"></i>
-                <h3 class="font-semibold">Mes Achats</h3>
-                <p class="text-sm mt-2">Voir vos livres acheter</p>
-            </a>
-            <a href="#"
-                class="bg-light-secondary/5 dark:bg-dark-secondary/10 rounded-lg shadow p-6 hover:shadow-lg transition-shadow">
-                <i class="fas fa-calendar-check text-3xl text-light-primary dark:text-dark-primary mb-4"></i>
-                <h3 class="font-semibold">Mes retours</h3>
-                <p class="text-sm mt-2">Voir vos livres retourner</p>
-            </a>
+
         </section>
     </main>
 @endsection

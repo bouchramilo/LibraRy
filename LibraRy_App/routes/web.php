@@ -4,28 +4,24 @@ use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\Client\ClientDashboardController;
 use App\Http\Controllers\EmpruntsController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Librarian\BookController;
-use App\Http\Controllers\Librarian\DemandesVentesController;
-use App\Http\Controllers\Librarian\ExemplaireController;
-use App\Http\Controllers\Librarian\VentesController;
 use App\Http\Controllers\LibrarianDashboardController;
+use App\Http\Controllers\Librarian\BookController;
 use App\Http\Controllers\Librarian\CategoriesController;
+use App\Http\Controllers\Librarian\ExemplaireController;
 use App\Http\Controllers\Librarian\UsersController;
 use App\Http\Middleware\BibliothecaireMiddleware;
 use App\Http\Middleware\ClientMiddleware;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/404', function () {
-    return view('404');
-});
 // **********************************************************************************************************************************
-Route::get("/home", [HomeController::class, 'index'])->name("home");
+Route::get("/", [HomeController::class, 'index'])->name("home");
 
 // **********************************************************************************************************************************
 
+Route::get('/404', function () {return view('404');});
+
+
+// **********************************************************************************************************************************
 // **********************************************************************************************************************************
 
 // Routes pour les bibliothécaires
@@ -63,13 +59,7 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
     Route::put("/admin/exemplaires/update/{id}", [ExemplaireController::class, 'update'])->name("librarian.exemplaires.update");
     Route::get("/admin/exemplaires/details/{book_id}", [ExemplaireController::class, 'show'])->name("librarian.exemplaires.show");
 
-    // gestion de ventes
-    Route::get("/admin/ventes", [VentesController::class, 'index'])->name("librarian.ventes.index");
-
-    // gestion de demandes de ventes
-    Route::get("/admin/ventes/demandes", [DemandesVentesController::class, 'index'])->name("librarian.demandes.ventes.index");
-
-    // gestion de demandes de ventes
+    // gestion des emprunts
     Route::get("/admin/emprunts", [EmpruntsController::class, 'index'])->name("librarian.emprunts.index");
     Route::put("/admin/emprunts/valider/{id}", [EmpruntsController::class, 'valider'])->name("librarian.emprunts.valider");
     Route::get('/librarian/emprunts/{id}/details', [EmpruntsController::class, 'details'])->name('librarian.emprunts.details');
@@ -77,7 +67,6 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
     // gestion de retours
     Route::get("/admin/retours", [EmpruntsController::class, 'retours'])->name("librarian.retours.index");
     Route::put("/client/retours/{id}", [EmpruntsController::class, 'returnExemplaire'])->name("librarian.emprunt.retourner");
-
 
 });
 
@@ -97,7 +86,6 @@ Route::middleware(ClientMiddleware::class)->group(function () {
     Route::get("/client/Emprunts", [EmpruntsController::class, 'show'])->name("client.emprunt.show");
     Route::delete("/client/Emprunts/{id}", [EmpruntsController::class, 'annuler'])->name("client.emprunt.annuler");
     // Route::put("/client/Emprunts/{id}", [EmpruntsController::class, 'returnExemplaire'])->name("client.emprunt.retourner");
-
 
 });
 // **********************************************************************************************************************************

@@ -1,8 +1,4 @@
-{{-- @if (Auth::user()->role === 'Bibliothécaire') --}}
-{{-- @extends('layouts.admin-layout') --}}
-{{-- @elseif (Auth::user()->role === 'Client') --}}
 @extends('layouts.client-layout')
-{{-- @endif --}}
 
 @section('title', 'Tableau de bord')
 @section('header', 'Tableau de bord')
@@ -12,41 +8,9 @@
     <main class="min-h-screen items-center justify-center px-4 py-4 flex-grow container mx-auto">
         <h1 class="text-3xl text-light-primary dark:text-dark-primary font-heading my-2">Mon Profil</h1>
         <section class="bg-light-bg dark:bg-dark-bg rounded-lg p-6 mb-8">
-            <!-- Messages de statut -->
-            @if (session('success'))
-                <div x-data="{ show: true }" x-show="show" x-transition
-                    class="mb-6 flex items-center p-4 bg-green-50 border-l-4 border-green-500 text-green-700 dark:bg-green-900 dark:bg-opacity-20 dark:border-green-400 dark:text-green-200">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <div class="flex-grow">{{ session('success') }}</div>
-                    <button @click="show = false"
-                        class="text-green-700 dark:text-green-200 hover:text-green-900 dark:hover:text-green-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            @endif
+            {{-- Messages de statut --}}
 
-            @if (session('update_profile_error'))
-                <div x-data="{ show: true }" x-show="show" x-transition
-                    class="mb-6 flex items-center p-4 bg-red-50 border-l-4 border-red-500 text-red-700 dark:bg-red-900 dark:bg-opacity-20 dark:border-red-400 dark:text-red-200">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <div class="flex-grow">{{ session('update_profile_error') }}</div>
-                    <button @click="show = false"
-                        class="text-red-700 dark:text-red-200 hover:text-red-900 dark:hover:text-red-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            @endif
+            <x-messages></x-messages>
             <h2 class="text-xl font-heading mb-6">Informations Personnelles</h2>
 
 
@@ -56,7 +20,7 @@
                 @method('PUT')
 
                 <div class="flex flex-col md:flex-row gap-8">
-                    <!-- Photo de profil -->
+                    {{-- Photo de profil --}}
                     <div class="w-full md:w-1/4">
                         <div class="relative group">
                             <img src="{{ $user->photo ? asset('storage/' . $user->photo) : asset('images/default-avatar.jpg') }}"
@@ -80,9 +44,8 @@
                         </div>
                     </div>
 
-                    <!-- Formulaire -->
+                    {{-- Formulaire --}}
                     <div class="w-full flex flex-col gap-4">
-                        <!-- Prénom et Nom -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <x-label>Prénom</x-label>
@@ -102,7 +65,7 @@
                             </div>
                         </div>
 
-                        <!-- Date de naissance -->
+
                         <div>
                             <x-label>Date de naissance</x-label>
                             <x-input-text type="date" value="{{ old('date_birth', $user->date_birth) }}"
@@ -112,7 +75,6 @@
                             @enderror
                         </div>
 
-                        <!-- Email et Téléphone -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <x-label>Email</x-label>
@@ -131,7 +93,6 @@
                             </div>
                         </div>
 
-                        <!-- Adresse -->
                         <div>
                             <x-label>Adresse</x-label>
                             <x-textarea name="address">{{ old('address', $user->address) }}</x-textarea>
@@ -140,7 +101,6 @@
                             @enderror
                         </div>
 
-                        <!-- Ville et Code postal -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <x-label>Ville</x-label>
@@ -159,7 +119,6 @@
                             </div>
                         </div>
 
-                        <!-- Bouton de soumission -->
                         <button type="submit"
                             class="inline-block px-8 py-3 bg-light-primary dark:bg-dark-primary text-white rounded-md hover:transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-primary dark:focus:ring-dark-primary">
                             Sauvegarder
@@ -169,42 +128,10 @@
             </form>
         </section>
 
+        {{-- update password --}}
         <section class="bg-light-bg dark:bg-dark-bg rounded-lg p-6 mb-8">
             <h2 class="text-xl font-heading mb-6">Changer le mot de passe</h2>
 
-            @if (session('password_success'))
-                <div x-data="{ show: true }" x-show="show" x-transition
-                    class="mb-6 flex items-center p-4 bg-green-50 border-l-4 border-green-500 text-green-700 dark:bg-green-900 dark:bg-opacity-20 dark:border-green-400 dark:text-green-200">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <div class="flex-grow">{{ session('password_success') }}</div>
-                    <button @click="show = false"
-                        class="text-green-700 dark:text-green-200 hover:text-green-900 dark:hover:text-green-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            @endif
-
-            @if (session('password_error'))
-                <div x-data="{ show: true }" x-show="show" x-transition
-                    class="mb-6 flex items-center p-4 bg-red-50 border-l-4 border-red-500 text-red-700 dark:bg-red-900 dark:bg-opacity-20 dark:border-red-400 dark:text-red-200">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <div class="flex-grow">{{ session('password_success') }}</div>
-                    <button @click="show = false"
-                        class="text-red-700 dark:text-red-200 hover:text-red-900 dark:hover:text-red-100">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            @endif
 
             <form class="space-y-4 max-w-md" action="{{ route('auth.profile.update.password') }}" method="POST">
                 @csrf
@@ -246,7 +173,8 @@
                 </button>
             </form>
         </section>
-
+        
+        {{-- delete account --}}
         <section class="bg-red-500/10 rounded-lg p-6">
             <h2 class="text-xl font-heading mb-6 text-red-500">Supprimer mon compte</h2>
             <p class="mb-4">Attention : Cette action est irréversible. Toutes vos données seront définitivement

@@ -5,7 +5,6 @@
 
 @section('content')
 
-    <!-- Main Content -->
     <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg p-6" x-data="{
         showModal: false,
         exemplaireToDelete: { id: null, title: '', code_serial_exemplaire: '' },
@@ -23,25 +22,22 @@
         {{-- messages end --}}
 
 
-        <!-- Main Content -->
         <div class="ml-0 p-4 md:p-8 w-full">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4">
                 <h1 class="text-2xl md:text-3xl font-heading font-bold">Gestion des Exemplaires</h1>
                 <a href="{{ route('librarian.exemplaires.create') }}">
-                    <x-primary-button> Ajouter un exemplaire</x-primary-button></a>
+                    <x-primary-button> Ajouter</x-primary-button></a>
             </div>
 
-            <!-- Search and Filter Section -->
+            {{-- Search and Filter Section --}}
             <div class="bg-background dark:bg-dark-bg p-4 md:p-6 rounded-lg shadow-lg mb-6 md:mb-8">
                 <form method="GET" action="{{ route('librarian.exemplaires.index') }}">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- Search Bar -->
                         <div class="col-span-1 md:col-span-1">
                             <x-input-text name="search" type="text" placeholder="Rechercher un exemplaire..."
                                 value="{{ request('search') }}" />
                         </div>
 
-                        <!-- Book Title Filter -->
                         <div class="col-span-1">
                             <x-select id="book_id" name="book_id" placeholder="Sélectionnez un livre" :options="$options"
                                 :selected="request('book_id')" />
@@ -54,7 +50,7 @@
                                 </a>
                             @endif
                             <x-primary-button type="submit" class="w-full">
-                                Appliquer les filtres
+                                filtrer
                             </x-primary-button>
                         </div>
                     </div>
@@ -62,9 +58,9 @@
                 </form>
             </div>
 
-            <!-- Exemplaires Table -->
+            {{-- Exemplaires Table --}}
             <div class="bg-transparnet/50 dark:bg-dark-bg rounded-lg shadow-lg overflow-x-auto">
-                <table class="min-w-full">
+                <table class="min-w-full text-sm md:text-md">
                     <thead class="bg-light-primary/90 dark:bg-dark-primary/90 text-white">
                         <tr>
                             <th class="px-4 md:px-6 py-3 text-left">ID</th>
@@ -86,7 +82,7 @@
                                     <span
                                         class="px-2 py-1 rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 text-sm">{{ $exemplaire->etat }}</span>
                                 </td>
-                                <td class="px-4 md:px-6 py-4">
+                                <td class="px-4 md:px-2 py-4">
                                     <span
                                         class="px-2 py-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 text-sm">{{ $exemplaire->disponible ? 'Disponible' : 'non Disponible' }}</span>
                                 </td>
@@ -134,7 +130,7 @@
             {{ $exemplaires->appends(request()->query())->links('vendor.pagination.default') }}
         </div>
         {{-- ******************************************************************************************************************************* --}}
-        <!-- Modal de confirmation -->
+        {{-- Modal de confirmation --}}
         <div x-show="showModal" x-transition.opacity
             class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div class="bg-white dark:bg-dark-bg rounded-lg p-6 max-w-md w-full mx-4">
@@ -147,10 +143,10 @@
                     <x-secondary-button @click="closeModal">
                         Annuler
                     </x-secondary-button>
-                    <form :action="'/admin/exemplaires/delete/' + exemplaireToDelete.id" method="POST">
+                    <form :action="'/admin/exemplaires/delete/' + exemplaireToDelete.id" method="POST" class="w-1/2">
                         @csrf
                         @method('DELETE')
-                        <x-primary-button class="bg-red-500 text-white hover:bg-red-600">
+                        <x-primary-button class="bg-red-500 text-white hover:bg-red-600 w-full">
                             Supprimer
                         </x-primary-button>
                     </form>

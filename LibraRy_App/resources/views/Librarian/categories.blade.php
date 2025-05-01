@@ -4,7 +4,7 @@
 @section('header', 'Tableau de bord')
 
 @section('content')
-    <div class="max-w-7xl mx-auto" x-data="{
+    <div class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg p-6" x-data="{
         open: false,
         selectedCategoryId: null,
         selectedCategoryName: '',
@@ -16,11 +16,10 @@
             this.$nextTick(() => document.getElementById('editCategoryName').focus());
         }
     }">
-        <!-- Header -->
         <div class="my-8">
             <h1 class="text-3xl font-bold mb-6">Gestion des Catégories</h1>
 
-            <!-- Add Category Form -->
+            {{-- Add Category Form --}}
             <form id="addCategoryForm" class="bg-white/5 dark:bg-black/5 p-6 rounded-xl shadow-lg"
                 action="{{ route('manage.categories.store') }}" method="POST" x-data="{ submitting: false }"
                 @submit.prevent="submitting = true; $el.submit()">
@@ -52,7 +51,7 @@
             </form>
         </div>
 
-        <!-- Categories Grid -->
+        {{-- Categories --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($categories as $category)
                 <div
@@ -60,7 +59,6 @@
                     <div class="flex justify-between items-start mb-4">
                         <h3 class="text-xl font-bold">{{ $category->category }}</h3>
                         <div class="flex space-x-2">
-                            <!-- Edit Button -->
                             <button @click="editCategory({{ $category->id }}, '{{ addslashes($category->category) }}')"
                                 class="p-2 rounded-lg hover:bg-light-primary/10 dark:hover:bg-dark-primary/10 text-yellow-500">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -70,7 +68,6 @@
                                 </svg>
                             </button>
 
-                            <!-- Delete Form -->
                             <form action="{{ route('manage.categories.delete', $category->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -101,7 +98,7 @@
             @endforeach
         </div>
 
-        <!-- Modal de modification -->
+        {{-- Modal de modification --}}
         <div x-show="open" @click.outside="open = false"
             class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" x-transition>
             <div class="bg-light-bg dark:bg-dark-bg p-6 rounded-xl w-full max-w-md">

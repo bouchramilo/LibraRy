@@ -199,7 +199,7 @@
 
                     <!-- Prix -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <x-label class="block text-sm font-medium mb-2" for="salePrice">Prix de vente (€)</x-label>
                             <x-input-text type="number" id="salePrice" name="prix_vente" required min="0"
                                 step="0.01" />
@@ -208,7 +208,7 @@
                                     <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
                                 </div>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <x-label class="block text-sm font-medium mb-2" for="borrowPrice">Prix d'emprunt (€)</x-label>
                             <x-input-text type="number" id="borrowPrice" name="prix_emprunte" required min="0"

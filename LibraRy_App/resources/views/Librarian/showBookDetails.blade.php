@@ -57,31 +57,7 @@
                     </div>
                 </div>
 
-                <!-- Pricing Section -->
-                <div class="border-t border-b border-light-text/10 dark:border-dark-text/10 py-6 space-y-6">
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                        <div>
-                            <p class="text-lg md:text-xl font-semibold">Prix d'achat: {{ $book->prix_vente }}€</p>
-                            <p class="text-sm text-light-text/70 dark:text-dark-text/70">En stock</p>
-                        </div>
-                        <button
-                            class="w-full sm:w-auto bg-light-primary dark:bg-dark-primary px-6 py-2 rounded-md text-white hover:opacity-90 transition-opacity"
-                        >
-                            Ajouter au panier
-                        </button>
-                    </div>
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                        <div>
-                            <p class="text-lg md:text-xl font-semibold">Prix d'emprunt: {{ $book->prix_emprunte }}€</p>
-                            <p class="text-sm text-light-text/70 dark:text-dark-text/70">Disponible</p>
-                        </div>
-                        <button
-                            class="w-full sm:w-auto border border-light-primary dark:border-dark-primary px-6 py-2 rounded-md text-light-primary dark:text-dark-primary hover:bg-light-primary/10 dark:hover:bg-dark-primary/10 transition-colors"
-                        >
-                            Emprunter
-                        </button>
-                    </div>
-                </div>
+              
             </div>
         </div>
 

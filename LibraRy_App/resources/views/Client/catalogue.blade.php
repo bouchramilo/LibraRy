@@ -99,9 +99,6 @@
                                     @click="openModal('{{ $exemplaire->id }}', '{{ $exemplaire->book->title }}', '{{ $exemplaire->code_serial_exemplaire }}' )">
                                     Emprunter
                                 </x-secondary-button>
-                                <x-primary-button>
-                                    Acheter
-                                </x-primary-button>
                             @endif
                         </div>
                     </div>
@@ -113,7 +110,7 @@
             {{ $exemplaires->links('vendor.pagination.default') }}
         </div>
 
-        <!-- Modal de confirmation -->
+        {{--   Modal de confirmation --}}
         <div x-show="showModal" x-transition.opacity
             class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div class="bg-white dark:bg-dark-bg rounded-lg p-6 max-w-md w-full mx-4">
@@ -126,11 +123,11 @@
                     <x-secondary-button @click="closeModal">
                         Annuler
                     </x-secondary-button>
-                    <form :action="'/client/Emprunts/'" method="POST">
+                    <form :action="'/client/Emprunts/'" method="POST" class="w-1/2">
                         @csrf
                         @method('POST')
                         <input type="hidden" name="exemplaire_id" :value="bookToRent.id">
-                        <x-primary-button type="submit">
+                        <x-primary-button type="submit" class="w-full">
                             Emprunter
                         </x-primary-button>
                     </form>

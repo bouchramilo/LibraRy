@@ -9,23 +9,24 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     protected static ?string $password;
+    public static int $clientCounter = 1; // Changé de private à public static
 
     public function definition(): array
     {
         return [
-            'first_name' => $this->faker->firstName(),
-            'last_name' => $this->faker->lastName(),
+            'first_name' => 'Client' . self::$clientCounter,
+            'last_name' => 'User' . self::$clientCounter,
             'address' => $this->faker->streetAddress(),
             'date_birth' => $this->faker->dateTimeBetween('-70 years', '-18 years')->format('Y-m-d'),
             'city' => $this->faker->city(),
             'code_postal' => $this->faker->postcode(),
             'telephone' => $this->faker->phoneNumber(),
-            'role' => $this->faker->randomElement(['Bibliothécaire', 'Client']),
+            'role' => 'Client',
             'status' => $this->faker->randomElement(['Suspendu', 'Active']),
-            'email' => $this->faker->unique()->safeEmail(),
-            'photo' => null, // ou $this->faker->imageUrl(200, 200, 'people')
+            'email' => 'client' . self::$clientCounter++ . '@gmail.com',
+            'photo' => 'profiles/EaJ1arAoeRZNPq5mVOSD3D00uWS7y8TGAQ8Rss28.png',
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => static::$password ??= Hash::make('Password123$'),
             'remember_token' => Str::random(10),
         ];
     }
@@ -34,13 +35,9 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'role' => 'Bibliothécaire',
-        ]);
-    }
-
-    public function client(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'role' => 'Client',
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->unique()->safeEmail(),
         ]);
     }
 

@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: false }" :class="darkMode ? 'dark' : ''">
+@extends('layouts.client-layout')
 
-<head>
-    <x-partials.head />
-</head>
+@section('title', 'LibraRy - Catalogue')
+@section('header', 'LibraRy - Catalogue')
 
-<body
-    class="font-body bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-300">
-    <!-- Header -->
-    <x-partials.nav />
+@section('content')
+
     <main class="min-h-screen flex items-center justify-center px-4 py-28">
+        <x-messages></x-messages>
         <div class="max-w-7xl w-full mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <!-- Image Section -->
             <div class="hidden md:block relative h-full ">
                 <div
                     class="absolute inset-0 bg-gradient-to-r from-light-primary/20 to-transparent dark:from-dark-primary/20 rounded-2xl">
@@ -24,8 +20,7 @@
                         moment.</p>
                 </div>
             </div>
-
-            <!-- Login Form -->
+            {{-- form por l'inscription --}}
             <div class="w-full mx-auto ">
 
                 <div class="bg-white/5 dark:bg-black/5 p-8 rounded-2xl shadow-2xl dark:shadow-black backdrop-blur-sm">
@@ -35,7 +30,6 @@
                         method="POST">
                         @csrf
                         @method('POST')
-                        <!-- Nom et Prénom -->
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="">
                                 <x-label>Prénom</x-label>
@@ -57,7 +51,6 @@
                             </div>
                         </div>
 
-                        <!-- Date de naissance -->
                         <div class="grid grid-cols-2 gap-4">
                             <div class="">
                                 <x-label>Date de naissance</x-label>
@@ -78,7 +71,6 @@
                                 @enderror
                             </div>
                         </div>
-                        <!-- photo -->
                         <div class="">
                             <x-label>Photo</x-label>
                             <x-input-text type="file" name="photo" required />
@@ -89,7 +81,6 @@
                             @enderror
                         </div>
 
-                        <!-- Adresse -->
                         <div class="space-y-4">
                             <div class="">
                                 <x-label>Adresse</x-label>
@@ -103,8 +94,8 @@
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="">
                                     <x-label>Code postal</x-label>
-                                    <x-input-text type="number" name="code_postal" required min="10000"
-                                        max="99999" placeholder="54350" />
+                                    <x-input-text type="number" name="code_postal" required min="10000" max="99999"
+                                        placeholder="54350" />
                                     @error('code_postal')
                                         <div>
                                             <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
@@ -123,7 +114,6 @@
                             </div>
                         </div>
 
-                        <!-- Email -->
                         <div class="">
                             <x-label>Adresse e-mail</x-label>
                             <x-input-text type="email" name="email" required />
@@ -134,7 +124,6 @@
                             @enderror
                         </div>
 
-                        <!-- Mot de passe -->
                         <div>
                             <x-label>Mot de passe</x-label>
                             <x-input-text type="password" name="password" required />
@@ -145,7 +134,6 @@
                             @enderror
                         </div>
 
-                        <!-- Confirmation mot de passe -->
                         <div class="">
                             <x-label>Confirmer le mot de passe</x-label>
                             <x-input-text type="password" name="password_confirmation" required />
@@ -156,8 +144,8 @@
                             @enderror
                         </div>
 
-                        <!-- Rôle -->
-                        <div class="">
+                        {{-- Rôle --}}
+                        {{-- <div class="">
                             <x-label>Rôle</x-label>
                             <x-select :options="['Bibliothecaire' => 'Bibliothécaire', 'Client' => 'Client']" name="role"></x-select>
                             @error('role')
@@ -165,9 +153,8 @@
                                     <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
                                 </div>
                             @enderror
-                        </div>
+                        </div> --}}
 
-                        <!-- Submit Button -->
                         <x-primary-button type="submit" class="w-full">
                             Créer un compte
                         </x-primary-button>
@@ -183,8 +170,13 @@
             </div>
         </div>
     </main>
-    <!-- Footer -->
-    <x-partials.footer />
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            easing: 'ease',
+            once: true,
+        });
+    </script>
 
-</html>
+@endsection

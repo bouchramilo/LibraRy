@@ -6,16 +6,16 @@
 </head>
 
 <body class="font-body bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-300">
-    <!-- Header -->
+    {{-- Header --}}
     <x-partials.nav />
 
-    <!-- Hero Section -->
+    {{-- Hero Section --}}
     <section class="relative h-screen flex items-center justify-center bg-cover bg-center"
         style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/home_creatie.jpg');">
         <div class="text-center px-4" x-data="{ shown: false }" x-init="setTimeout(() => shown = true, 500)">
             <h2 class="text-4xl md:text-5xl text-white font-bold mb-8 transition-all duration-1000"
                 :class="shown ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'">
-                Découvrez, empruntez, et achetez vos livres préférés en ligne
+                Découvrez, et empruntez vos livres préférés en ligne
             </h2>
             <div class="space-x-4">
                 @guest
@@ -32,8 +32,8 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="py-20 px-4" x-data="{ activeFeature: null }">
+    {{-- Features Section --}}
+    {{-- <section class="py-20 px-4" x-data="{ activeFeature: null }">
         <div class="max-w-7xl mx-auto">
             <h3 class="text-3xl font-bold text-center mb-16" x-intersect="$el.classList.add('animate-fade-in-up')">Nos
                 Services</h3>
@@ -58,9 +58,9 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
-    <!-- Popular Books Section -->
+    {{-- Popular Books Section --}}
     <section id="populare" class="py-20 px-4 bg-light-primary/5 dark:bg-dark-primary/5">
         <div class="max-w-7xl mx-auto">
             <h3 class="text-3xl font-bold text-center mb-16">Livres Populaires</h3>
@@ -73,20 +73,14 @@
                         <div class="p-4">
                             <h4 class="font-bold mb-2">{{ $book->title }}</h4>
                             <p class="text-sm mb-2">{{ $book->author }}</p>
-
-                            {{-- <button
-                            class="w-full bg-light-primary dark:bg-dark-primary text-white py-2 rounded-md hover:opacity-90">
-                            Voir
-                        </button> --}}
                         </div>
                     </div>
                 @endforeach
-                <!-- Répéter pour les autres livres -->
             </div>
         </div>
     </section>
 
-    <!-- À Propos Section -->
+    {{-- À Propos Section --}}
     <section class="py-20 px-4" x-data="{ shown: false }" x-intersect="shown = true">
         <div class="max-w-7xl mx-auto">
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -106,10 +100,7 @@
                             <span class="text-light-primary dark:text-dark-primary mr-2">✓</span>
                             Service client 24/7
                         </li>
-                        <li class="flex items-center">
-                            <span class="text-light-primary dark:text-dark-primary mr-2">✓</span>
-                            Livraison gratuite partout en France
-                        </li>
+
                     </ul>
                 </div>
                 <div class="relative">
@@ -120,7 +111,7 @@
         </div>
     </section>
 
-    <!-- Contact Section avec Map -->
+    {{-- Contact Section avec Map --}}
     <section class="py-20 px-4 bg-light-primary/5 dark:bg-dark-primary/5">
         <div class="max-w-7xl mx-auto">
             <h3 class="text-3xl font-bold text-center mb-16">Contactez-nous</h3>
@@ -159,8 +150,27 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    {{-- Footer --}}
     <x-partials.footer />
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            html.classList.add('dark');
+        }
+
+        darkModeToggle.addEventListener('click', function() {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+
+
+    });
+</script>
 
 </html>

@@ -20,7 +20,7 @@ class Book extends Model
         'isbn',
         'language',
         'prix_emprunte',
-        'prix_vente',
+        // 'prix_vente',
     ];
 
     // Les relations **************************************************************************************************************

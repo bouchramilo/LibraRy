@@ -5,17 +5,17 @@
 
 @section('content')
 
-    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg p-6 gap-6">
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg md:p-10 p-2 gap-6">
         {{-- messages start --}}
         <x-messages />
         {{-- messages end --}}
         <div class="max-w-7xl mx-auto text-light-text dark:text-dark-text">
-            <!-- Header et Filtres -->
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            {{--  Header et Filtres --}}
+            <div class="flex flex-col md:flex-col lg:flex-col justify-between items-start mb-8  md:p-10 p-2 gap-4">
                 <h1 class="text-3xl font-bold">Gestion des Emprunts</h1>
 
                 <form method="GET" action="{{ route('librarian.emprunts.index') }}"
-                    class="flex flex-col md:flex-row gap-4 w-full md:w-2/3">
+                    class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 w-full md:w-full">
                     <div class="relative flex-grow">
                         <x-input-text name="search" type="text" placeholder="Rechercher..." class="pl-10"
                             value="{{ request('search') }}" />
@@ -39,7 +39,7 @@
                 </form>
             </div>
 
-            <!-- Statistiques -->
+            {{--  Statistiques --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-2">Emprunts Actifs</h3>
@@ -55,10 +55,10 @@
                 </div>
             </div>
 
-            <!-- Tableau des Emprunts -->
+            {{--  Tableau des Emprunts --}}
             <div class="bg-white dark:bg-dark-primary/10 rounded-xl shadow overflow-hidden">
                 <div class="overflow-x-auto">
-                    <table class="w-full">
+                    <table class="w-full text-sm">
                         <thead class="bg-light-primary/5 dark:bg-dark-primary/5">
                             <tr>
                                 <th class="px-6 py-3 text-left">Livre</th>
@@ -83,15 +83,15 @@
                                     <td class="px-6 py-4">
                                         {{ Carbon\Carbon::parse($emprunt->date_retour_prevue)->translatedFormat('d M Y') }}
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-2 py-4 flex justify-center">
                                         @if ($emprunt->status === 'validé')
                                             <span
-                                                class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">Validé</span>
+                                                class="px-1 py-1 rounded-full text-xs bg-green-100 text-green-800 ">Validé</span>
                                         @elseif($emprunt->status === 'retard')
-                                            <span class="px-2 py-1 rounded-full text-xs bg-red-100 text-red-800">En
+                                            <span class="px-1 py-1 rounded-full text-xs bg-red-100 text-red-800">En
                                                 retard</span>
                                         @else
-                                            <span class="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">En
+                                            <span class="px-1 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800 ">En
                                                 cours</span>
                                         @endif
                                     </td>
@@ -158,140 +158,4 @@
             </div>
         </div>
     </main>
-
-    <!-- Modal Détails -->
-    {{-- <div x-data="{
-        show: false,
-        emprunt: null,
-        loading: false,
-        async showDetail(id) {
-            this.loading = true;
-            this.show = true;
-            try {
-                const response = await fetch(`/librarian/emprunts/${id}/details`);
-                if (!response.ok) throw new Error('Erreur lors du chargement');
-                this.emprunt = await response.json();
-            } catch (error) {
-                console.error(error);
-                // Gérer l'erreur ici (peut-être afficher un message à l'utilisateur)
-            } finally {
-                this.loading = false;
-            }
-        }
-    }" x-show="show"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-        <div @click.away="show = false" class="w-full max-w-2xl bg-white dark:bg-dark-bg rounded-xl shadow-lg overflow-hidden">
-            <div class="p-6">
-                <div class="flex justify-between items-start mb-4">
-                    <h3 class="text-2xl font-bold">Détails de l'emprunt</h3>
-                    <button @click="show = false" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-
-                <template x-if="loading">
-                    <div class="flex justify-center py-8">
-                        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
-                    </div>
-                </template>
-
-                <template x-if="!loading && emprunt">
-                    <div class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Section Livre -->
-                            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                                <h4 class="font-semibold text-lg mb-3 border-b pb-2">Informations du livre</h4>
-                                <div class="space-y-3">
-                                    <div>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">Titre</p>
-                                        <p x-text="emprunt.exemplaire.book.title" class="font-medium"></p>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">Auteur</p>
-                                        <p x-text="emprunt.exemplaire.book.author" class="font-medium"></p>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">Code exemplaire</p>
-                                        <p x-text="emprunt.exemplaire.code_serial_exemplaire" class="font-medium"></p>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">ISBN</p>
-                                        <p x-text="emprunt.exemplaire.book.isbn" class="font-medium"></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Section Utilisateur -->
-                            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                                <h4 class="font-semibold text-lg mb-3 border-b pb-2">Informations de l'emprunteur</h4>
-                                <div class="space-y-3">
-                                    <div>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">Nom complet</p>
-                                        <p x-text="emprunt.user.name" class="font-medium"></p>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
-                                        <p x-text="emprunt.user.email" class="font-medium"></p>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm text-gray-500 dark:text-gray-400">Téléphone</p>
-                                        <p x-text="emprunt.user.phone || 'Non renseigné'" class="font-medium"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Section Emprunt -->
-                        <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                            <h4 class="font-semibold text-lg mb-3 border-b pb-2">Détails de l'emprunt</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Date d'emprunt</p>
-                                    <p x-text="new Date(emprunt.date_emprunt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })" class="font-medium"></p>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Date de retour prévue</p>
-                                    <p x-text="new Date(emprunt.date_retour_prevue).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })" class="font-medium"></p>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">Statut</p>
-                                    <p class="font-medium">
-                                        <template x-if="emprunt.status === 'validé'">
-                                            <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">Validé</span>
-                                        </template>
-                                        <template x-if="emprunt.status === 'retard'">
-                                            <span class="px-2 py-1 rounded-full text-xs bg-red-100 text-red-800">En retard</span>
-                                        </template>
-                                        <template x-if="emprunt.status === 'en cours'">
-                                            <span class="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">En cours</span>
-                                        </template>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Section Actions -->
-                        <div class="flex justify-end gap-3 pt-4 border-t">
-                            <button @click="show = false" class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                Fermer
-                            </button>
-                            <template x-if="emprunt.status === 'en attente'">
-                                <button class="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition-colors">
-                                    Valider l'emprunt
-                                </button>
-                            </template>
-                        </div>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </div> --}}
 @endsection

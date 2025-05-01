@@ -8,7 +8,6 @@ class CategoryFactory extends Factory
 {
     public function definition(): array
     {
-        // Liste de catégories typiques pour une bibliothèque
         $libraryCategories = [
             'Roman', 'Policier', 'Science-Fiction', 'Fantasy', 'Biographie',
             'Histoire', 'Scolaire', 'Jeunesse', 'Poésie', 'Théâtre',

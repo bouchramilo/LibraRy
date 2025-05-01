@@ -1,9 +1,9 @@
-<!-- Sidebar -->
+{{-- Sidebar --}}
 <aside id="sidebar"
     class="fixed md:relative z-20 w-64 h-full transform transition-transform duration-300 bg-light-bg dark:bg-dark-bg shadow-lg">
     <div class="h-full flex flex-col justify-between p-4">
         <div class="space-y-4">
-            <!-- Admin Profile -->
+            {{-- Admin Profile --}}
             <div class="flex flex-col items-center space-y-1">
                 <a href="/profile">
                     <img src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : asset('images/default-avatar.jpg') }}"
@@ -16,8 +16,9 @@
                 </div>
             </div>
 
-            <!-- Navigation -->
+            {{-- Navigation --}}
             <nav class="space-y-1">
+                
                 <x-sidebar-link :href="route('home')" :active="request()->routeIs('home')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -26,6 +27,7 @@
                     </svg>
                     <span>Accueil</span>
                 </x-sidebar-link>
+
                 <x-sidebar-link :href="route('librarian.dashboard')" :active="request()->routeIs('librarian.dashboard')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -33,6 +35,7 @@
                     </svg>
                     <span>Tableau de bord</span>
                 </x-sidebar-link>
+
 
                 <x-sidebar-link :href="route('manage.users.index')" :active="request()->routeIs('manage.users.index')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,6 +45,7 @@
                     </svg>
                     <span>Utilisateurs</span>
                 </x-sidebar-link>
+
                 <x-sidebar-link :href="route('manage.categories.index')" :active="request()->routeIs('manage.categories.index')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -49,6 +53,7 @@
                     </svg>
                     <span>Catégories</span>
                 </x-sidebar-link>
+
                 <x-sidebar-link :href="route('librarian.books.index')" :active="request()->routeIs('librarian.books.index')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -56,6 +61,7 @@
                     </svg>
                     <span>Livres</span>
                 </x-sidebar-link>
+
                 <x-sidebar-link :href="route('librarian.exemplaires.index')" :active="request()->routeIs('librarian.exemplaires.index')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -64,13 +70,6 @@
                     <span>Exemplaires</span>
                 </x-sidebar-link>
 
-                <x-sidebar-link :href="route('librarian.ventes.index')" :active="request()->routeIs('librarian.ventes.index')">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 3v18h18M7 14l3-3 4 4 5-5"></path>
-                    </svg>
-                    <span>Ventes</span>
-                </x-sidebar-link>
                 <x-sidebar-link :href="route('librarian.emprunts.index')" :active="request()->routeIs('librarian.emprunts.index')">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -78,6 +77,7 @@
                     </svg>
                     <span>Emprunts</span>
                 </x-sidebar-link>
+
                 <x-sidebar-link :href="route('librarian.retours.index')" :active="request()->routeIs('librarian.retours.index')">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -86,10 +86,11 @@
                     </svg>
                     <span>Retours</span>
                 </x-sidebar-link>
+
             </nav>
         </div>
 
-        <!-- Bottom Actions -->
+        {{-- Bottom Actions --}}
         <div class="space-y-4">
             <button id="darkModeToggle"
                 class="w-full p-3 rounded-lg bg-light-primary/20 dark:bg-dark-primary/20 hover:bg-light-primary/30 dark:hover:bg-dark-primary/30 transition-colors">

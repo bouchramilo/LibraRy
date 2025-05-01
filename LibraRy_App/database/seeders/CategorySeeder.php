@@ -23,16 +23,12 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($mainCategories as $categoryName) {
-            Category::factory()->create([
-                'category' => $categoryName,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            Category::firstOrCreate(['category' => $categoryName]);
         }
 
         if (app()->environment('local')) {
             Category::factory()
-                ->count(10) 
+                ->count(10)
                 ->create();
         }
     }

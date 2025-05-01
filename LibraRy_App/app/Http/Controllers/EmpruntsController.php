@@ -50,7 +50,7 @@ class EmpruntsController extends Controller
         }
 
         $stats = [
-            'total'     => (clone $query)->count(),
+            'total'     => (clone $query)->where('status', "=", "validé")->count(),
             'en_cours'  => (clone $query)->where('date_retour_prevue', '>=', now())->count(),
             'en_retard' => (clone $query)->where('date_retour_prevue', '<', now())->count(),
         ];

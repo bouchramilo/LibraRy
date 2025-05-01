@@ -71,18 +71,7 @@
 
                 <!-- Pricing Section -->
                 <div class="border-t border-b border-light-text/10 dark:border-dark-text/10 py-6 space-y-6">
-                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                        <div>
-                            <p class="text-lg md:text-xl font-semibold">Prix d'achat: {{ $exemplaire->book->prix_vente }}€
-                            </p>
-                            <p class="text-sm text-light-text/70 dark:text-dark-text/70">En stock</p>
-                        </div>
-                        @if ($exemplaire->disponible === 1)
-                            <x-primary-button class="max-w-32">
-                                Acheter
-                            </x-primary-button>
-                        @endif
-                    </div>
+                    
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div>
                             <p class="text-lg md:text-xl font-semibold">Prix d'emprunt:

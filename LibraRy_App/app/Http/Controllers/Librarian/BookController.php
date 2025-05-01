@@ -21,14 +21,12 @@ class BookController extends Controller
     {
         $query = Book::with('categories');
 
-        // Filtre par catégorie
         if ($request->has('category_id') && $request->category_id) {
             $query->whereHas('categories', function($q) use ($request) {
                 $q->where('categories.id', $request->category_id);
             });
         }
 
-        // Filtre par recherche
         if ($request->has('search') && $request->search) {
             $query->where(function($q) use ($request) {
                 $q->where('title', 'like', '%'.$request->search.'%')
@@ -38,17 +36,15 @@ class BookController extends Controller
             });
         }
 
-        // Filtre par langue
         if ($request->has('language') && $request->language) {
             $query->where('language', $request->language);
         }
 
-        // Tri des résultats
         $sortField = $request->get('sort', 'title');
         $sortDirection = $request->get('direction', 'asc');
         $query->orderBy($sortField, $sortDirection);
 
-        $books = $query->paginate(10);
+        $books = $query->paginate(9);
 
         $categories = Category::pluck('category', 'id')->prepend('Toutes les catégories', '');
         $languages = Book::select('language')->distinct()->pluck('language', 'language');
@@ -83,7 +79,7 @@ class BookController extends Controller
             'isbn'          => 'required|string|unique:books,isbn|max:20',
             'language'      => 'required|string|max:50',
             'prix_emprunte' => 'required|numeric|min:0',
-            'prix_vente'    => 'required|numeric|min:0',
+            // 'prix_vente'    => 'required|numeric|min:0',
             "categories"    => "nullable|array",
             "categories.*"  => "exists:categories,id",
         ]);
@@ -139,7 +135,7 @@ public function update(Request $request, Book $book)
         'isbn'          => ['required', 'string', 'max:20', Rule::unique('books')->ignore($book->id)],
         'language'      => 'required|string|max:50',
         'prix_emprunte' => 'required|numeric|min:0',
-        'prix_vente'    => 'required|numeric|min:0|gte:prix_emprunte',
+        // 'prix_vente'    => 'required|numeric|min:0|gte:prix_emprunte',
         'categories'    => 'nullable|array',
         'categories.*'  => 'exists:categories,id',
     ]);

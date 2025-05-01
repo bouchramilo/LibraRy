@@ -3,14 +3,12 @@
 
 <head>
     <x-partials.head />
-
 </head>
 
-<body
-    class="font-body bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-300">
+<body class="font-body bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-300">
     <x-partials.nav />
-
-    <main class="max-w-7xl mx-auto py-20">
+    {{-- Conteun principale  --}}
+    <main class="max-w-7xl mx-auto py-12">
         @yield('content')
     </main>
 
@@ -18,10 +16,8 @@
 </body>
 
 <script>
-    // Fonctions JavaScript pour la gestion des utilisateurs
     document.addEventListener('DOMContentLoaded', function() {
 
-        // Dark Mode Toggle
         const darkModeToggle = document.getElementById('darkModeToggle');
         const html = document.documentElement;
 

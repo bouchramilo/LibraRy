@@ -2,8 +2,8 @@
     <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
         <div>
             <h4 class="text-xl font-bold mb-4">Contact</h4>
-            <p>Email: contact@libraapp.com</p>
-            <p>Tél: 07 71 25 79 27</p>
+            <p>Email: contact@libra.com</p>
+            <p>Tél: +212 7 17 52 97 27</p>
         </div>
         <div>
             <h4 class="text-xl font-bold mb-4">Suivez-nous</h4>
