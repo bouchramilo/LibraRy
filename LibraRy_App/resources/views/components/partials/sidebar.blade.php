@@ -1,6 +1,6 @@
 {{-- Sidebar --}}
 <aside id="sidebar"
-    class="fixed md:relative z-20 w-64 h-full transform transition-transform duration-300 bg-light-bg dark:bg-dark-bg shadow-lg">
+    class="fixed lg:relative z-20 w-64 h-full transform transition-transform duration-300 bg-light-bg dark:bg-dark-bg shadow-lg">
     <div class="h-full flex flex-col justify-between p-4">
         <div class="space-y-4">
             {{-- Admin Profile --}}
@@ -18,7 +18,7 @@
 
             {{-- Navigation --}}
             <nav class="space-y-1">
-                
+
                 <x-sidebar-link :href="route('home')" :active="request()->routeIs('home')">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

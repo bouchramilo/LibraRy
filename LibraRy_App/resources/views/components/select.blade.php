@@ -29,7 +29,7 @@
     @endif
 
     @foreach ($options as $key => $value)
-        <option
+        <option class=" bg-white dark:bg-dark-bg shadow-lg border border-light-accent dark:border-dark-accent "
             value="{{ $key }}"
             {{ $selected == $key ? 'selected' : '' }}
         >

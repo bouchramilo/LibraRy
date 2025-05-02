@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('isbn')->unique();
             $table->string('language');
             $table->decimal('prix_emprunte', 8, 2);
-            $table->decimal('prix_vente', 8, 2);
+            // $table->decimal('prix_vente', 8, 2);
             $table->timestamps();
         });
     }

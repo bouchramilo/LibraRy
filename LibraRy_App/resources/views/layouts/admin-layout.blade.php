@@ -184,14 +184,14 @@
 
 <body class="font-body bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text">
     <div class="flex h-screen overflow-hidden">
-        <!-- Sidebar -->
+        {{-- Sidebar --}}
         <x-partials.sideBar />
 
-        <!-- Main Content -->
+        {{-- Main Content --}}
         <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg ">
-            <!-- Mobile Sidebar Toggle -->
+            {{-- Mobile Sidebar Toggle --}}
             <button id="sidebarToggle"
-                class="md:hidden fixed top-4 left-4 z-30 p-2 rounded-lg bg-light-primary/20 dark:bg-dark-primary/20">
+                class="lg:hidden fixed top-4 left-4 z-30 p-2 rounded-lg bg-light-primary/20 dark:bg-dark-primary/20">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
                     </path>
@@ -202,25 +202,21 @@
                 @yield('content')
             </main>
         </main>
-
-
     </div>
-    @yield('scripts') 
+    @yield('scripts')
 </body>
 <script>
     var tagSelector = new MultiSelectTag('categories', {
         maxSelection: 5,
         required: true,
-        placeholder: 'Search tags', // default 'Search'.
-        onChange: function(selected) { // Callback when selection changes.
+        placeholder: 'Search tags',
+        onChange: function(selected) {
             console.log('Selection changed:', selected);
         }
     });
 </script>
 <script>
-    // Fonctions JavaScript pour la gestion des utilisateurs
     document.addEventListener('DOMContentLoaded', function() {
-        // Toggle Sidebar
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
 
@@ -228,14 +224,12 @@
             sidebar.classList.toggle('-translate-x-full');
         });
 
-        // Responsive sidebar
         window.addEventListener('resize', function() {
             if (window.innerWidth >= 768) {
                 sidebar.classList.remove('-translate-x-full');
             }
         });
 
-        // Dark Mode Toggle
         const darkModeToggle = document.getElementById('darkModeToggle');
         const html = document.documentElement;
 

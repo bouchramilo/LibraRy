@@ -20,7 +20,6 @@ class BookFactory extends Factory
             'isbn' => $this->faker->unique()->isbn13,
             'language' => $this->faker->randomElement($languages),
             'prix_emprunte' => $this->faker->randomFloat(2, 5, 50),
-            // 'prix_vente' => $this->faker->randomFloat(2, 20, 200),
         ];
     }
 }

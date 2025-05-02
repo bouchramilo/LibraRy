@@ -50,9 +50,9 @@ class EmpruntsController extends Controller
         }
 
         $stats = [
-            'total'     => (clone $query)->where('status', "=", "validé")->count(),
-            'en_cours'  => (clone $query)->where('date_retour_prevue', '>=', now())->count(),
-            'en_retard' => (clone $query)->where('date_retour_prevue', '<', now())->count(),
+            'en_attente'             => (clone $query)->where('status', '=', "en attente")->count(),
+            'en_cours'          => (clone $query)->where('status', '=', "validé")->whereNull('date_retour_effectif')->count(),
+            'retard_exemplaire' => Emprunt::where('status', 'retard')->whereNull('date_retour_effectif')->count(),
         ];
 
         $emprunts = $query->paginate(10);
@@ -277,17 +277,17 @@ class EmpruntsController extends Controller
         }
 
         $stats = [
-            'total'     => (clone $query)->count(),
-            'en_cours'  => (clone $query)->where('date_retour_prevue', '>=', now())->count(),
-            'en_retard' => (clone $query)->where('date_retour_prevue', '<', now())->count(),
+            'en_attente'             => (clone $query)->where('status', '=', "en attente")->count(),
+            'en_cours'          => (clone $query)->where('status', '=', "validé")->whereNull('date_retour_effectif')->count(),
+            'retard_exemplaire' => Emprunt::where('status', 'retard')->whereNull('date_retour_effectif')->count(),
         ];
 
         $emprunts = $query->paginate(10);
 
         return view('Librarian.retours', [
-            'emprunts'      => $emprunts,
-            'stats'         => $stats,
-            'search'        => $request->search,
+            'emprunts' => $emprunts,
+            'stats'    => $stats,
+            'search'   => $request->search,
         ]);
     }
 

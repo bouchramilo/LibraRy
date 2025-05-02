@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     protected static ?string $password;
-    public static int $clientCounter = 1; // Changé de private à public static
+    public static int $clientCounter = 1;
 
     public function definition(): array
     {

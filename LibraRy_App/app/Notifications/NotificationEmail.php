@@ -19,7 +19,7 @@ class NotificationEmail extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct($message, $bookTitle = null, $actionUrl = '/home', $actionText = 'Voir les détails')
+    public function __construct($message, $bookTitle = null, $actionUrl = '/', $actionText = 'Voir les détails')
     {
         $this->message = $message;
         $this->bookTitle = $bookTitle;

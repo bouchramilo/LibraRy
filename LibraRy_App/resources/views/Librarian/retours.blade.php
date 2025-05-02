@@ -9,8 +9,8 @@
         {{-- messages start --}}
         <x-messages />
         {{-- messages end --}}
-        <div class="max-w-7xl mx-auto text-light-text dark:text-dark-text">
-            {{-- Header et Filtres --}}
+        <div class="max-w-7xl mx-auto text-light-text dark:text-dark-text ">
+            {{-- Filtres --}}
             <div class="flex flex-col md:flex-col lg:flex-row justify-between items-center mt-8 gap-4 ">
                 <h1 class="text-3xl font-bold w-full">Gestion des Retours</h1>
 
@@ -37,10 +37,10 @@
             </div>
 
             {{-- Statistiques --}}
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
                 <div class="bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-2">Emprunts Actifs</h3>
-                    <p class="text-3xl font-bold text-light-primary dark:text-dark-primary">{{ $stats['total'] }}</p>
+                    <p class="text-3xl font-bold text-light-primary dark:text-dark-primary">{{ $stats['en_attente'] }}</p>
                 </div>
                 <div class="bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-2">En Cours</h3>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-2">En Retard</h3>
-                    <p class="text-3xl font-bold text-red-500">{{ $stats['en_retard'] }}</p>
+                    <p class="text-3xl font-bold text-red-500">{{ $stats['retard_exemplaire'] }}</p>
                 </div>
             </div>
 

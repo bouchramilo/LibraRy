@@ -125,6 +125,8 @@ class BookController extends Controller
  // Dans BookController.php
 public function update(Request $request, Book $book)
 {
+
+    // dd($request);
     $validatedData = $request->validate([
         'title'         => 'required|string|max:255',
         'author'        => 'required|string|max:255',

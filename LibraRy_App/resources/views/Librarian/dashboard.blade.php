@@ -8,14 +8,13 @@
 
 
         <div class="max-w-7xl mx-auto">
-            <!-- Header -->
+            {{-- Header --}}
             <div class="flex flex-col md:flex-row justify-between items-center my-8 gap-4">
                 <h1 class="text-3xl font-bold w-full">Tableau de Bord</h1>
             </div>
 
-            <!-- Stats Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <!-- users -->
+                {{-- users --}}
                 <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
@@ -31,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Total Books -->
+                {{-- Total Books --}}
                 <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
@@ -49,7 +48,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Total exemplaires -->
+                {{-- Total exemplaires --}}
                 <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <div class="flex items-center justify-between">
 
@@ -68,7 +67,7 @@
                     </div>
                 </div>
 
-                <!-- Borrowed Books -->
+                {{-- Livre Emprunté --}}
                 <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
@@ -85,7 +84,7 @@
                     </div>
                 </div>
 
-                <!-- Pending Borrows -->
+                {{-- Emprunt En attente --}}
                 <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
@@ -101,12 +100,12 @@
                     </div>
                 </div>
 
-                <!-- Pending Sales -->
+                {{-- Emprunt en retard --}}
                 <div class="stat-card bg-light-primary/10 dark:bg-dark-primary/10 p-6 rounded-xl">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-bold mb-2">En Retard</h3>
-                            <p class="text-3xl font-bold text-orange-500" id="pendingSales">18</p>
+                            <p class="text-3xl font-bold text-orange-500" id="pendingSales">{{ $retard_exemplaire }}</p>
                         </div>
                         <div class="p-4 bg-orange-500/20 rounded-lg">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,7 +118,7 @@
                 </div>
             </div>
 
-            <!-- Charts Grid -->
+            {{-- Charts --}}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 ">
                 <div class="bg-white/5 dark:bg-black/5 p-6 rounded-xl">
                     <h3 class="text-xl font-bold mb-4">Répartition par Catégorie</h3>
@@ -128,15 +127,83 @@
                 {{-- <div>Debug: {{ json_encode($categoriesData) }}</div> --}}
 
                 <div class="bg-white/5 dark:bg-black/5 p-6 rounded-xl">
-                    <h3 class="text-xl font-bold mb-4">Activité Mensuelle</h3>
-                    {{-- <canvas id="activityChart" class="w-full h-64"></canvas> --}}
+                    <h3 class="text-xl font-bold mb-4">Emprunt par livre</h3>
+                    <canvas id="bookLoansChart" class="w-full max-h-64"></canvas>
                 </div>
+                {{-- <div>Debug: {{ json_encode($loansPerBook) }}</div> --}}
 
             </div>
         </div>
     </main>
 
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {{-- pour chart des exemple --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chartData = @json($loansPerBook ?? []);
+            console.log("Données reçues :", chartData);
+
+            if (!Array.isArray(chartData) || chartData.length === 0) {
+                console.error("Aucune donnée valide reçue");
+                return;
+            }
+
+            const ctx = document.getElementById('bookLoansChart');
+            if (!ctx) {
+                console.error("Element canvas introuvable");
+                return;
+            }
+
+            try {
+                const bookTitles = chartData.map(item => item.book_title || 'Sans titre');
+                const loanCounts = chartData.map(item => Number(item.total_loans) || 0);
+
+                new Chart(ctx.getContext('2d'), {
+                    type: 'doughnut',
+               
+                    data: {
+                        labels: bookTitles,
+                        datasets: [{
+                            label: 'Nombre d\'emprunts',
+                            data: loanCounts,
+                            backgroundColor: [
+                                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+                                '#9966FF', '#FF9F40', '#8AC24A', '#607D8B'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = total > 0 ? Math.round((value / total) *
+                                            100) : 0;
+                                        return `${label}: ${value} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Erreur création graphique :", error);
+            }
+        });
+    </script>
+
+    {{-- pour chart de catégories --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log("Données catégories:", @json($categoriesData));
@@ -150,7 +217,7 @@
             const categoriesData = @json($categoriesData);
 
             if (!Array.isArray(categoriesData) || categoriesData.length === 0) {
-                console.warn("Aucune donnée disponible"); 
+                console.warn("Aucune donnée disponible");
                 ctx.closest('div').innerHTML = '<p class="text-red-500">Aucune donnée disponible</p>';
                 return;
             }
@@ -202,4 +269,3 @@
 
 
 @endsection
-

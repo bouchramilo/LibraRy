@@ -78,8 +78,8 @@ Route::middleware(ClientMiddleware::class)->group(function () {
     Route::get("/client/dashboard", [ClientDashboardController::class, 'index'])->name("client.dashboard");
 
 // gestion de dashboard de client
-    Route::get("/client/catalogue", [CatalogueController::class, 'index'])->name("client.catalogue");
-    Route::get("/client/catalogue/{id}", [CatalogueController::class, 'show'])->name("client.catalogue.show");
+    Route::get("/client/catalogue", [ExemplaireController::class, 'afficherCatalogue'])->name("client.catalogue");
+    Route::get("/client/catalogue/{id}", [ExemplaireController::class, 'showClient'])->name("client.catalogue.show");
 
     // Gestion des Emprunts
     Route::post("/client/Emprunts", [EmpruntsController::class, 'store'])->name("client.emprunt.store");

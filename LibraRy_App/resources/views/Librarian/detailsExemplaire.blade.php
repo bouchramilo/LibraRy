@@ -4,19 +4,14 @@
 @section('header', 'Tableau de bord')
 
 @section('content')
-    <!-- Main Content -->
     <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg p-4 md:p-6 lg:p-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
-            <!-- Image Section -->
             <div class="flex justify-center items-start">
-                <img
-                    src="{{ $exemplaire->book->photo ? asset('storage/' . $exemplaire->book->photo) : asset('images/default-avatar.jpg') }}"
+                <img src="{{ $exemplaire->book->photo ? asset('storage/' . $exemplaire->book->photo) : asset('images/default-avatar.jpg') }}"
                     alt="Couverture du livre"
-                    class="max-h-[500px] w-auto rounded-lg shadow-lg object-contain hover:scale-105 hover:shadow-2xl hover:shadow-light-secondary"
-                >
+                    class="max-h-[500px] w-auto rounded-lg shadow-lg object-contain hover:scale-105 hover:shadow-2xl hover:shadow-light-secondary">
             </div>
 
-            <!-- Details Section -->
             <div class="space-y-6">
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair">{{ $exemplaire->book->title }}</h1>
 
@@ -65,13 +60,13 @@
                     </div>
                 </div>
 
-                <!-- Pricing Section -->
                 <div class="border-t border-b border-light-text/10 dark:border-dark-text/10 py-6 space-y-6">
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     </div>
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div>
-                            <p class="text-lg md:text-xl font-semibold">Prix d'emprunt: {{ $exemplaire->book->prix_emprunte }}€</p>
+                            <p class="text-lg md:text-xl font-semibold">Prix d'emprunt:
+                                {{ $exemplaire->book->prix_emprunte }}€</p>
                             <p class="text-sm text-light-text/70 dark:text-dark-text/70">Disponible</p>
                         </div>
                     </div>
@@ -79,7 +74,6 @@
             </div>
         </div>
 
-        <!-- Summary Section -->
         <div class="mt-8 md:mt-12 space-y-4">
             <h2 class="text-xl md:text-2xl font-bold">Résumé</h2>
             <p class="leading-relaxed text-justify">

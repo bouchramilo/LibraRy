@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
             BookSeeder::class,
-            UserSeeder::class, // Votre seeder existant pour les utilisateurs
+            UserSeeder::class,
         ]);
 
         // DB::statement('SET FOREIGN_KEY_CHECKS=1;');

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('exemplaire_id')->constrained()->onDelete('cascade');
-            $table->dateTime('date_emprunt'); // Date de création de l'emprunt
-            $table->dateTime('date_retour_prevue'); // Date limite (date_emprunt + 15 jours)
-            $table->dateTime('date_retour_effectif')->nullable(); // Date réelle de retour
+            $table->dateTime('date_emprunt');
+            $table->dateTime('date_retour_prevue');
+            $table->dateTime('date_retour_effectif')->nullable(); 
             $table->enum('status', ['validé', 'en attente', 'retard'])->default('en attente');
             $table->timestamps();
         });

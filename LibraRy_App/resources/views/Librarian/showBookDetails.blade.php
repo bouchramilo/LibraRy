@@ -4,10 +4,8 @@
 @section('header', 'Tableau de bord')
 
 @section('content')
-    <!-- Main Content -->
     <main class="flex-1 overflow-x-hidden overflow-y-auto bg-light-bg dark:bg-dark-bg p-4 md:p-6 lg:p-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
-            <!-- Image Section -->
             <div class="flex justify-center items-start">
                 <img
                     src="{{ $book->photo ? asset('storage/' . $book->photo) : asset('images/default-avatar.jpg') }}"
@@ -16,7 +14,6 @@
                 >
             </div>
 
-            <!-- Details Section -->
             <div class="space-y-6">
                 <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold font-playfair">{{ $book->title }}</h1>
 
@@ -57,11 +54,10 @@
                     </div>
                 </div>
 
-              
+
             </div>
         </div>
 
-        <!-- Summary Section -->
         <div class="mt-8 md:mt-12 space-y-4">
             <h2 class="text-xl md:text-2xl font-bold">Résumé</h2>
             <p class="leading-relaxed text-justify">

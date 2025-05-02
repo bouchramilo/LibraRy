@@ -64,7 +64,7 @@
     <section id="populare" class="py-20 px-4 bg-light-primary/5 dark:bg-dark-primary/5">
         <div class="max-w-7xl mx-auto">
             <h3 class="text-3xl font-bold text-center mb-16">Livres Populaires</h3>
-            <div class="grid md:grid-cols-4 gap-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach ($books as $book)
                     <div
                         class="book-card bg-light-bg dark:bg-dark-bg rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-all duration-300">

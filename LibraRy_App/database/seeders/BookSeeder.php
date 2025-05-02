@@ -10,12 +10,10 @@ class BookSeeder extends Seeder
 {
     public function run(): void
     {
-        // Créer 50 livres
         $books = Book::factory()
             ->count(50)
             ->create();
 
-        // Associer chaque livre à 1-3 catégories aléatoires
         $categories = Category::all();
 
         $books->each(function ($book) use ($categories) {

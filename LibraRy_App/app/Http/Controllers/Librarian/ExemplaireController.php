@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Librarian;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\Exemplaire;
 use Illuminate\Http\Request;
 
@@ -136,5 +137,46 @@ class ExemplaireController extends Controller
         $exemplaire = Exemplaire::find($id);
         // dd($exemplaire);
         return view('Librarian.detailsExemplaire', compact("exemplaire"));
+    }
+
+    // *******************************************************************************************************************************
+    public function showClient(string $id)
+    {
+        $exemplaire = Exemplaire::find($id);
+        return view('Client.details-book', compact("exemplaire"));
+    }
+
+    // *******************************************************************************************************************************
+
+    public function afficherCatalogue(Request $request)
+    {
+        $query = Exemplaire::with(['book', 'book.categories']);
+
+        // catégorie
+        if ($request->has('category_id') && $request->category_id) {
+            $query->whereHas('book.categories', function ($q) use ($request) {
+                $q->where('categories.id', $request->category_id);
+            });
+        }
+
+        // titre de livre
+        if ($request->has('book_id') && $request->book_id) {
+            $query->where('book_id', $request->book_id);
+        }
+
+        // Input recherche
+        if ($request->has('search') && $request->search) {
+            $query->whereHas('book', function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                    ->orWhere('author', 'like', '%' . $request->search . '%')
+                    ->orWhere('code_serial_exemplaire', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $exemplaires = $query->paginate(4);
+        $options     = Book::pluck('title', 'id')->prepend('Tous les livres', '');
+        $categories  = Category::pluck('category', 'id')->prepend('Toutes les catégories', '');
+
+        return view('Client.catalogue', compact('exemplaires', 'options', 'categories'));
     }
 }

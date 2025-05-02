@@ -49,7 +49,7 @@
         <div class="bg-white/5 dark:bg-black/5 rounded-xl shadow-lg overflow-hidden fade-in">
             <div class="overflow-x-auto">
 
-                <table class="w-full">
+                <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-light-primary/10 dark:border-dark-primary/10">
                             <th class="px-6 py-3 text-left">Nom</th>
