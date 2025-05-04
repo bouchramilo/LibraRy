@@ -38,10 +38,13 @@ class ExemplaireController extends Controller
 
         // Filtre par recherche
         if ($request->has('search') && $request->search) {
-            $query->whereHas('book', function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%')
-                    ->orWhere('author', 'like', '%' . $request->search . '%')
-                    ->orWhere('code_serial_exemplaire', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('code_serial_exemplaire', 'like', '%' . $search . '%')
+                  ->orWhereHas('book', function ($subQ) use ($search) {
+                      $subQ->where('title', 'like', '%' . $search . '%')
+                          ->orWhere('author', 'like', '%' . $search . '%');
+                  });
             });
         }
 
@@ -105,7 +108,7 @@ class ExemplaireController extends Controller
             'code_serial_exemplaire' => 'required|string|max:50|unique:exemplaires,code_serial_exemplaire,' . $id,
             'etat'                   => 'required|in:neuf,bon,usé,endommagé',
             'rayon'                  => 'required|string|max:30',
-            'etagere'                => 'required|string|max:30',
+            'etagere'                => 'nullable|string|max:30',
         ]);
 
         $exemplaire = Exemplaire::findOrFail($id);
@@ -166,10 +169,13 @@ class ExemplaireController extends Controller
 
         // Input recherche
         if ($request->has('search') && $request->search) {
-            $query->whereHas('book', function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%')
-                    ->orWhere('author', 'like', '%' . $request->search . '%')
-                    ->orWhere('code_serial_exemplaire', 'like', '%' . $request->search . '%');
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('code_serial_exemplaire', 'like', "%{$search}%")
+                  ->orWhereHas('book', function ($subQ) use ($search) {
+                      $subQ->where('title', 'like', "%{$search}%")
+                          ->orWhere('author', 'like', "%{$search}%");
+                  });
             });
         }
 

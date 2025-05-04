@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('book_id')->constrained('books')->onDelete('cascade');
             $table->string('code_serial_exemplaire')->unique();
-            $table->string('rayon'); // Rayon (ex: "A2")
-            $table->string('etagere'); // étagère (ex: "3")
+            $table->string('rayon');
+            $table->string('etagere');
             $table->boolean('disponible')->default(true);
             $table->enum('etat', ['neuf', 'bon', 'usé', 'endommagé'])->default('neuf');
             $table->timestamps();

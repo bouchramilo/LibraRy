@@ -50,7 +50,7 @@ class EmpruntsController extends Controller
         }
 
         $stats = [
-            'en_attente'             => (clone $query)->where('status', '=', "en attente")->count(),
+            'en_attente'        => (clone $query)->where('status', '=', "en attente")->count(),
             'en_cours'          => (clone $query)->where('status', '=', "validé")->whereNull('date_retour_effectif')->count(),
             'retard_exemplaire' => Emprunt::where('status', 'retard')->whereNull('date_retour_effectif')->count(),
         ];
@@ -71,14 +71,6 @@ class EmpruntsController extends Controller
     }
 
 //    **************************************************************************************************************************************
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
 //    **************************************************************************************************************************************
     /**
      * Store a newly created resource in storage.
@@ -137,7 +129,7 @@ class EmpruntsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request)
+    public function showMyRent(Request $request)
     {
         $query = Emprunt::with(['exemplaire.book'])
             ->where('user_id', Auth::id())
@@ -159,32 +151,6 @@ class EmpruntsController extends Controller
         return view('Client.mesEmprunts', compact('mesEmprunts'));
     }
 
-//    **************************************************************************************************************************************
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-//    **************************************************************************************************************************************
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-//    **************************************************************************************************************************************
-/**
- * Remove the specified resource from storage.
- */
-    public function destroy(string $id)
-    {
-        //
-    }
 //    **************************************************************************************************************************************
 // pour l'admin +++++++++++++++++++++++++++++++++++++++++++++
     public function valider(string $id)
@@ -277,7 +243,7 @@ class EmpruntsController extends Controller
         }
 
         $stats = [
-            'en_attente'             => (clone $query)->where('status', '=', "en attente")->count(),
+            'en_attente'        => (clone $query)->where('status', '=', "en attente")->count(),
             'en_cours'          => (clone $query)->where('status', '=', "validé")->whereNull('date_retour_effectif')->count(),
             'retard_exemplaire' => Emprunt::where('status', 'retard')->whereNull('date_retour_effectif')->count(),
         ];

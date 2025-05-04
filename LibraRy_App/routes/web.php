@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\CatalogueController;
 use App\Http\Controllers\Client\ClientDashboardController;
 use App\Http\Controllers\EmpruntsController;
 use App\Http\Controllers\HomeController;
@@ -18,7 +17,6 @@ Route::get("/", [HomeController::class, 'index'])->name("home");
 
 // **********************************************************************************************************************************
 
-Route::get('/404', function () {return view('404');});
 
 
 // **********************************************************************************************************************************
@@ -44,11 +42,11 @@ Route::middleware(BibliothecaireMiddleware::class)->group(function () {
 // gestion de books
     Route::get("/admin/books", [BookController::class, 'index'])->name("librarian.books.index");
     Route::get("/admin/books/add", [BookController::class, 'create'])->name("librarian.books.create");
-    Route::post("/admin/books/add", [BookController::class, 'store'])->name("admin.books.store");
-    Route::get("/admin/books/details/{book_id}", [BookController::class, 'show'])->name("admin.books.show");
-    Route::get("/admin/books/edit/{book_id}", [BookController::class, 'edit'])->name("admin.books.edit");
-    Route::put("/admin/books/{book}", [BookController::class, 'update'])->name("admin.books.update");
-    Route::delete('/admin/books/delete/{book}', [BookController::class, 'destroy'])->name('admin.books.destroy');
+    Route::post("/admin/books/add", [BookController::class, 'store'])->name("librarian.books.store");
+    Route::get("/admin/books/details/{book_id}", [BookController::class, 'show'])->name("librarian.books.show");
+    Route::get("/admin/books/edit/{book_id}", [BookController::class, 'edit'])->name("librarian.books.edit");
+    Route::put("/admin/books/{book}", [BookController::class, 'update'])->name("librarian.books.update");
+    Route::delete('/admin/books/delete/{book}', [BookController::class, 'destroy'])->name('librarian.books.destroy');
 
     // gestion de books
     Route::get("/admin/exemplaires", [ExemplaireController::class, 'index'])->name("librarian.exemplaires.index");
@@ -83,7 +81,7 @@ Route::middleware(ClientMiddleware::class)->group(function () {
 
     // Gestion des Emprunts
     Route::post("/client/Emprunts", [EmpruntsController::class, 'store'])->name("client.emprunt.store");
-    Route::get("/client/Emprunts", [EmpruntsController::class, 'show'])->name("client.emprunt.show");
+    Route::get("/client/Emprunts", [EmpruntsController::class, 'showMyRent'])->name("client.emprunt.show");
     Route::delete("/client/Emprunts/{id}", [EmpruntsController::class, 'annuler'])->name("client.emprunt.annuler");
     // Route::put("/client/Emprunts/{id}", [EmpruntsController::class, 'returnExemplaire'])->name("client.emprunt.retourner");
 

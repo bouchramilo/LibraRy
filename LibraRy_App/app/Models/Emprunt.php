@@ -18,10 +18,17 @@ class Emprunt extends Model
         parent::boot();
 
         static::creating(function ($emprunt) {
-            $emprunt->date_retour_prevue = $emprunt->date_emprunt->copy()->addDays(15);
+            if ($emprunt->date_emprunt && !$emprunt->date_retour_prevue) {
+                $emprunt->date_retour_prevue = now()->addDays(15);
+            }
         });
-
     }
+
+    protected $casts = [
+        'date_emprunt' => 'datetime',
+        'date_retour_prevue' => 'datetime',
+        'date_retour_effectif' => 'datetime',
+    ];
     public function exemplaire()
     {
         return $this->belongsTo(Exemplaire::class);

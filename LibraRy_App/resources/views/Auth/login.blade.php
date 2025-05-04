@@ -52,12 +52,12 @@
                             </div>
 
                             <!-- Forgot Password -->
-                            <div class="flex items-center justify-center text-sm">
+                            {{-- <div class="flex items-center justify-center text-sm">
 
                                 <x-link href="/forgot-password">
                                     Mot de passe oublié ?
                                 </x-link>
-                            </div>
+                            </div> --}}
 
                             <x-primary-button type="submit" class="w-full">
                                 Se connecter

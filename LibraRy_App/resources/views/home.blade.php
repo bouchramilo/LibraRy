@@ -32,33 +32,7 @@
         </div>
     </section>
 
-    {{-- Features Section --}}
-    {{-- <section class="py-20 px-4" x-data="{ activeFeature: null }">
-        <div class="max-w-7xl mx-auto">
-            <h3 class="text-3xl font-bold text-center mb-16" x-intersect="$el.classList.add('animate-fade-in-up')">Nos
-                Services</h3>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="feature-card p-6 rounded-xl bg-light-primary/5 dark:bg-dark-primary/5 transform hover:-translate-y-2 transition-all duration-300"
-                    @mouseenter="activeFeature = 1" @mouseleave="activeFeature = null">
-                    <div class="text-4xl mb-4 text-light-primary dark:text-dark-primary">📚</div>
-                    <h4 class="text-xl font-bold mb-4">Emprunt Digital</h4>
-                    <p>Accédez à des milliers de livres numériques instantanément</p>
-                </div>
-                <div class="feature-card p-6 rounded-xl bg-light-primary/5 dark:bg-dark-primary/5 transform hover:-translate-y-2 transition-all duration-300"
-                    @mouseenter="activeFeature = 2" @mouseleave="activeFeature = null">
-                    <div class="text-4xl mb-4 text-light-primary dark:text-dark-primary">🎧</div>
-                    <h4 class="text-xl font-bold mb-4">Livres Audio</h4>
-                    <p>Écoutez vos livres préférés où que vous soyez</p>
-                </div>
-                <div class="feature-card p-6 rounded-xl bg-light-primary/5 dark:bg-dark-primary/5 transform hover:-translate-y-2 transition-all duration-300"
-                    @mouseenter="activeFeature = 3" @mouseleave="activeFeature = null">
-                    <div class="text-4xl mb-4 text-light-primary dark:text-dark-primary">💳</div>
-                    <h4 class="text-xl font-bold mb-4">Achat Facile</h4>
-                    <p>Achetez vos livres en quelques clics</p>
-                </div>
-            </div>
-        </div>
-    </section> --}}
+
 
     {{-- Popular Books Section --}}
     <section id="populare" class="py-20 px-4 bg-light-primary/5 dark:bg-dark-primary/5">
@@ -114,38 +88,14 @@
     {{-- Contact Section avec Map --}}
     <section class="py-20 px-4 bg-light-primary/5 dark:bg-dark-primary/5">
         <div class="max-w-7xl mx-auto">
-            <h3 class="text-3xl font-bold text-center mb-16">Contactez-nous</h3>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="space-y-6">
-                    <form class="space-y-4">
-                        <div>
-                            <label class="block mb-2">Nom</label>
-                            <input type="text"
-                                class="w-full p-2 rounded-md border border-light-primary/20 dark:border-dark-primary/20 bg-light-bg/50 focus:outline-2 focus:outline-light-primary dark:bg-dark-bg">
-                        </div>
-                        <div>
-                            <label class="block mb-2">Email</label>
-                            <input type="email"
-                                class="w-full p-2 rounded-md border border-light-primary/20 dark:border-dark-primary/20 bg-light-bg/50 focus:outline-2 focus:outline-light-primary dark:bg-dark-bg">
-                        </div>
-                        <div>
-                            <label class="block mb-2">Message</label>
-                            <textarea rows="4"
-                                class="resize-none w-full p-2 rounded-md border border-light-primary/20 dark:border-dark-primary/20 bg-light-bg/50 focus:outline-2 focus:outline-light-primary dark:bg-dark-bg"></textarea>
-                        </div>
-                        <button
-                            class="w-full bg-light-primary dark:bg-dark-primary text-white py-3 rounded-md hover:opacity-90 transition-all duration-300">
-                            Envoyer
-                        </button>
-                    </form>
-                </div>
-                <div class="h-96 rounded-lg overflow-hidden shadow-xl">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6228.234113204288!2d-2.929625476032462!3d35.17465217422625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sma!4v1744988392287!5m2!1sfr!2sma"
-                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </iframe>
-                </div>
+            <h3 class="text-3xl font-bold text-center mb-16">Visitez-nous</h3>
+
+            <div class="h-96 rounded-lg overflow-hidden shadow-xl w-full">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6228.234113204288!2d-2.929625476032462!3d35.17465217422625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sma!4v1744988392287!5m2!1sfr!2sma"
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </iframe>
             </div>
         </div>
     </section>

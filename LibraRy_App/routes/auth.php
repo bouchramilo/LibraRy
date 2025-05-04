@@ -1,28 +1,23 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\ProfileController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Librarian\UsersController;
 
 // **********************************************************************************************************************************
-Route::get("/login", [AuthController::class, 'index'])->name("auth.login.show");
-Route::post("/login", [AuthController::class, 'store'])->name("auth.login.store");
+Route::get("/login", [UsersController::class, 'showLogin'])->name("auth.login.show");
+Route::post("/login", [UsersController::class, 'login'])->name("auth.login.store");
 
 // **********************************************************************************************************************************
-Route::get("/register", [RegisteredUserController::class, 'index'])->name("auth.register.show");
-Route::post("/register", [RegisteredUserController::class, 'store'])->name("auth.register.store");
+Route::get("/register", [UsersController::class, 'showRegister'])->name("auth.register.show");
+Route::post("/register", [UsersController::class, 'register'])->name("auth.register.store");
 
 // **********************************************************************************************************************************
-Route::get("/profile", [ProfileController::class, 'index'])->name("auth.profile.show");
-Route::put("/profile", [ProfileController::class, 'update'])->name("auth.profile.update");
-Route::put("/profile/updatepassword", [ProfileController::class, 'updatepassword'])->name("auth.profile.update.password");
-Route::delete("/profile/delete", [ProfileController::class, 'deleteAccount'])->name("auth.profile.delete");
+Route::get("/profile", [UsersController::class, 'showProfile'])->name("auth.profile.show");
+Route::put("/profile", [UsersController::class, 'updateProfile'])->name("auth.profile.update");
+Route::put("/profile/updatepassword", [UsersController::class, 'updatepassword'])->name("auth.profile.update.password");
+Route::delete("/profile/delete", [UsersController::class, 'deleteAccount'])->name("auth.profile.delete");
 
 // **********************************************************************************************************************************
-Route::post("/logout", [AuthController::class, 'logout'])->name("auth.logout");
-Route::get("/forgot-password", [ForgotPasswordController::class, 'index'])->name("forgot.password.show");
+Route::post("/logout", [UsersController::class, 'logout'])->name("auth.logout");
 
 // **********************************************************************************************************************************
 
